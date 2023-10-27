@@ -183,6 +183,9 @@
     <ClCompile Include="animationModel.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="WallDodgeCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h">
@@ -349,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="animationModel.h">
       <Filter>ヘッダー ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="WallDodgeCamera.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

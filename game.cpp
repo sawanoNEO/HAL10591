@@ -3,6 +3,7 @@
 #include "renderer.h"
 
 #include "camera.h"
+#include"WallDodgeCamera.h"
 #include "field.h"
 #include "player.h"
 #include "box.h"
@@ -19,15 +20,10 @@
 #include "result.h"
 
 #include "goal.h"
-
 #include "utility.h"
-
 #include "bullet.h"
-
 #include "enemy.h"
-
 #include "battery.h"
-
 #include "sky.h"
 
 #include "score.h"
@@ -45,6 +41,7 @@ void Game::Init()
 	Explosion::Load();
 
 	AddGameObject<Camera>(0);
+	AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
 	AddGameObject<Player>(1);

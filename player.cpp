@@ -313,13 +313,13 @@ void Player::Draw()
 	Colider* c = colattack;
 	Colider* co = colme;
 
-	ImGui::Begin("test");
+	ImGui::Begin("player");
 	ImGui::SliderFloat("ST", &ST, 0, 100);
 	ImGui::SliderFloat("HP", &HP, 0, 1000);
 	ImGui::SliderFloat("Alpha", &alpha, 0, 1.0);
 	ImGui::SliderFloat("posy", &m_Position.y, 0, 100.0);
 	ImGui::Text("Forward=x=%f,y=%f,z=%f", GetForward().x, GetForward().y, GetForward().z);
-	//ImGui::Text("State%i", Pstate);
+	ImGui::Text("State%i", Pstate);
 	//ImGui::Text("%f\n", m_Position.x);
 	//ImGui::Text("%f\n", m_Position.y);
 	//ImGui::Text("%f\n", m_Position.z);

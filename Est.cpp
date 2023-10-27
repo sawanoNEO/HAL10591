@@ -14,7 +14,7 @@ using namespace DirectX::SimpleMath;
 
 void Est::Init()
 {
-	SetWait(31);    //発生、硬直はダクソ3のものを引用(推測)
+	SetWait(31);    //発生及び硬直を設定
 	SetRecovery(33);
 	cnt = 0;
 	quantity = maxquantity;
@@ -44,13 +44,29 @@ void Est::Update()
 		player->SetRotation(currentRot);
 		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * acc;
 		rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
-		player->SetPosition(pos);
+		//↑要修正2023/10/26
 		acc = acc * 0.9;
 		if (acc < 20)
 		{
 			acc = 20;
 		}
 		player->GetComponent<Move>()->SetAccel(acc);
+		
+		if (camera->GetRock())//ターゲットカメラ状態の時の処理
+		{
+			Vector3 currentRot = player->GetRotation();
+			Vector3 enemypos = camera->GetRockEnemy()->GetPosition();
+			float fx = enemypos.x - pos.x;
+			float fz = enemypos.z - pos.z;
+			Vector3 nom = { fx,0.0,fz };
+			nom.Normalize();
+			float afo = atan2(nom.x, nom.z);
+			currentRot.y = afo;
+			player->SetRotation(currentRot);
+			/*Vector3 rockPos = camera->GetRockEnemy()->GetPosition();
+			forward = XMVector3Normalize(rockPos - m_Position);
+			SetRotation(forward);*/
+		}
 	}
 
 	if (Input::GetController(Input::x, Input::PRESSED) && (pstate == NONE||pstate==DASH))
