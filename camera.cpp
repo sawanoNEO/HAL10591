@@ -77,10 +77,10 @@ void Camera::Update()
 			}
 		}
 	}
-	else
+	else// ターゲットカメラ
 	{
 		m_Position = playerpos +- forward * 15;
-		m_Position.y += 3.0;
+		m_Position.y += TargetY;
 		m_Target =RockEnemy->GetPosition();
 	}
 
@@ -99,24 +99,25 @@ void Camera::Update()
 		angle = kakudo;
 		Yangle =75.0f;
 	}
-	//if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
-	//{
-	//	RockEnemy = enemy[0];
-	//	if (rock)
-	//		rock = false;
-	//	else
-	//		rock = true;
-	//}
+	if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
+	{
+		RockEnemy = enemy[0];
+		if (rock)
+			rock = false;
+		else
+			rock = true;
+	}
 
 	//壁回避の処理
 	Colider* wall;
+	
 	bool hit = false;
 	for (int i = 0; i < boxcol.size(); i++)
 	{
 		Colider col = camcol->CollisionAABB(camcol->GetAABB(), boxcol[i]);
 		if (col.GetTug() == Tug::WALL);
 		{
-
+			
 		}
 	}
 
@@ -129,6 +130,7 @@ void Camera::Draw()
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Scale.x, m_Scale.y, m_Scale.z);
 	ImGui::Text("Pos: x=%f,x=%f,y=%f,y=%f", camcol->GetAABB().max.x, camcol->GetAABB().min.x, camcol->GetAABB().max.z, camcol->GetAABB().min.z);
 	ImGui::Text("Yangle=%f", Yangle);
+	ImGui::SliderFloat("TargetY", &TargetY, 5.0, 15.0);
 	ImGui::End();
 
 	// ビュー変換後列作成

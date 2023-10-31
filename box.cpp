@@ -30,11 +30,10 @@ void Box::Init()
 		a = 0;
 	}
 	float YSize = 5.0f * -(a * 0.1);
-	Vector3 scale = GetScale();
 	GetComponent<Colider>()->Init(WALL, Vector3{ 2.0f, YSize , 2.0f});
-	GetComponent<Colider>()->SetAABB(m_Position,fabs(scale.x),
-		fabs(YSize * scale.y ),
-		fabs(scale.z));
+	GetComponent<Colider>()->SetAABB(m_Position,fabs(m_Scale.x),
+		fabs(YSize * m_Scale.y ),
+		fabs(m_Scale.z));
 }
 
 void Box::Update()

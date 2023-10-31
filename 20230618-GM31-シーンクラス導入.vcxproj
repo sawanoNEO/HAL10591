@@ -195,6 +195,7 @@
     <ClCompile Include="transition.cpp" />
     <ClCompile Include="utftosjisconv.cpp" />
     <ClCompile Include="utility.cpp" />
+    <ClCompile Include="WallDodgeCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animationModel.h" />
@@ -252,6 +253,7 @@
     <ClInclude Include="transition.h" />
     <ClInclude Include="utftosjisconv.h" />
     <ClInclude Include="utility.h" />
+    <ClInclude Include="WallDodgeCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

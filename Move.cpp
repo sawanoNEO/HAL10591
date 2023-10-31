@@ -23,12 +23,30 @@ void Move::Update()
 	Vector3 cameraf = camera->GetCamForward();
 	Vector3 cameras = camera->GetCamSide();
 	Vector3 f = player->GetForward();   //前向きベクトル取得
+	Vector3 fNormalR = player->GetSide();
+	Vector3 fNormalL = -player->GetSide();
 	Vector3 s = player->GetSide();
 	Vector3 pos = player->GetPosition();
+	Vector3 currentRot = player->GetRotation();//回転取得
 	PLAYERSTATE state = player->GetPstate();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	float ST = player->GetST();
 	bool Wait = player->GetWait();
+
+	//回転処理
+	if(promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95&&
+		(fNormalR.x*promissDirection.x+fNormalR.z*promissDirection.z)>0)
+	{
+		currentRot.y += 0.4;
+	}
+	else if (promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95 &&
+		(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)
+	{
+		currentRot.y -= 0.4;
+	}
+	
+	player->SetRotation(currentRot);
+			//ここまで
 	
 	if (state == NONE || state ==DASH)
 	{
@@ -45,12 +63,8 @@ void Move::Update()
 			Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * DAccel;
 
 			rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
-			//ここからプレイヤーの回転処理
-			Vector3 currentRot = player->GetRotation();
-			Vector3 kakudo = XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX)));
-			float Cta = atan2(kakudo.x, kakudo.z);
-			currentRot.y = Cta;
-			player->SetRotation(currentRot);
+			//プレイヤーが向く方向を設定する
+			promissDirection = XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX)));
 			player->STUse(0.2);//スタミナ消費
 			DAccel += DAccel * 0.1;//加速度の加算
 		}
@@ -66,36 +80,8 @@ void Move::Update()
 			rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
 			player->SetPosition(pos);
 
-			//ここからプレイヤーの回転処理
-			Vector3 currentRot = player->GetRotation();
-			Vector3 kakudo = XMVector3Normalize(camera->VecYRemove(cameraf)*Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras)*Input::GetStick(Input::LeftX)));
-			float Cta = atan2(kakudo.x, kakudo.z); //目標の角度
-			if (abs(Cta-currentRot.y)>4)
-			{
-				if (Cta < 0)
-				{
-					Cta = -Cta;
-				}
-				else if (Cta > 0)
-				{
-					Cta = currentRot.y-Cta;
-				}
-			}
-			
-			if (rotationThreshold > abs(Cta - currentRot.y))
-			{
-				currentRot.y = Cta;
-			}
-			else if (Cta > currentRot.y)
-			{
-				currentRot.y += 0.3;
-			}
-			else if (Cta < currentRot.y)
-			{
-				currentRot.y -= 0.3;
-			}
-			player->SetRotation(currentRot);
-			//ここまで
+			//プレイヤーが向く方向を設定する
+			promissDirection = XMVector3Normalize(camera->VecYRemove(cameraf)*Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras)*Input::GetStick(Input::LeftX)));
 
 			Accel += Accel * 0.1;//加速度の加算
 			DAccel = 150.0;
@@ -104,7 +90,7 @@ void Move::Update()
 		}
 		else //何も行動していないとき
 		{
-			Accel =200.0;//加速の値を初期値に戻す
+			Accel = 150.0;//加速の値を初期値に戻す
 			DAccel = 150.0;
 			state = NONE;
 		}
@@ -118,14 +104,8 @@ void Move::Update()
 		DAccel = 300;
 	}
 
-	if (Input::GetController(Input::x, Input::HELD))
-	{
-		Vector3 rot = player->GetRotation();
-		rot.y += 0.01f;
-		player->SetRotation(rot);
-	}
 
-	if (camera->GetRock())
+	if (camera->GetRock())//ターゲットカメラ状態の時の処理
 	{
 		Vector3 currentRot = player->GetRotation();
 		Vector3 enemypos = camera->GetRockEnemy()->GetPosition();
@@ -148,16 +128,33 @@ void Move::Draw()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 	Player* player = scene->GetGameObject<Player>();
+	Vector3 f = player->GetForward();
+
+	Matrix mat;
+
+	Vector3 fNormalR = player->GetSide();
+	Vector3 fNormalL = -player->GetSide();
 	Vector3 cameraf = camera->GetCamForward();
 	Vector3 cameras = camera->GetCamSide();
 	cameras = camera->VecYRemove(cameras);
 	cameraf = camera->VecYRemove(cameraf);
 	Vector3 a = player->GetRotation();
-	Vector3 kakudo = XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX)));
-	float Cta = atan2(kakudo.x, kakudo.z); //目標の角度
+	float Cta = atan2(promissDirection.x, promissDirection.z); //目標の角度
+
+	float innerProduct = f.x * promissDirection.x + f.z * promissDirection.z;
 
 	ImGui::Begin("MobeComponent");
 	ImGui::Text("Cta=%f", Cta);
+	ImGui::Text("naiseki=%f", innerProduct);
+	ImGui::Text("Forward%f", f.x);
+	ImGui::Text("Forward%f", f.y);
+	ImGui::Text("Forward%f", f.z);
+	ImGui::Text("Right%f", fNormalR.x);
+	ImGui::Text("Right%f", fNormalR.y);
+	ImGui::Text("Right%f", fNormalR.z);
+	ImGui::Text("Left%f", fNormalL.x);
+	ImGui::Text("Left%f", fNormalL.y);
+	ImGui::Text("Left%f", fNormalL.z);
 	//ImGui::Text("%f\n", Input::GetStick(Input::LeftX));
 	//ImGui::Text("%f\n", Input::GetStick(Input::LeftY));
 	//ImGui::Text("Vecx%f\n", cameraf.x);

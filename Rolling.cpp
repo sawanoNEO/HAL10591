@@ -47,8 +47,8 @@ void Rolling::Update()
 		}
 		
 		if (pstate == NONE &&     //プレイヤーの操作がプレーンな状態で
-			Input::GetController(Input::a, Input::RELEASED) &&                                 //回避ボタンを押した
-			receptioncnt < reception&&
+			Input::GetController(Input::a, Input::RELEASED) &&          //回避ボタンを離す
+			receptioncnt < reception&&                                  //回避受付時間内である
 			player->GetST()>10.0)    /////回避(ダッシュ)ボタンを押してからreceptionで設定されているフレームまでは回避を受け付ける
 		{
 			player->STUse(16.0);     //スタミナを消費する

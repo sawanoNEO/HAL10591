@@ -12,6 +12,7 @@ private:
 	float MaxSpeed;     //最大移動速度
 	float rotationThreshold = 0.5;//回転するかどうかのズレの許容度
 	DirectX::SimpleMath::Vector3 OldPos;
+	DirectX::SimpleMath::Vector3 promissDirection{0.0f,0.0f,1.0f};//プレイヤーが振り向く際の最終的に振り向く方向
 
 public:
 	using Component::Component;

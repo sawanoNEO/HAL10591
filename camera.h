@@ -18,6 +18,8 @@ private:
 	GameObject* RockEnemy;
 	Colider* camcol;    //カメラの壁回避のために当たり判定を付ける
 
+	float TargetY;//ターゲット時のカメラの高さ(調整用)
+
 public:
 	void Init();
 	void Uninit();
