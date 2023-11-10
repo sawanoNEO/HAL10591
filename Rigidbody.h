@@ -24,7 +24,7 @@ private :
 	RigidbodyParameter rp;
 	float Drug;
 	float gravity;
-	DirectX::SimpleMath::Vector3 Acc;
+	DirectX::SimpleMath::Vector3 Acc;//‰Á‘¬“x
 public:
 	using Component::Component;
 	void Init(float);
@@ -35,7 +35,6 @@ public:
 	DirectX::SimpleMath::Vector3 GetVelocity() { return rp.velocity; }
 	void SetVelocity(DirectX::SimpleMath::Vector3 vel) { rp.velocity = vel; }
 	DirectX::SimpleMath::Vector3 GetForce() { return rp.force; }
-	void SetForce(DirectX::SimpleMath::Vector3 force) { rp.force = force; }
 	float GetMass() { return rp.mass; }
 	void SetMass(float mass) { rp.mass = mass; }
 	DirectX::SimpleMath::Vector3 GetAccel() { return Acc; }

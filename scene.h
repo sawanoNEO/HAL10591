@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include "gameObject.h"
 #include "modelRenderer.h"
+#include "input.h"
 
 class Scene
 {
@@ -76,6 +77,7 @@ public:
 		}
 
 		Draw();											// シーンの描画処理
+		Input::Draw();
 	}
 
 	template <typename T> //テンプレート関数

@@ -82,6 +82,10 @@ void Camera::Update()
 		m_Position = playerpos +- forward * 15;
 		m_Position.y += TargetY;
 		m_Target =RockEnemy->GetPosition();
+		if (abs((playerpos - m_Target).Length()) > 70)
+		{
+			rock=false;
+		}
 	}
 
 	/*‚±‚Ì®‚¾‚ÆƒY[ƒ€‚É‚È‚éB“ä

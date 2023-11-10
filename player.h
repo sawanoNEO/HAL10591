@@ -41,6 +41,7 @@ private:
 	DirectX::SimpleMath::Vector3 oldPosition;
 	Colider* colme;     //自分の当たり判定
 	Colider* colattack;  //攻撃時の当たり判定
+	DirectX::SimpleMath::Vector3 promissDirection{ 0.0f,0.0f,1.0f };//プレイヤーが振り向く際の最終的に振り向く方向
 
 public:
 
@@ -69,6 +70,9 @@ public:
 	float GetMaxHP() { return MaxHP; }
 	float GetHP() { return HP; }
 	void ASHP(float hp);
+
+	DirectX::SimpleMath::Vector3 GetpromissDirection() { return promissDirection; }
+	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
 
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }
 };

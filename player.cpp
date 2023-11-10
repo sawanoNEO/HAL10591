@@ -77,8 +77,14 @@ void Player::Init()
 	AddComponent<Rigidbody>();
 	GetComponent<Rigidbody>()->Init(5.0);
 	AddComponent<Sword>();
+		Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
+	Vector3 min = GetComponent<ModelRenderer>()->GetMinPos();
+	Vector3 scale;
+	scale.x = fabsf(max.x) + fabsf(min.x);
+	scale.y = fabsf(max.y) + fabsf(min.y);
+	scale.z = fabsf(max.z) + fabsf(min.z);
 	colme = AddComponent<Colider>();
-	colme->Init(PLAYER, Vector3(1.0f, 1.0f, 1.0f));
+	colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
 	colattack=AddComponent<Colider>();
 	colattack->Init(PLAYER, Vector3(1.0f, 1.0f, 1.0f));
 	AddComponent<Est>();
@@ -95,7 +101,21 @@ void Player::Update()
 	oldPosition = m_Position;
 	// 前方ベクトルを取得
 	Vector3 forward = GetForward();
+	Vector3 fNormalR = GetSide();
+	Vector3 fNormalL = -GetSide();
 	
+	//回転処理
+	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
+		(fNormalR.x * promissDirection.x + fNormalR.z * promissDirection.z)>0)
+	{
+		m_Rotation.y += 0.4;
+	}
+	else if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
+		(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)
+	{
+		m_Rotation.y -= 0.4;
+	}
+
 	switch (Pstate)
 	{
 	case NONE:

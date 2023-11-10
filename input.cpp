@@ -5,9 +5,10 @@ using namespace DirectX;
 
 BYTE Input::m_OldKeyState[256];
 BYTE Input::m_KeyState[256];
-GamePad Input::gamePad;
-GamePad::State Input::state;
-GamePad::ButtonStateTracker Input::gamePadButtons;
+GamePad Input::m_GamePad;
+GamePad::State Input::m_State;
+GamePad::ButtonStateTracker Input::m_GamePadButtons;
+std::list<GamePad::ButtonStateTracker> Input::m_stackButtons;
 
 void Input::Init()
 {
@@ -28,13 +29,35 @@ void Input::Update()
 
 	GetKeyboardState( m_KeyState );
 
-	state = gamePad.GetState(0);
-	gamePadButtons.Update(state);
-	/*if (gamePadButtons.a == GamePad::ButtonStateTracker::ButtonState::HELD)
+	m_State = m_GamePad.GetState(0);
+	m_GamePadButtons.Update(m_State);
+
+	//êÊçsì¸óÕÇçÏÇËÇΩÇ¢
+	if (m_stackButtons.size() < 20)
+	{
+		m_stackButtons.push_back(m_GamePadButtons);
+	}
+	else if (m_stackButtons.size() >= 20)
+	{
+		m_stackButtons.pop_front();
+		m_stackButtons.push_back(m_GamePadButtons);
+	}
+	/*if (m_GamePadButtons.a == m_GamePad::ButtonStateTracker::ButtonState::HELD)
 	{
 
 	}*/
-	//gamePad.SetVibration(0, 5.0f, 5.0f, 5.0f, 5.0f);
+	//m_GamePad.SetVibration(0, 5.0f, 5.0f, 5.0f, 5.0f);
+}
+
+void Input::Draw()
+{
+	ImGui::Begin("Input");
+	for (auto itr = m_stackButtons.begin(), _end = m_stackButtons.end(); itr != _end; itr++)
+	{
+		GamePad::ButtonStateTracker tt=*itr;
+		ImGui::Text("state=%i", tt.a);
+	}
+	ImGui::End();
 }
 
 
@@ -66,65 +89,65 @@ bool Input::GetController(Button button,ButtonState State)
 	switch (button)
 	{
 	case Input::a:
-		if (gamePadButtons.a == State)
+		if (m_GamePadButtons.a == State)
 			return true;
 		break;
 	case Input::b:
-		if (gamePadButtons.b == State)
+		if (m_GamePadButtons.b == State)
 			return true;
 		break;
 	case Input::x:
-		if (gamePadButtons.x == State)
+		if (m_GamePadButtons.x == State)
 			return true;
 		break;
 	case Input::y:
-		if (gamePadButtons.y == State)
+		if (m_GamePadButtons.y == State)
 			return true;
 		break;
 	case Input::L1:
-		if (gamePadButtons.leftShoulder == State)
+		if (m_GamePadButtons.leftShoulder == State)
 			return true;
 		break;
 	case Input::R1:
-		if (gamePadButtons.rightShoulder == State)
+		if (m_GamePadButtons.rightShoulder == State)
 			return true;
 		break;
 	case Input::L2:
-		if (gamePadButtons.leftTrigger == State)
+		if (m_GamePadButtons.leftTrigger == State)
 			return true;
 		break;
 	case Input::R2:
-		if (gamePadButtons.rightTrigger == State)
+		if (m_GamePadButtons.rightTrigger == State)
 			return true;
 		break;
 	case Input::LeftStick:
-		if (gamePadButtons.leftStick == State)
+		if (m_GamePadButtons.leftStick == State)
 			return true;
 		break;
 	case Input::RightStick:
-		if (gamePadButtons.rightStick == State)
+		if (m_GamePadButtons.rightStick == State)
 			return true;
 		break;
 	case Input::Start:
-		if (gamePadButtons.start == State)
+		if (m_GamePadButtons.start == State)
 			return true;
 		break;
 	case Input::Back:
-		if (gamePadButtons.back == State)
+		if (m_GamePadButtons.back == State)
 			return true;
 		break;
 	case Input::LeftUP:
-		if (gamePadButtons.leftStickUp == State)
+		if (m_GamePadButtons.leftStickUp == State)
 			return true;
 		break;
 	case Input::LeftDown:
-		if (gamePadButtons.leftStickDown == State)
+		if (m_GamePadButtons.leftStickDown == State)
 			return true;
 	case Input::LeftLeft:
-		if (gamePadButtons.leftStickLeft == State)
+		if (m_GamePadButtons.leftStickLeft == State)
 			return true;
 	case Input::LeftRight:
-		if (gamePadButtons.leftStickRight == State)
+		if (m_GamePadButtons.leftStickRight == State)
 			return true;
 	default:
 		return false;
@@ -138,16 +161,16 @@ float Input::GetStick(DIR dir)
 	switch (dir)
 	{
 	case Input::LeftX:
-		return state.thumbSticks.leftX;
+		return m_State.thumbSticks.leftX;
 		break;
 	case Input::LeftY:
-		return state.thumbSticks.leftY;
+		return m_State.thumbSticks.leftY;
 		break;
 	case Input::RightX:
-		return state.thumbSticks.rightX;
+		return m_State.thumbSticks.rightX;
 		break;
 	case Input::RightY:
-		return state.thumbSticks.rightY;
+		return m_State.thumbSticks.rightY;
 		break;
 	default:
 		break;

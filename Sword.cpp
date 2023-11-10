@@ -1,14 +1,15 @@
 #include "Sword.h"
 #include "input.h"
 #include "player.h"
-#include "manager.h"
+#include "enemy.h"
+#include "camera.h"
 
+#include "manager.h"
 //#include "Colider.h"
 
 #include "Box.h"
 #include <vector>
 #include "imguimanager.h"
-#include"enemy.h"
 
 #include"Rigidbody.h"
 
@@ -32,6 +33,9 @@ void Sword::Update()
 	////処理に必要な情報を取得
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
+	Camera* camera = scene->GetGameObject<Camera>();
+	Vector3 camforward = camera->GetCamForward();
+	Vector3 camside = camera->GetCamSide();
 	Vector3 pos = player->GetPosition();
 	Vector3 forward = player->GetForward();
 	PLAYERSTATE state = player->GetPstate();
@@ -42,17 +46,17 @@ void Sword::Update()
 	//position.z = pos.z * (forward.z * 1.5);
 	Pcol->SetAABB(position, 2.0f, 2.0f, 2.0f);//攻撃判定設定
 	ab = Pcol->GetAABB();
-	std::vector<Enemy*> go=scene->GetGameObjects<Enemy>();//goはGameObjectの意
+	std::vector<Enemy*> gameobject=scene->GetGameObjects<Enemy>();//goはGameObjectの意
 	std::vector<Colider*> col;//オブジェクトの当たり判定を取得するための配列
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	bool hitCheck = false;
 
 	////ここまで
 
-	col.resize(go.size());
-	for (int i = 0; i < go.size(); i++)
+	col.resize(gameobject.size());
+	for (int i = 0; i < gameobject.size(); i++)
 	{
-		col[i] = go[i]->GetComponent<Colider>();
+		col[i] = gameobject[i]->GetComponent<Colider>();
 	}
 	
 	if (Input::GetController(Input::R2, Input::PRESSED) && state != ATTACK && player->GetST() > 10.0f)//////////強攻撃
@@ -69,7 +73,7 @@ void Sword::Update()
 		state = ATTACK;
 		STconsumption = 17.0f;
 
-		for (const auto enemy : go)
+		for (const auto enemy : gameobject)
 		{
 			enemy->HitReset();
 		}
@@ -83,26 +87,27 @@ void Sword::Update()
 	}
 	else if (state==ATTACK&&cnt < Startup + ActiveFrames)/////攻撃判定が出ている時間。持続部分。
 	{
+		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
 		if (cnt == Startup)
 		{
 			player->STUse(STconsumption);
-			Vector3 vec = forward * 75.0;
+			Vector3 vec = player->GetpromissDirection() * 100.0;
 			rb->AddForce(vec, ForceMode::Impulse);
 		}
 		cnt++;
 
-		if (go.size() == 0)
+		if (gameobject.size() == 0)
 			return;
 
-		for (int i = 0; i < go.size(); i++)
+		for (int i = 0; i < gameobject.size(); i++)
 		{
 			Colider hit = col[i]->CollisionAABB(Pcol->GetAABB(), col[i]);
 			if ( hit.GetTug() == ENEMY)
 			{
-				if (go[i] && !hitCheck)
+				if (gameobject[i] && !hitCheck)
 				{
 					hitCheck = true;
-					go[i]->Damage(Power);
+					gameobject[i]->Damage(Power);
 					//go[i]->SetDestroy();
 				}
 			}
@@ -116,7 +121,7 @@ void Sword::Update()
 			cnt>Startup+ActiveFrames+(Recovery/3))     //硬直が始まってすぐは連撃に移行できない
 		{
 			cnt = Startup - 10;
-			player->STUse(17.0f);
+			//player->STUse(17.0f);
 		}
 	}
 	else if(state == ATTACK)

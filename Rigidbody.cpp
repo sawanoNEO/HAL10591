@@ -55,5 +55,6 @@ void Rigidbody::Draw()
 	ImGui::Text("x=%f\n",GetVelocity().x);
 	ImGui::Text("y=%f\n",GetVelocity().y);
 	ImGui::Text("z=%f\n",GetVelocity().z);
+	ImGui::Text("Accel=%f\n", Acc);
 	ImGui::End();
 }

@@ -1,21 +1,23 @@
 #pragma once
 #include <windows.h>
 #include <GamePad.h>
-
+#include <list>
 
 class Input
 {
 private:
 	static BYTE m_OldKeyState[256];
 	static BYTE m_KeyState[256];
-	static DirectX::GamePad gamePad;
-	static DirectX::GamePad::State state;
-	static DirectX::GamePad::ButtonStateTracker gamePadButtons;
+	static DirectX::GamePad m_GamePad;
+	static DirectX::GamePad::State m_State;
+	static DirectX::GamePad::ButtonStateTracker m_GamePadButtons;
+	static std::list<DirectX::GamePad::ButtonStateTracker> m_stackButtons;
 
 public:
 	static void Init();
 	static void Uninit();
 	static void Update();
+	static void Draw();
 
 	static bool GetKeyPress( BYTE KeyCode );
 	static bool GetKeyTrigger( BYTE KeyCode );

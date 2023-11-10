@@ -22,15 +22,16 @@ void Est::Init()
 
 void Est::Update()
 {
-	Scene* scene = Manager::GetScene();
-	Player* player = scene->GetGameObject<Player>();
-	PLAYERSTATE pstate = player->GetPstate();
+	Scene* scene = Manager::GetScene();//現在シーン
+	Player* player = scene->GetGameObject<Player>();// プレイヤー取得
+	PLAYERSTATE pstate = player->GetPstate();   //状態取得
 	Camera* camera = scene->GetGameObject<Camera>();
 	Vector3 cameraf = camera->GetCamForward();
 	Vector3 cameras = camera->GetCamSide();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	Vector3 pos = player->GetPosition();
-	float acc = player->GetComponent<Move>()->GetAccel();
+	/////////////////////臨時
+	//float acc = player->GetComponent<Move>()->GetAccel();
 
 	int wait = GetWait();
 	int recovery = GetRecovery();
@@ -39,18 +40,20 @@ void Est::Update()
 	{
 		Vector3 currentRot = player->GetRotation();
 		Vector3 kakudo = XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX)));
+
 		float Cta = atan2(kakudo.x, kakudo.z);
 		currentRot.y = Cta;
 		player->SetRotation(currentRot);
-		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * acc;
-		rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
+		/////////////////////////臨時
+		//Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * acc;
+		//rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
 		//↑要修正2023/10/26
-		acc = acc * 0.9;
-		if (acc < 20)
-		{
-			acc = 20;
-		}
-		player->GetComponent<Move>()->SetAccel(acc);
+		//acc = acc * 0.9;
+		//if (acc < 20)
+		//{
+		//	acc = 20;
+		//}
+		//player->GetComponent<Move>()->SetAccel(acc);
 		
 		if (camera->GetRock())//ターゲットカメラ状態の時の処理
 		{

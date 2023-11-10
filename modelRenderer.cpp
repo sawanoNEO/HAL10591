@@ -12,6 +12,8 @@ using namespace DirectX::SimpleMath;
 
 std::unordered_map<std::string, MODEL*> ModelRenderer::m_ModelPool;
 
+Vector3 ModelRenderer::MaxPos = { 0.0f,0.0f,0.0f };
+Vector3 ModelRenderer::MinPos = { 0.0f,0.0f,0.0f };
 
 void ModelRenderer::Draw()
 {
@@ -294,6 +296,9 @@ void ModelRenderer::LoadObj( const char *FileName, MODEL_OBJ *ModelObj )
 
 	fseek( file, 0, SEEK_SET );
 
+	MaxPos = { 0.0f,0.0f,0.0f };
+	MinPos = { 0.0f,0.0f,0.0f };
+
 	while( true )
 	{
 		fscanf( file, "%s", str );
@@ -324,6 +329,32 @@ void ModelRenderer::LoadObj( const char *FileName, MODEL_OBJ *ModelObj )
 			fscanf( file, "%f", &position->x );
 			fscanf( file, "%f", &position->y );
 			fscanf( file, "%f", &position->z );
+
+			if (MaxPos.x < position->x)
+			{
+				MaxPos.x = position->x;
+			}
+			if (MaxPos.y < position->y)
+			{
+				MaxPos.y = position->y;
+			}
+			if (MaxPos.z < position->z)
+			{
+				MaxPos.z = position->z;
+			}
+			if (MinPos.x > position->x)
+			{
+				MinPos.x = position->x;
+			}
+			if (MinPos.y > position->y)
+			{
+				MinPos.y = position->y;
+			}
+			if (MinPos.z > position->z)
+			{
+				MinPos.z = position->z;
+			}
+
 			position++;
 		}
 		else if( strcmp( str, "vn" ) == 0 )

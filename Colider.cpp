@@ -3,7 +3,7 @@
 
 using namespace DirectX::SimpleMath;
 
-// ‹…
+// ‹…‚Æ‹…“¯Žm‚Ì“–‚½‚è”»’è
 bool Colider:: CollisionSphere(BoundingSphere2 p1, BoundingSphere2 p2)
 {
 

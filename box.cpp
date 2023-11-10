@@ -29,8 +29,15 @@ void Box::Init()
 	{
 		a = 0;
 	}
+	Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
+	Vector3 min = GetComponent<ModelRenderer>()->GetMinPos();
+	Vector3 scale;
+	scale.x = fabsf(max.x) + fabsf(min.x);
+	scale.y = fabsf(max.y) + fabsf(min.y);
+	scale.z = fabsf(max.z) + fabsf(min.z);
 	float YSize = 5.0f * -(a * 0.1);
-	GetComponent<Colider>()->Init(WALL, Vector3{ 2.0f, YSize , 2.0f});
+	//GetComponent<Colider>()->Init(WALL, Vector3{ 2.0f, YSize , 2.0f});
+	GetComponent<Colider>()->Init(WALL, scale);
 	GetComponent<Colider>()->SetAABB(m_Position,fabs(m_Scale.x),
 		fabs(YSize * m_Scale.y ),
 		fabs(m_Scale.z));

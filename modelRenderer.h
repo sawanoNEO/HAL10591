@@ -4,6 +4,7 @@
 #include "component.h"
 #include "utftosjisconv.h"
 #include "renderer.h"
+#include <SimpleMath.h>
 
 // マテリアル構造体
 struct MODEL_MATERIAL
@@ -57,6 +58,9 @@ private:
 	static void LoadObj( const char *FileName, MODEL_OBJ *ModelObj );
 	static void LoadMaterial( const char *FileName, MODEL_MATERIAL **MaterialArray, unsigned int *MaterialNum );
 
+	static DirectX::SimpleMath::Vector3 MaxPos; //頂点座標の最大の場所
+	static DirectX::SimpleMath::Vector3 MinPos; //頂点座標の最大の場所
+	
 	MODEL* m_Model{};
 
 public:
@@ -64,6 +68,8 @@ public:
 	static void Preload( const char *FileName );
 	static void UnloadAll();
 
+	DirectX::SimpleMath::Vector3 GetMaxPos() { return MaxPos; }
+	DirectX::SimpleMath::Vector3 GetMinPos() { return MinPos; }
 
 	using Component::Component;
 

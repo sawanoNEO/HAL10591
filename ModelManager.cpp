@@ -9,43 +9,39 @@
 
 void ModelManager::Init()
 {
-	animationmodel = m_GameObject->GetComponent<AnimationModel>();
-	animationmodel->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
-	//animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
-	//animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
-	animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
-	animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	m_animationmodel = m_GameObject->GetComponent<AnimationModel>();
+	m_animationmodel->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
+	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
+	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
+	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 
 	Scene* scene = Manager::GetScene();
 
 	player = scene->GetGameObject<Player>();
-	
 }
 
 void ModelManager::Update()
 {
-	animationmodel->Update("Idle", m_frame, "Walk", m_frame, m_BlendRate);
+	m_animationmodel->Update("Idle", m_frame, "Walk", m_frame, m_blendRate);
 	if (Input::GetKeyPress('W'))
 	{
-		m_BlendRate += 0.1f;
-		m_frame++;
+		m_blendRate += 0.1f;
 
 	}
 	else if (Input::GetKeyPress('S'))
 	{
-		m_BlendRate += 0.1f;
-		m_frame++;
+		m_blendRate += 0.1f;
 	}
 	else
 	{
-		m_BlendRate -= 0.1f;
-		m_frame++;
+		m_blendRate -= 0.1f;
 	}
 
-	if (m_BlendRate > 1.0f)
-		m_BlendRate = 1.0f;
-	if (m_BlendRate < 0.0f)
-		m_BlendRate = 0.0f;
+	if (m_blendRate > 1.0f)
+		m_blendRate = 1.0f;
+	if (m_blendRate < 0.0f)
+		m_blendRate = 0.0f;
 
 	m_frame++;
 }
@@ -53,6 +49,16 @@ void ModelManager::Update()
 void ModelManager::Draw()
 {
 	ImGui::Begin("MM");
-	ImGui::SliderFloat("Blend", &m_BlendRate, 0.0, 1.0);
+	ImGui::SliderFloat("Blend", &m_blendRate, 0.0, 1.0);
 	ImGui::End();
+}
+
+void ModelManager::AddAnimation(const char* FileName, const char* Name)
+{
+	m_animationmodel->LoadAnimation(FileName, Name);
+}
+
+void ModelManager::SetcurrentAnimation(const char* Name)
+{
+	//m_currentAnimationName = Name;
 }

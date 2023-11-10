@@ -46,7 +46,7 @@ void Rolling::Update()
 			receptioncnt++;
 		}
 		
-		if (pstate == NONE &&     //プレイヤーの操作がプレーンな状態で
+		if (pstate == NONE &&     //プレイヤーが特殊な状態でない
 			Input::GetController(Input::a, Input::RELEASED) &&          //回避ボタンを離す
 			receptioncnt < reception&&                                  //回避受付時間内である
 			player->GetST()>10.0)    /////回避(ダッシュ)ボタンを押してからreceptionで設定されているフレームまでは回避を受け付ける
@@ -74,14 +74,14 @@ void Rolling::Update()
 			{
 				if (pstate==BACKSTEP)              //スティックによる入力をしていなかったらバックステップになる
 				{
-					Vector3 vec =forward * -100;
+					Vector3 vec =-forward * 100;
 					rb->AddForce(vec, ForceMode::Impulse);              //プレイヤーに移動の力を与える
 					//rb->AddForce(-forward*100, ForceMode::Impulse);
 				}
 				else
 				{
 					Rolvec = XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)));//ローリングの方向を決定
-					rb->AddForce(Rolvec*250, ForceMode::Impulse);              //プレイヤーに移動の力を与える
+					rb->AddForce(Rolvec*150, ForceMode::Impulse);              //プレイヤーに移動の力を与える
 					//rb->AddForce(forward*100, ForceMode::Impulse);
 				}
 			}
@@ -101,7 +101,7 @@ void Rolling::Update()
 		else if ((pstate == ROLLING ||pstate==BACKSTEP)&& cnt < startup + invincible + recovery)//ローリングの後隙
 		{
 			cnt++;
-			////////////後隙中の一定時間は回避、攻撃が可能
+			////////////後隙中の一定時間は再度回避、攻撃が可能
 			if ((pstate == ROLLING || pstate == BACKSTEP) && cnt > startup + invincible+7)
 			{
 				if (Input::GetController(Input::a, Input::UP))
@@ -118,12 +118,22 @@ void Rolling::Update()
 					player->STUse(16.0);
 				}
 			}
+			else
+			{
+				//後隙の終了前にスティックによる入力をしていればある程度移動量を残す(回避の度に停止すると気持ちよくない)
+				rb->AddForce(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))) * 150, ForceMode::Acceleration);
+				player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
+			}
 		}
-		else if ((pstate == ROLLING||pstate==BACKSTEP) && cnt >= startup + invincible + recovery)
+		else if ((pstate == ROLLING||pstate==BACKSTEP) && cnt >= startup + invincible + recovery)//後隙も終了し、各変数のリセットを行う
 		{
 			pstate = NONE;
 			cnt = 0;
 			receptioncnt = 0;
+            //後隙終了時にスティックによる入力をしていたならある程度移動量を保存する
+			rb->AddForce(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)))*150, ForceMode::Acceleration);
+			player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
+
 		}
 
 		if(pstate==NONE&&Input::GetController(Input::a,Input::UP))
@@ -134,69 +144,6 @@ void Rolling::Update()
 		{
 			receptioncnt++;
 		}
-
-		//if (pstate == DASH)
-		//{
-		//	receptioncnt++;
-		//}
-
-		//if (Input::GetController(Input::a, Input::RELEASED) && (pstate == NONE || pstate == DASH)&&receptioncnt<reception&&cnt==0)
-		//{
-		//	//Vector3 vec = XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))) * 2000;
-		//	//rb->AddForce(vec, ForceMode::Impulse);              //プレイヤーに移動の力を与える
-		//	if (!Input::GetStickState())              //スティックによる入力をしていなかったらバックステップになる
-		//	{
-		//		pstate = BACKSTEP;
-		//	}
-		//	else
-		//	{
-		//		pstate = ROLLING;
-		//	}
-		//	cnt++;
-		//}
-		//else if ((pstate==BACKSTEP||pstate==ROLLING)&&cnt < startup)///////前隙
-		//{
-		//	player->STUse(16.0);
-		//	if(pstate==BACKSTEP)
-		//		rb->AddForce(Vector3(-forward.x * 500, forward.y * 500, -forward.z * 500), ForceMode::Impulse);
-		//	else
-		//		rb->AddForce(Vector3(forward.x * 100, forward.y * 100, forward.z * 100), ForceMode::Impulse);
-		//	cnt++;
-		//}
-		//else if ((pstate == BACKSTEP || pstate == ROLLING) && cnt < startup + invincible)///////無敵時間
-		//{
-		//	cnt++;
-		//	if (pstate == BACKSTEP)
-		//	{
-		//		rb->AddForce(-200 * forward, ForceMode::Acceleration);
-		//	}
-		//	else
-		//	{
-		//		rb->AddForce(200 * forward, ForceMode::Acceleration);
-		//	}
-		//}
-		//else if ((pstate == BACKSTEP || pstate == ROLLING) && cnt < startup + invincible + recovery)
-		//{
-		//	cnt++;
-		//	if (Input::GetController(Input::a,Input::HELD))
-		//	{
-		//		if (pstate == ROLLING)
-		//		{
-		//			receptioncnt = 0;
-		//			pstate = NONE;
-		//		}
-		//		receptioncnt++;
-		//	}
-		//}
-		//else if ((pstate == BACKSTEP || pstate == ROLLING) && cnt >= startup + invincible + recovery)
-		//{
-		//	cnt = 1;
-		//}
-
-		//if (Input::GetController(Input::a, Input::RELEASED))
-		//{
-		//	receptioncnt = 0;
-		//}
 		player->SetPstate(pstate);
 	}
 }
