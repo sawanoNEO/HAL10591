@@ -13,7 +13,7 @@ enum class ForceMode
 class RigidbodyParameter
 {
 public:
-	float mass; // オブジェクトの質量
+	float mass=0.9; // オブジェクトの質量
 	DirectX::SimpleMath::Vector3 velocity; // オブジェクトの現在の速度
 	DirectX::SimpleMath::Vector3 force; // オブジェクトに現在加えられている力
 };

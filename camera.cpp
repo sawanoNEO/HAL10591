@@ -99,14 +99,14 @@ void Camera::Update()
 		angle = kakudo;
 		Yangle =75.0f;
 	}
-	if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
-	{
-		RockEnemy = enemy[0];
-		if (rock)
-			rock = false;
-		else
-			rock = true;
-	}
+	//if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
+	//{
+	//	RockEnemy = enemy[0];
+	//	if (rock)
+	//		rock = false;
+	//	else
+	//		rock = true;
+	//}
 
 	//壁回避の処理
 	Colider* wall;

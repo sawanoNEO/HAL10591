@@ -13,6 +13,7 @@
 #include "goal.h"
 #include "camera.h"
 
+<<<<<<< Updated upstream:player.cpp
 #include "Jump.h"
 #include "Move.h"
 #include "Sword.h"
@@ -23,6 +24,19 @@
 #include "Rolling.h"
 #include "animationModel.h"
 #include "ModelManager.h"
+=======
+#include "../Component/Jump.h"
+#include "../Component/Move.h"
+#include "../Component/Sword.h"
+#include "../Component/Colider.h"
+#include "../Component/collision.h"
+#include "../Component/Rigidbody.h"
+#include "../Component/Est.h"
+#include "../Component/Rolling.h"
+#include "../Component/animationModel.h"
+#include "../Component/ModelManager.h"
+#include "../Component/AnimationManager.h"
+>>>>>>> Stashed changes:Script/GameObject/player.cpp
 
 #include "imguimanager.h"
 
@@ -35,15 +49,14 @@ void Player::Init()
 	//AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\PS_Player.cso");
 
 	m_Model = AddComponent<AnimationModel>();
-
-	//m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
-	////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
-	////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
-	//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield idle.fbx","Idle");
-	//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield kick.fbx","Run");
-	AddComponent<ModelManager>();
-
-
+	m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	//AddComponent<ModelManager>();
+	AddComponent<AnimationManager>();
+	GetComponent<AnimationManager>()->AddAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+	GetComponent<AnimationManager>()->AddAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	
 	//	m_Model->Load("asset\\model\\Akai2.fbx");									// animation ok
 	//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Idle");
 	//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Run");
@@ -77,6 +90,15 @@ void Player::Init()
 	AddComponent<Rigidbody>();
 	GetComponent<Rigidbody>()->Init(5.0);
 	AddComponent<Sword>();
+<<<<<<< Updated upstream:player.cpp
+=======
+	Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
+	Vector3 min = GetComponent<ModelRenderer>()->GetMinPos();
+	Vector3 scale;
+	scale.x = fabsf(max.x) + fabsf(min.x);
+	scale.y = fabsf(max.y) + fabsf(min.y);
+	scale.z = fabsf(max.z) + fabsf(min.z);
+>>>>>>> Stashed changes:Script/GameObject/player.cpp
 	colme = AddComponent<Colider>();
 	colme->Init(PLAYER, Vector3(1.0f, 1.0f, 1.0f));
 	colattack=AddComponent<Colider>();
