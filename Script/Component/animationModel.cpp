@@ -269,6 +269,15 @@ void AnimationModel::LoadAnimation(const char* FileName, const char* Name)
 
 }
 
+bool AnimationModel::CheckAnimData(const char* _Name)
+{
+	if (m_Animation.count(_Name))
+	{
+		return true;
+	}
+	return false;
+}
+
 
 void AnimationModel::CreateBone(aiNode* node)
 {

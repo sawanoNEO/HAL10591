@@ -67,6 +67,7 @@ public:
 
 	void Load( const char *FileName );
 	void LoadAnimation( const char *FileName, const char *Name );
+	bool CheckAnimData(const char* _Name);
 	void Uninit() override;
 	void Update(const char *AnimationName1, int Frame1, const char *AnimationName2, int Frame2, float BlendRate);
 	void Draw() override;

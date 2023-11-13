@@ -122,7 +122,6 @@ void Shadow::Update()
 
 	m_Position = m_GameObject->GetPosition();
 	m_Position.y = groundHeight;
-
 }
 
 

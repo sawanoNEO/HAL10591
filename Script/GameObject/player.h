@@ -1,5 +1,6 @@
 #pragma once
 #include "gameObject.h"
+#include <iostream>
 
 enum PLAYERSTATE
 {
@@ -23,8 +24,9 @@ private:
 	class Audio*	m_SE{};
 
 	class AnimationModel* m_Model;
-	int	m_Frame;
-	float	m_BlendRate;
+	float m_Frame1;//再生中のアニメーションのフレーム数
+	float m_Frame2;//再生中のアニメーションのフレーム数
+	float m_BlendRate;
 
 	float MaxHP=1000;     //最大体力
 	float HP;             //現在体力
@@ -42,6 +44,8 @@ private:
 	Colider* colme;     //自分の当たり判定
 	Colider* colattack;  //攻撃時の当たり判定
 	DirectX::SimpleMath::Vector3 promissDirection{ 0.0f,0.0f,1.0f };//プレイヤーが振り向く際の最終的に振り向く方向
+	std::string m_Animname1="Idle"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(1)
+	std::string m_Animname2="Walk"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(2)
 
 public:
 
@@ -58,8 +62,7 @@ public:
 	 
 	//現在のプレイヤーの状態を返す
 	PLAYERSTATE GetPstate() { return Pstate;}
-	//プレイヤーの状態を変える。引数には変えたい状態を入れる
-	void SetPstate(PLAYERSTATE s) { Pstate = s; }
+	void SetPstate(PLAYERSTATE s) { Pstate = s; }	//プレイヤーの状態を変える。引数には変えたい状態を入れる
 	float GetST() { return ST; }
 	void SetVerocity(float);
 	bool GetWait() { return Wait; }
@@ -73,6 +76,8 @@ public:
 
 	DirectX::SimpleMath::Vector3 GetpromissDirection() { return promissDirection; }
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
+
+	void SetAnimName2(const char*);
 
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }
 };

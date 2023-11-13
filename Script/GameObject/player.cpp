@@ -2,17 +2,18 @@
 #include "../System/manager.h"
 #include "../System/renderer.h"
 #include "../System/modelRenderer.h"
-#include "../Component/shader.h"
-#include "../GameObject/player.h"
 #include "../System/input.h"
-#include "../GameObject/cylinder.h"
-#include "../GameObject/box.h"
-#include "../Component/audio.h"
-#include "../GameObject/bullet.h"
-#include "../Component/shadow.h"
+
+#include "../GameObject/player.h"
 #include "../GameObject/goal.h""
 #include "../GameObject/camera.h"
+#include "../GameObject/cylinder.h"
+#include "../GameObject/box.h"
+#include "../GameObject/bullet.h"
 
+#include "../Component/audio.h"
+#include "../Component/shader.h"
+#include "../Component/shadow.h"
 #include "../Component/Jump.h"
 #include "../Component/Move.h"
 #include "../Component/Sword.h"
@@ -35,35 +36,44 @@ void Player::Init()
 	//AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\PS_Player.cso");
 
 	m_Model = AddComponent<AnimationModel>();
-
-	//m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
-	////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
-	////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
-	//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield idle.fbx","Idle");
-	//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield kick.fbx","Run");
-	AddComponent<ModelManager>();
-
-
-	//	m_Model->Load("asset\\model\\Akai2.fbx");									// animation ok
-	//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Idle");
-	//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Run");
-
-	//	m_Model->Load("data\\model\\Walking\\Walking2.fbx");						// animation ok
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Idle");
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Run");
-
-	//	m_Model->Load("data\\model\\Walking\\Walking.fbx");							// animation ok
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Idle");
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Run");
-
-	//	m_Model->Load("data\\model\\Walking\\Walking.dae");							// animation ok
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Idle");		// animation ok
-	//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Run");			// animation ok
+	m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (2).fbx", "Attack2");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
+	//AddComponent<ModelManager>();
+	{
+		//m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
+		////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
+		////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
+		//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield idle.fbx","Idle");
+		//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield kick.fbx","Run");
 
 
+
+		//	m_Model->Load("asset\\model\\Akai2.fbx");									// animation ok
+		//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Idle");
+		//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Run");
+
+		//	m_Model->Load("data\\model\\Walking\\Walking2.fbx");						// animation ok
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Idle");
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Run");
+
+		//	m_Model->Load("data\\model\\Walking\\Walking.fbx");							// animation ok
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Idle");
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Run");
+
+		//	m_Model->Load("data\\model\\Walking\\Walking.dae");							// animation ok
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Idle");		// animation ok
+		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Run");			// animation ok
+
+	}
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\player.obj");
 
-	//AddComponent<Shadow>()->SetSize(1.5f);
+	AddComponent<Shadow>()->SetSize(1.5f);
 
 	m_SE = AddComponent<Audio>();
 	m_SE->Load("asset\\audio\\wan.wav");
@@ -104,6 +114,41 @@ void Player::Update()
 	Vector3 fNormalR = GetSide();
 	Vector3 fNormalL = -GetSide();
 	
+	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
+	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
+
+	if (Input::GetKeyTrigger('M'))
+	{
+		SetAnimName2("Attack");
+	}
+	if (Input::GetKeyTrigger('1'))
+	{
+		SetAnimName2("Attack2");
+	}
+	if (Input::GetKeyTrigger('2'))
+	{
+		SetAnimName2("Attack3");
+	}
+	if (Input::GetKeyTrigger('3'))
+	{
+		SetAnimName2("Attack4");
+	}
+	if (Input::GetKeyTrigger('4'))
+	{
+		SetAnimName2("Attack5");
+	}
+	if (Input::GetKeyTrigger('I'))
+	{
+		SetAnimName2("Walk");
+	}
+	if (Input::GetKeyTrigger('T'))
+	{
+		SetAnimName2("Idle");
+	}
+	//アニメーションの再生
+	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
+
+
 	//回転処理
 	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
 		(fNormalR.x * promissDirection.x + fNormalR.z * promissDirection.z)>0)
@@ -319,7 +364,16 @@ void Player::Update()
 		SetPstate(DEATH);
 	}
 
-	m_Frame++;
+	if (m_BlendRate < 1.0f)
+	{
+		m_BlendRate += 0.1f;
+		m_Frame2+=1.0f;
+	}
+	if (m_BlendRate > 1.0f)
+	{
+		m_BlendRate = 1.0;
+	}
+	m_Frame1+=1.0f;
 }
 
 void Player::Draw()
@@ -338,8 +392,10 @@ void Player::Draw()
 	ImGui::SliderFloat("HP", &HP, 0, 1000);
 	ImGui::SliderFloat("Alpha", &alpha, 0, 1.0);
 	ImGui::SliderFloat("posy", &m_Position.y, 0, 100.0);
+	ImGui::SliderFloat("BlendRate", &m_BlendRate, 0, 1.0);
 	ImGui::Text("Forward=x=%f,y=%f,z=%f", GetForward().x, GetForward().y, GetForward().z);
 	ImGui::Text("State%i", Pstate);
+	ImGui::Text("Blend%f", m_BlendRate);
 	//ImGui::Text("%f\n", m_Position.x);
 	//ImGui::Text("%f\n", m_Position.y);
 	//ImGui::Text("%f\n", m_Position.z);
@@ -405,6 +461,18 @@ void Player::ASHP(float hp)
 	{
 		SetPstate(DEATH);
 	}
+}
+
+void Player::SetAnimName2(const char* _Name)
+{
+	assert(m_Model->CheckAnimData("_Name")==false&&"指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+
+	//再生アニメーションの変更、各アニメーション関連の変数のリセット
+	m_Animname1 = m_Animname2;
+	m_Animname2 = _Name;
+	m_Frame1 = m_Frame2;
+	m_Frame2 = 0;
+	m_BlendRate = 0.0;
 }
 
 void Player::PreDraw()

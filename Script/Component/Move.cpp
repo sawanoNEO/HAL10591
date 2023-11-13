@@ -6,7 +6,7 @@
 #include "../System/manager.h"
 #include "../GameObject/camera.h"
 #include "../Component/Rigidbody.h"
-
+#include "../Component/animationModel.h"
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -18,6 +18,7 @@ void Move::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	Camera* camera = scene->GetGameObject<Camera>();
+	AnimationModel* anim = player->GetComponent<AnimationModel>();
 
 	OldPos = player->GetPosition();
 	Vector3 cameraf = camera->GetCamForward();

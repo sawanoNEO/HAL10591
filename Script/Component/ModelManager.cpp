@@ -10,15 +10,15 @@
 void ModelManager::Init()
 {
 	m_animationmodel = m_GameObject->GetComponent<AnimationModel>();
-	m_animationmodel->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
-	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
-	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
-	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
-	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
-
-	Scene* scene = Manager::GetScene();
-
-	player = scene->GetGameObject<Player>();
+//	m_animationmodel->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
+//	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
+//	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
+//	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+//	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+//
+//	Scene* scene = Manager::GetScene();
+//
+//	player = scene->GetGameObject<Player>();
 }
 
 void ModelManager::Update()
@@ -61,4 +61,9 @@ void ModelManager::AddAnimation(const char* FileName, const char* Name)
 void ModelManager::SetcurrentAnimation(const char* Name)
 {
 	//m_currentAnimationName = Name;
+}
+
+void ModelManager::LoadAnimation(const char* FileName, const char* Name)
+{
+	m_animationmodel->LoadAnimation(FileName, Name);
 }
