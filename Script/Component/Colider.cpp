@@ -1,6 +1,9 @@
 #include "../Component/Colider.h"
 #include "../System/manager.h"
-
+#include "../GameObject/box.h"
+#include "../Scene/scene.h"
+#include "../ImGui/imguimanager.h"
+#include "../GameObject/ColiderLooker.h"
 using namespace DirectX::SimpleMath;
 
 // ‹…‚Æ‹…“¯Žm‚Ì“–‚½‚è”»’è
@@ -22,6 +25,7 @@ void Colider::Init(Tug t,Vector3 size)
 	Size = size;
 	enable = true;
 	type = BOX;
+	a = 0;
 }
 
 void Colider::Init(Type ty, Tug t, DirectX::SimpleMath::Vector3 size)
@@ -29,10 +33,14 @@ void Colider::Init(Type ty, Tug t, DirectX::SimpleMath::Vector3 size)
 	type = ty;
 	tug = t;
 	Size = size;
+	aabb = SetAABB(pos, fabs(Scale.x * Size.x), fabs(Scale.y * Size.y), fabs(Scale.z * Size.z));
+	a = 0;
 }
 
 void Colider::Update()
 {
+	Scene* scene = Manager::GetScene();
+	
 	if (enable)//Colider‚ðƒIƒ“ƒIƒtØ‚è‘Ö‚¦‚ê‚é‚æ‚¤‚É‚µ‚Ä‚¢‚é
 	{
 		pos = m_GameObject->GetPosition();
@@ -45,8 +53,35 @@ void Colider::Update()
 		default:
 			break;
 		}
+	    if (a == 0)
+	    {
+	    	Scale = { fabs(aabb.max.x - aabb.min.x),fabs(aabb.max.y - aabb.min.y),fabs(aabb.max.z - aabb.min.z) };
+			box = scene->AddGameObject<ColiderLooker>(1);
+	    	box->SetPosition(pos);
+	    	box->SetScale(Scale/2);
+			//box->GetComponent<Colider>()->enable = false;
+	    	a++;
+	    }
+		box = m_GameObject->GetComponent<Colider>()->box;
+		box->SetPosition(pos);
 	}
+}
 
+void Colider::Draw()
+{
+	ImGui::Begin("Colider");
+	if (ImGui::Button("ObjectSporn"))
+	{
+		Scene* scene = Manager::GetScene();
+		Box* box = scene->AddGameObject<Box>(1);
+		box->SetPosition(pos);
+		box->SetScale(Vector3{ fabs(aabb.min.x) + fabs(aabb.max.x),fabs(aabb.min.y) + fabs(aabb.max.y),fabs(aabb.min.z) + fabs(aabb.max.z) });
+	}
+	ImGui::Text("dekasa=%f,%f,%f,", aabb.min.x, aabb.min.y, aabb.min.z);
+	ImGui::Text("dekasa=%f,%f,%f,", aabb.max.x, aabb.max.y, aabb.max.z);
+	ImGui::Text("dekasa=%f,%f,%f,", Scale.x, Scale.y, Scale.z);
+
+	ImGui::End();
 }
 
 // AABB

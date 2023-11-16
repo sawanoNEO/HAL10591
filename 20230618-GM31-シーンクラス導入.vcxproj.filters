@@ -72,6 +72,12 @@
     <FxCompile Include="shader\vertexLightingOneSkinVS.hlsl">
       <Filter>ソース ファイル\shader</Filter>
     </FxCompile>
+    <FxCompile Include="shader\VS_Colider.hlsl">
+      <Filter>ソース ファイル\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Colider.hlsl">
+      <Filter>ソース ファイル\shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Script\Component\animationModel.cpp">
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Script\System\utility.cpp">
       <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\ColiderLooker.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +402,12 @@
     </ClInclude>
     <ClInclude Include="Script\System\utility.h">
       <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\ColiderLooker.h">
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

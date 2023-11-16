@@ -44,7 +44,7 @@ void Sword::Update()
 	position += 0.2 * forward;
 	//position.x = pos.x * (forward.x * 1.5);
 	//position.z = pos.z * (forward.z * 1.5);
-	Pcol->SetAABB(position, 2.0f, 2.0f, 2.0f);//攻撃判定設定
+	Pcol->SetAABB(position, 5.0f, 5.0f, 5.0f);//攻撃判定設定
 	ab = Pcol->GetAABB();
 	std::vector<Enemy*> gameobject=scene->GetGameObjects<Enemy>();//goはGameObjectの意
 	std::vector<Colider*> col;//オブジェクトの当たり判定を取得するための配列
@@ -106,7 +106,7 @@ void Sword::Update()
 			{
 				if (gameobject[i] && !hitCheck)
 				{
-					hitCheck = true;
+					//hitCheck = true;
 					gameobject[i]->Damage(Power);
 					//go[i]->SetDestroy();
 				}

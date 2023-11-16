@@ -23,8 +23,8 @@ void Camera::Init()
 	angle = 270.0;
 	Yangle = 60.0f;
 	rock = false;
-	camcol = AddComponent<Colider>();//壁回避実装のためにカメラにも当たり判定を付ける
-	camcol->Init(Tug::DEFAULT,Vector3(0.1f,0.1f,0.1f));
+	//camcol = AddComponent<Colider>();//壁回避実装のためにカメラにも当たり判定を付ける
+	//camcol->Init(Tug::DEFAULT,Vector3(0.1f,0.1f,0.1f));
 }
 
 void Camera::Uninit()
@@ -47,7 +47,7 @@ void Camera::Update()
 	{
 		boxcol[i] = box[i]->GetComponent<Colider>();
 	}
-	camcol -> SetAABB(m_Position,0.1f,0.1f,0.1f);
+	/*camcol -> SetAABB(m_Position,0.1f,0.1f,0.1f);*/
 
 	if (playerobj)//プレイヤーが消滅したときに誤って読み込まないようにしている
 	{
@@ -112,18 +112,18 @@ void Camera::Update()
 			rock = true;
 	}
 
-	//壁回避の処理
-	Colider* wall;
-	
-	bool hit = false;
-	for (int i = 0; i < boxcol.size(); i++)
-	{
-		Colider col = camcol->CollisionAABB(camcol->GetAABB(), boxcol[i]);
-		if (col.GetTug() == Tug::WALL);
-		{
-			
-		}
-	}
+	////壁回避の処理
+	//Colider* wall;
+	//
+	//bool hit = false;
+	//for (int i = 0; i < boxcol.size(); i++)
+	//{
+	//	Colider col = camcol->CollisionAABB(camcol->GetAABB(), boxcol[i]);
+	//	if (col.GetTug() == Tug::WALL);
+	//	{
+	//		
+	//	}
+	//}
 
 }
 
@@ -132,7 +132,7 @@ void Camera::Draw()
 	ImGui::Begin("Camera");
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Scale.x, m_Scale.y, m_Scale.z);
-	ImGui::Text("Pos: x=%f,x=%f,y=%f,y=%f", camcol->GetAABB().max.x, camcol->GetAABB().min.x, camcol->GetAABB().max.z, camcol->GetAABB().min.z);
+	//ImGui::Text("Pos: x=%f,x=%f,y=%f,y=%f", camcol->GetAABB().max.x, camcol->GetAABB().min.x, camcol->GetAABB().max.z, camcol->GetAABB().min.z);
 	ImGui::Text("Yangle=%f", Yangle);
 	ImGui::SliderFloat("TargetY", &TargetY, 5.0, 15.0);
 	ImGui::End();

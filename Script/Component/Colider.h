@@ -35,6 +35,9 @@
 		BOX,
 	};
 
+class Box;
+class ColiderLooker;
+
 class Colider : public Component
 {
 private:
@@ -47,7 +50,8 @@ private:
 	HitState hitstate;                       //ìñÇΩÇËîªíËÇÃèÛãµ
 	Tug tug;
 	Type type;
-
+	int a = 0;
+	ColiderLooker* box = nullptr;
 public:
 	using Component::Component;
 	bool CollisionSphere(BoundingSphere2 p1, BoundingSphere2 p2);
@@ -55,6 +59,7 @@ public:
 	void Init(Tug t,DirectX::SimpleMath::Vector3 size);
 	void Init(Type,Tug t,DirectX::SimpleMath::Vector3 size);
 	void Update();
+	void Draw();
 
 	// AABB
 	Colider CollisionAABB(AABB2 p1,Colider* p2);

@@ -150,6 +150,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <FxCompile Include="shader\PS_Colider.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="shader\PS_guage.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -201,6 +207,12 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <FxCompile Include="shader\VS_Colider.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Script\Component\animationModel.cpp" />
@@ -222,6 +234,7 @@
     <ClCompile Include="Script\GameObject\box.cpp" />
     <ClCompile Include="Script\GameObject\bullet.cpp" />
     <ClCompile Include="Script\GameObject\camera.cpp" />
+    <ClCompile Include="Script\GameObject\ColiderLooker.cpp" />
     <ClCompile Include="Script\GameObject\cylinder.cpp" />
     <ClCompile Include="Script\GameObject\enemy.cpp" />
     <ClCompile Include="Script\GameObject\explosion.cpp" />
@@ -275,6 +288,7 @@
     <ClInclude Include="Script\GameObject\box.h" />
     <ClInclude Include="Script\GameObject\bullet.h" />
     <ClInclude Include="Script\GameObject\camera.h" />
+    <ClInclude Include="Script\GameObject\ColiderLooker.h" />
     <ClInclude Include="Script\GameObject\cylinder.h" />
     <ClInclude Include="Script\GameObject\enemy.h" />
     <ClInclude Include="Script\GameObject\explosion.h" />
@@ -311,6 +325,7 @@
     <ClInclude Include="Script\System\renderer.h" />
     <ClInclude Include="Script\System\utftosjisconv.h" />
     <ClInclude Include="Script\System\utility.h" />
+    <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

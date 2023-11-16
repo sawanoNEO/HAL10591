@@ -36,7 +36,7 @@ void Player::Init()
 	//AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\PS_Player.cso");
 
 	m_Model = AddComponent<AnimationModel>();
-	m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");
+	m_Model->Load("asset\\model\\Player\\Paladin J Nordstrom.fbx");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack");
@@ -95,8 +95,11 @@ void Player::Init()
 	scale.z = fabsf(max.z) + fabsf(min.z);
 	colme = AddComponent<Colider>();
 	colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
+
+	
+
 	colattack=AddComponent<Colider>();
-	colattack->Init(PLAYER, Vector3(1.0f, 1.0f, 1.0f));
+	colattack->Init(PLAYER, Vector3(10.0f, 10.0f, 10.0f));
 	AddComponent<Est>();
 	HP = 1000;
 	AddComponent<Rolling>();
@@ -113,7 +116,19 @@ void Player::Update()
 	Vector3 forward = GetForward();
 	Vector3 fNormalR = GetSide();
 	Vector3 fNormalL = -GetSide();
-	
+
+	if (Input::GetController(Input::Start, Input::PRESSED))
+	{
+		//Scene* scene = Manager::GetScene();
+		//Box* box = scene->AddGameObject<Box>(1);
+		//box->SetPosition(Vector3(-11.0f, 0.0f, 11.0f));
+		//box->SetScale(Vector3(3.0f, 3.0f, 3.0f));
+		Scene* scene = Manager::GetScene();
+		Box* box = scene->AddGameObject<Box>(1);
+		box->SetPosition(m_Position);
+		box->SetScale(Vector3{ fabs(colme->GetAABB().min.x) + fabs(colme->GetAABB().max.x),fabs(colme->GetAABB().min.y) + fabs(colme->GetAABB().max.y),fabs(colme->GetAABB().min.z) + fabs(colme->GetAABB().max.z) });
+	}
+
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
@@ -148,6 +163,10 @@ void Player::Update()
 	//アニメーションの再生
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
+	if (Input::GetController(Input::LeftUP, Input::PRESSED))
+	{
+		SetAnimName2("Walk");
+	}
 
 	//回転処理
 	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
