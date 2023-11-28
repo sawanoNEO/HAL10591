@@ -59,7 +59,7 @@ void Box::Update()
 		Colider colbottom = GetComponent<Colider>()->CollisionAABBBottom(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 		Colider colhead = GetComponent<Colider>()->CollisionAABBHead(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 
-		Vector3 oldpos = player->GetComponent<Move>()->GetOldPos();    //プレイヤーの前のフレームのposition
+		Vector3 oldpos = player->GetoldPosition();    //プレイヤーの前のフレームのposition
 		Vector3 pos = player->GetPosition();                           //プレイヤーの現在位置
 		Vector3 vel = player->GetComponent<Rigidbody>()->GetVelocity();//プレイヤーの速度を取得
 

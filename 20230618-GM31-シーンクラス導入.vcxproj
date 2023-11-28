@@ -229,6 +229,9 @@
     <ClCompile Include="Script\Component\shader.cpp" />
     <ClCompile Include="Script\Component\shadow.cpp" />
     <ClCompile Include="Script\Component\sprite.cpp" />
+    <ClCompile Include="Script\Component\StateDash.cpp" />
+    <ClCompile Include="Script\Component\StateMove.cpp" />
+    <ClCompile Include="Script\Component\StateNone.cpp" />
     <ClCompile Include="Script\Component\Sword.cpp" />
     <ClCompile Include="Script\GameObject\battery.cpp" />
     <ClCompile Include="Script\GameObject\box.cpp" />
@@ -283,6 +286,10 @@
     <ClInclude Include="Script\Component\shader.h" />
     <ClInclude Include="Script\Component\shadow.h" />
     <ClInclude Include="Script\Component\sprite.h" />
+    <ClInclude Include="Script\Component\StateDash.h" />
+    <ClInclude Include="Script\Component\StateMachine.h" />
+    <ClInclude Include="Script\Component\StateMove.h" />
+    <ClInclude Include="Script\Component\StateNone.h" />
     <ClInclude Include="Script\Component\Sword.h" />
     <ClInclude Include="Script\GameObject\battery.h" />
     <ClInclude Include="Script\GameObject\box.h" />
@@ -325,7 +332,6 @@
     <ClInclude Include="Script\System\renderer.h" />
     <ClInclude Include="Script\System\utftosjisconv.h" />
     <ClInclude Include="Script\System\utility.h" />
-    <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

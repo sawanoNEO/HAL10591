@@ -8,7 +8,7 @@ protected:
 	class  GameObject* m_GameObject = nullptr;
 
 public:
-	Component() = delete;
+	Component() {};
 	Component(GameObject* Object) { m_GameObject = Object; }
 	virtual ~Component() {}
 

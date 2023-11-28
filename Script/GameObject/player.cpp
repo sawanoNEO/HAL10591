@@ -24,6 +24,9 @@
 #include "../Component/Rolling.h"
 #include "../Component/animationModel.h"
 #include "../Component/ModelManager.h"
+#include "../Component/StateMove.h"
+#include "../Component/StateNone.h"
+#include "../Component/StateDash.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -44,6 +47,14 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
+
+	//ステートマシンのテスト
+	AddComponent<StateNone>();
+	AddComponent<StateMove>();//oldPositionの更新タイミングの関係上Coliderより先にaddcomponentする
+	AddComponent<StateDash>();
+	AddComponent<StateMachine>();
+	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
+
 	//AddComponent<ModelManager>();
 	{
 		//m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
@@ -83,11 +94,11 @@ void Player::Init()
 
 	groundHeight = 0.0f;
 	AddComponent<Jump>();
-	AddComponent<Move>();
+	//AddComponent<Move>();
 	AddComponent<Rigidbody>();
 	GetComponent<Rigidbody>()->Init(5.0);
 	AddComponent<Sword>();
-		Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
+	Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
 	Vector3 min = GetComponent<ModelRenderer>()->GetMinPos();
 	Vector3 scale;
 	scale.x = fabsf(max.x) + fabsf(min.x);
@@ -96,14 +107,13 @@ void Player::Init()
 	colme = AddComponent<Colider>();
 	colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
 
-	
-
 	colattack=AddComponent<Colider>();
-	colattack->Init(PLAYER, Vector3(10.0f, 10.0f, 10.0f));
+	colattack->Init(PLAYER, Vector3(100.0f, 250.0f, 400.0f));
 	AddComponent<Est>();
 	HP = 1000;
 	AddComponent<Rolling>();
 	alpha = 1.0f;
+
 }
 
 void Player::Update()
@@ -111,7 +121,6 @@ void Player::Update()
 	PlayerColor playercolor;
 	playercolor.color.w = alpha;
 	Renderer::SetPlayerColor(playercolor);
-	oldPosition = m_Position;
 	// 前方ベクトルを取得
 	Vector3 forward = GetForward();
 	Vector3 fNormalR = GetSide();
@@ -163,10 +172,10 @@ void Player::Update()
 	//アニメーションの再生
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
-	if (Input::GetController(Input::LeftUP, Input::PRESSED))
+	/*if (Input::GetController(Input::LeftUP, Input::PRESSED))
 	{
 		SetAnimName2("Walk");
-	}
+	}*/
 
 	//回転処理
 	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
@@ -179,6 +188,8 @@ void Player::Update()
 	{
 		m_Rotation.y -= 0.4;
 	}
+
+	
 
 	switch (Pstate)
 	{

@@ -34,20 +34,7 @@ void Move::Update()
 	float ST = player->GetST();
 	bool Wait = player->GetWait();
 
-	//‰ñ“]ˆ—
-	//if(promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95&&
-	//	(fNormalR.x*promissDirection.x+fNormalR.z*promissDirection.z)>0)
-	//{
-	//	currentRot.y += 0.4;
-	//}
-	//else if (promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95 &&
-	//	(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)
-	//{
-	//	currentRot.y -= 0.4;
-	//}
-	
-	player->SetRotation(currentRot);
-			//‚±‚±‚Ü‚Å
+
 	
 	if (state == NONE || state ==DASH)
 	{

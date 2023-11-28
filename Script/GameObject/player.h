@@ -57,24 +57,26 @@ public:
 
 	void STRecover(float);       //スタミナを回復する関数
 	void STUse(float);           //スタミナを消費する関数
+	void ASHP(float hp);//HPを増減させる関数
 
 	//以下は各変数ごとのセッター&ゲッター
 	 
 	//現在のプレイヤーの状態を返す
 	PLAYERSTATE GetPstate() { return Pstate;}
-	void SetPstate(PLAYERSTATE s) { Pstate = s; }	//プレイヤーの状態を変える。引数には変えたい状態を入れる
 	float GetST() { return ST; }
-	void SetVerocity(float);
 	bool GetWait() { return Wait; }
-	void SetWait(bool wait) { Wait = wait; }
 	Colider* Getcolattack() { return colattack; }
 	float GetMaxST() { return MaxST; }
-
 	float GetMaxHP() { return MaxHP; }
 	float GetHP() { return HP; }
-	void ASHP(float hp);
-
 	DirectX::SimpleMath::Vector3 GetpromissDirection() { return promissDirection; }
+	DirectX::SimpleMath::Vector3 GetoldPosition() { return oldPosition; }
+
+	void SetPstate(PLAYERSTATE s) { Pstate = s; }	//プレイヤーの状態を変える。引数には変えたい状態を入れる
+	void SetVerocity(float);
+	void SetWait(bool wait) { Wait = wait; }
+	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { oldPosition = pos; }
+
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
 
 	void SetAnimName2(const char*);
