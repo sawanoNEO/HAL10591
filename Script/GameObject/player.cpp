@@ -27,6 +27,7 @@
 #include "../Component/StateMove.h"
 #include "../Component/StateNone.h"
 #include "../Component/StateDash.h"
+#include "../Component/StateRolling.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -52,6 +53,7 @@ void Player::Init()
 	AddComponent<StateNone>();
 	AddComponent<StateMove>();//oldPositionの更新タイミングの関係上Coliderより先にaddcomponentする
 	AddComponent<StateDash>();
+	AddComponent<StateRolling>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 

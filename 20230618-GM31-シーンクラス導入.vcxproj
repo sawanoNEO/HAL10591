@@ -232,6 +232,7 @@
     <ClCompile Include="Script\Component\StateDash.cpp" />
     <ClCompile Include="Script\Component\StateMove.cpp" />
     <ClCompile Include="Script\Component\StateNone.cpp" />
+    <ClCompile Include="Script\Component\StateRolling.cpp" />
     <ClCompile Include="Script\Component\Sword.cpp" />
     <ClCompile Include="Script\GameObject\battery.cpp" />
     <ClCompile Include="Script\GameObject\box.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Script\Component\StateMachine.h" />
     <ClInclude Include="Script\Component\StateMove.h" />
     <ClInclude Include="Script\Component\StateNone.h" />
+    <ClInclude Include="Script\Component\StateRolling.h" />
     <ClInclude Include="Script\Component\Sword.h" />
     <ClInclude Include="Script\GameObject\battery.h" />
     <ClInclude Include="Script\GameObject\box.h" />

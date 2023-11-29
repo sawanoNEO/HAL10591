@@ -242,6 +242,9 @@
     <ClCompile Include="Script\Component\StateDash.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Component\StateRolling.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -425,6 +428,9 @@
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\StateNone.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateRolling.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>

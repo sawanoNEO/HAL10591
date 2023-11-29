@@ -1,5 +1,6 @@
 #include "StateMove.h"
 #include "StateDash.h"
+#include "StateRolling.h"
 
 #include "../System/input.h"
 #include "../GameObject/player.h"
@@ -23,6 +24,7 @@ void StateMove::Enter()
 
 void StateMove::Exit()
 {
+	receptionCount = 0;
 }
 
 void StateMove::StateUpdate()
@@ -46,17 +48,7 @@ void StateMove::StateUpdate()
 	float ST = player->GetST();
 	bool Wait = player->GetWait();
 
-	//回転処理
-	//if(promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95&&
-	//	(fNormalR.x*promissDirection.x+fNormalR.z*promissDirection.z)>0)
-	//{
-	//	currentRot.y += 0.4;
-	//}
-	//else if (promissDirection.x * f.x + promissDirection.y * f.y + promissDirection.z * f.z < 0.95 &&
-	//	(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)
-	//{
-	//	currentRot.y -= 0.4;
-	//}
+
 
 	player->SetRotation(currentRot);
 	//ここまで
@@ -65,17 +57,16 @@ void StateMove::StateUpdate()
 	if (Input::GetController(Input::a, Input::HELD) &&
 		Input::GetStickState() && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
 	{
-		//state = DASH;
-		///*pos += (XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * DAccel);
-		//player->SetPosition(pos);
-		//*/
-		//Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * DAccel;
-		//rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
-		////プレイヤーが向く方向を設定する
-		//player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX))));
-		//player->STUse(0.2);//スタミナ消費
-		//DAccel += DAccel * 0.1;//加速度の加算
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());
+		receptionCount++;
+		if (receptionCount > reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
+		{
+			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());
+		}
+	}
+	else if (Input::GetController(Input::a, Input::RELEASED) && ST > 0 && !Wait)
+	{
+		//ローリングに派生
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}
 	else if (Input::GetController(Input::LeftUP, Input::HELD) ||
 		Input::GetController(Input::LeftDown, Input::HELD) ||
