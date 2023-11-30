@@ -58,6 +58,14 @@ void Camera::Update()
 	if (rock == false)
 	{
 		m_Position = Vector3(playerpos.x + (Distance * sin(Yangle * 3.14 / 180)) * cos(angle * 3.14 / 180), playerpos.y + (Distance * cos(Yangle * 3.14 / 180)), playerpos.z + (Distance * sin(Yangle * 3.14 / 180) * sin(angle * 3.14 / 180)));
+		//m_GoalPosition = Vector3(playerpos.x + (Distance * sin(Yangle * 3.14 / 180)) * cos(angle * 3.14 / 180), playerpos.y + (Distance * cos(Yangle * 3.14 / 180)), playerpos.z + (Distance * sin(Yangle * 3.14 / 180) * sin(angle * 3.14 / 180)));
+		//Vector3 goalvec = XMVector3Normalize(m_GoalPosition - m_Position);
+		//
+		//if (fabs((m_Position - m_GoalPosition).Length()) > 0.1)
+		//{
+		//	m_Position += goalvec * 0.5;
+		//}
+		//↓の5.0f*～というのは注視点がプレイヤーからどれだけ奥を見るかということ
 		m_Target = Vector3(playerpos.x - (5.0f * sin(Yangle * 3.14 / 180)) * cos(angle * 3.14 / 180), playerpos.y - (5.0f * cos(Yangle * 3.14 / 180)), playerpos.z - (5.0f * sin(Yangle * 3.14 / 180) * sin(angle * 3.14 / 180)));
 		//カメラの回転処理
 		if (Input::GetStick(Input::RightX) > 0.1 || Input::GetStick(Input::RightX) < -0.1)

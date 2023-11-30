@@ -48,7 +48,7 @@ void StateMove::StateUpdate()
 	float ST = player->GetST();
 	bool Wait = player->GetWait();
 
-
+	player->STRecover();
 
 	player->SetRotation(currentRot);
 	//‚±‚±‚Ü‚Å
@@ -65,7 +65,7 @@ void StateMove::StateUpdate()
 	}
 	else if (Input::GetController(Input::a, Input::RELEASED) && ST > 0 && !Wait)
 	{
-		//ƒ[ƒŠƒ“ƒO‚É”h¶
+		//‰ñ”ð‚É”h¶
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}
 	if (Input::GetController(Input::LeftUP, Input::HELD) ||

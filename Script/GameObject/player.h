@@ -39,6 +39,8 @@ private:
 	float MaxSpeed;     //最大移動速度
 	float cnt;          //各動作のカウント
 	float m_AnimSpeed = 1.0f;//アニメーションの再生速度(倍率)
+	float m_RecoverST = 0.75f;//スタミナの回復速度(1fごとの回復量)
+
 	bool Action=false;  //スタミナを消費する行動をしているか
 	bool Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる。スタミナが回復しきるまでダッシュ出来ないという判定に用いる
 	bool m_Invincible = false; //回避などの無敵中かどうか
@@ -57,7 +59,7 @@ public:
 	void Draw() override;
 	void PreDraw() override;
 
-	void STRecover(float);       //スタミナを回復する関数
+	void STRecover();       //スタミナを回復する関数
 	void STUse(float);           //スタミナを消費する関数
 	void ASHP(float hp);//HPを増減させる関数
 

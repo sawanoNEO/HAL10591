@@ -245,6 +245,9 @@
     <ClCompile Include="Script\Component\StateRolling.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Component\StateAttack.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -431,6 +434,9 @@
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\StateRolling.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateAttack.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>

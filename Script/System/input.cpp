@@ -162,6 +162,10 @@ bool Input::GetController(Button button,ButtonState State)
 
 int Input::GetController(Button button,ButtonState State,int _bufferframe)
 {
+	if (_bufferframe > precedingInputBufferFramesLimit)
+	{
+		_bufferframe = precedingInputBufferFramesLimit;
+	}
 	auto itr = m_stackButtons.end();
 	for (int i = 0; i < _bufferframe; i++)
 	{

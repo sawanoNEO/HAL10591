@@ -10,6 +10,7 @@ private:
 
 	DirectX::SimpleMath::Vector3	m_Target{};
 	DirectX::SimpleMath::Matrix		m_ViewMatrix{};
+	DirectX::SimpleMath::Vector3    m_GoalPosition{};//目標地点
 	float angle;
 	float Yangle;      //Y軸計算用の変数
 	DirectX::SimpleMath::Vector3    camForward;

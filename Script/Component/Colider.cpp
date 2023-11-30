@@ -53,7 +53,7 @@ void Colider::Update()
 		default:
 			break;
 		}
-	    if (a == 0)
+	    if (a == 0)//当たり判定可視化のためのオブジェクトを生成
 	    {
 	    	Scale = { fabs(aabb.max.x - aabb.min.x),fabs(aabb.max.y - aabb.min.y),fabs(aabb.max.z - aabb.min.z) };
 			box = scene->AddGameObject<ColiderLooker>(1);

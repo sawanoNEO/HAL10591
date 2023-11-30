@@ -18,7 +18,7 @@ void StateRolling::Enter()
 	Player* player = scene->GetGameObject<Player>();
 
 	player->STUse(16.0);     //スタミナを消費する
-	player->SetAnimSpeed(1.5f);
+	player->SetAnimSpeed(2.0f);
 	m_GameObject->SetAnimName2("Rolling");
 	cnt = 0;
 }
@@ -65,11 +65,15 @@ void StateRolling::StateUpdate()
 	else if (cnt < startup + invincible)
 	{
 		player->SetInvincible(true);
-		rb->AddForce(Rolvec * 75, ForceMode::Acceleration);              //プレイヤーに移動の力を与える
+		rb->AddForce(Rolvec * 150, ForceMode::Acceleration);              //プレイヤーに移動の力を与える
 	}
 	else if (cnt <= startup + invincible + recovery)
 	{
 		player->SetInvincible(false);
+		if (Input::GetController(Input::a, Input::RELEASED, 20) != -1)
+		{
+			this->Enter();
+		}
 	}
 	else if (cnt > 53)
 	{

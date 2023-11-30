@@ -111,7 +111,7 @@ void Player::Init()
 	colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
 
 	colattack=AddComponent<Colider>();
-	colattack->Init(PLAYER, Vector3(100.0f, 250.0f, 400.0f));
+	colattack->Init(PLAYER, Vector3(1.0f,1.0f,1.0f));
 	AddComponent<Est>();
 	HP = 1000;
 	//AddComponent<Rolling>();
@@ -128,6 +128,7 @@ void Player::Update()
 	Vector3 forward = GetForward();
 	Vector3 fNormalR = GetSide();
 	Vector3 fNormalL = -GetSide();
+
 
 	if (Input::GetController(Input::Start, Input::PRESSED))
 	{
@@ -197,7 +198,7 @@ void Player::Update()
 	switch (Pstate)
 	{
 	case NONE:
-		STRecover(0.75);
+		//STRecover(0.75);
 		break;
 	case DASH:
 		break;
@@ -457,9 +458,9 @@ void Player::Draw()
 
 }
 
-void Player::STRecover(float cure)
+void Player::STRecover()
 {
-	ST += cure;
+	ST += m_RecoverST;
 	if (ST >= MaxST)
 	{
 		ST = MaxST;
