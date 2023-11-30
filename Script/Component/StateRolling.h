@@ -9,7 +9,8 @@ private:
 	int invincible = 17; //無敵時間
 	int recovery = 15;   //ローリングの後に行動可能になるまでの時間(フレーム)
 	int cnt;       //回避成立からどれだけのフレームが経ったか
-	DirectX::SimpleMath::Vector3 Rolvec;   //ローリング&バックステップの方向を決める変数
+	DirectX::SimpleMath::Vector3 Rolvec;   //ローリングの方向を決める変数
+
 public:
 	using State::State;
 	void Enter()override;

@@ -48,6 +48,7 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
+	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
 
 	//ステートマシンのテスト
 	AddComponent<StateNone>();
@@ -113,7 +114,7 @@ void Player::Init()
 	colattack->Init(PLAYER, Vector3(100.0f, 250.0f, 400.0f));
 	AddComponent<Est>();
 	HP = 1000;
-	AddComponent<Rolling>();
+	//AddComponent<Rolling>();
 	alpha = 1.0f;
 
 }
