@@ -68,7 +68,7 @@ void StateMove::StateUpdate()
 		//ローリングに派生
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}
-	else if (Input::GetController(Input::LeftUP, Input::HELD) ||
+	if (Input::GetController(Input::LeftUP, Input::HELD) ||
 		Input::GetController(Input::LeftDown, Input::HELD) ||
 		Input::GetController(Input::LeftLeft, Input::HELD) ||
 		Input::GetController(Input::LeftRight, Input::HELD))        //スティックによる操作が行われていないと加速度をリセットする

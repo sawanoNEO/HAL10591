@@ -38,8 +38,10 @@ private:
 	float DAccel;       //ダッシュ時の加速度
 	float MaxSpeed;     //最大移動速度
 	float cnt;          //各動作のカウント
+	float m_AnimSpeed = 1.0f;//アニメーションの再生速度(倍率)
 	bool Action=false;  //スタミナを消費する行動をしているか
-	bool Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる
+	bool Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる。スタミナが回復しきるまでダッシュ出来ないという判定に用いる
+	bool m_Invincible = false; //回避などの無敵中かどうか
 	DirectX::SimpleMath::Vector3 oldPosition;
 	Colider* colme;     //自分の当たり判定
 	Colider* colattack;  //攻撃時の当たり判定
@@ -69,6 +71,7 @@ public:
 	float GetMaxST() { return MaxST; }
 	float GetMaxHP() { return MaxHP; }
 	float GetHP() { return HP; }
+	bool GetInvincible() { return m_Invincible; }
 	DirectX::SimpleMath::Vector3 GetpromissDirection() { return promissDirection; }
 	DirectX::SimpleMath::Vector3 GetoldPosition() { return oldPosition; }
 
@@ -76,10 +79,9 @@ public:
 	void SetVerocity(float);
 	void SetWait(bool wait) { Wait = wait; }
 	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { oldPosition = pos; }
-
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
-
+	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }
 	void SetAnimName2(const char*);
-
+	void SetAnimSpeed(float _speed) { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }
 };

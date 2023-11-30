@@ -400,13 +400,13 @@ void Player::Update()
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
-		m_Frame2+=1.0f;
+		m_Frame2+=1.0f*m_AnimSpeed;
 	}
 	if (m_BlendRate > 1.0f)
 	{
 		m_BlendRate = 1.0;
 	}
-	m_Frame1+=1.0f;
+	m_Frame1+=1.0f*m_AnimSpeed;
 }
 
 void Player::Draw()

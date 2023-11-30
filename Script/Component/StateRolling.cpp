@@ -18,12 +18,17 @@ void StateRolling::Enter()
 	Player* player = scene->GetGameObject<Player>();
 
 	player->STUse(16.0);     //スタミナを消費する
+	player->SetAnimSpeed(1.5f);
 	m_GameObject->SetAnimName2("Rolling");
 	cnt = 0;
 }
 
 void StateRolling::Exit()
 {
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+
+	player->SetAnimSpeed(1.0f);//再生速度を元に戻す
 	cnt = 0;
 }
 
@@ -54,9 +59,19 @@ void StateRolling::StateUpdate()
 		{
 			Rolvec = player->GetForward();
 		}
+		player->SetpromissDirection(Rolvec);
 		rb->AddForce(Rolvec * 75, ForceMode::Impulse);              //プレイヤーに移動の力を与える
 	}
-	if (cnt > 30)
+	else if (cnt < startup + invincible)
+	{
+		player->SetInvincible(true);
+		rb->AddForce(Rolvec * 75, ForceMode::Acceleration);              //プレイヤーに移動の力を与える
+	}
+	else if (cnt <= startup + invincible + recovery)
+	{
+		player->SetInvincible(false);
+	}
+	else if (cnt > 53)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}

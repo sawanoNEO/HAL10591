@@ -6,7 +6,7 @@ class StateRolling :  public State
 {
 private:
 	int startup = 2;   //ローリング(回避)の無敵時間が発生するまでの時間(フレーム)
-	int invincible = 17; //無敵時間
+	int invincible = 40; //無敵時間
 	int recovery = 15;   //ローリングの後に行動可能になるまでの時間(フレーム)
 	int cnt;       //回避成立からどれだけのフレームが経ったか
 	DirectX::SimpleMath::Vector3 Rolvec;   //ローリングの方向を決める変数

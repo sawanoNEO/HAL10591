@@ -58,7 +58,7 @@ void Enemy::Update()
 		rb->AddForce(forward*200.0, ForceMode::Force);
 		if (player)
 		{
-			if (GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), Pcol).GetTug() == PLAYER && !Phit)
+			if (GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), Pcol).GetTug() == PLAYER && !Phit&&player->GetInvincible()==false)
 			{
 				player->ASHP(-200);
 				Phit = true;
