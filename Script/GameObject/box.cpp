@@ -48,7 +48,6 @@ void Box::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 
-
 	//////////////////////////////////各方向からの当たり判定を取得する。なにかに当たるとそのオブジェクトの情報を取得する．
 	if (player)
 	{

@@ -10,6 +10,7 @@
 #include "../GameObject/cylinder.h"
 #include "../GameObject/box.h"
 #include "../GameObject/bullet.h"
+#include "../GameObject/AttackObject.h"
 
 #include "../Component/audio.h"
 #include "../Component/shader.h"
@@ -48,7 +49,9 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
+	m_Model->LoadAnimation("asset\\model\\Player\\kensimau.fbx", "Simau");
 	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
+	BONE* bone = m_Model->GetBONE("Paladin_J_Nordstrom_Sword");
 
 	//ステートマシンのテスト
 	AddComponent<StateNone>();
@@ -117,6 +120,13 @@ void Player::Init()
 	//AddComponent<Rolling>();
 	alpha = 1.0f;
 
+	//m_Child = AddChild<AttackObject>();
+
+	//m_Child = AddChild<GameObject>();
+	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
+	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
+	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
+	
 }
 
 void Player::Update()
@@ -129,25 +139,12 @@ void Player::Update()
 	Vector3 fNormalR = GetSide();
 	Vector3 fNormalL = -GetSide();
 
-
-	if (Input::GetController(Input::Start, Input::PRESSED))
-	{
-		//Scene* scene = Manager::GetScene();
-		//Box* box = scene->AddGameObject<Box>(1);
-		//box->SetPosition(Vector3(-11.0f, 0.0f, 11.0f));
-		//box->SetScale(Vector3(3.0f, 3.0f, 3.0f));
-		Scene* scene = Manager::GetScene();
-		Box* box = scene->AddGameObject<Box>(1);
-		box->SetPosition(m_Position);
-		box->SetScale(Vector3{ fabs(colme->GetAABB().min.x) + fabs(colme->GetAABB().max.x),fabs(colme->GetAABB().min.y) + fabs(colme->GetAABB().max.y),fabs(colme->GetAABB().min.z) + fabs(colme->GetAABB().max.z) });
-	}
-
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
 	if (Input::GetKeyTrigger('M'))
 	{
-		SetAnimName2("Attack");
+		SetAnimName2("Simau");
 	}
 	if (Input::GetKeyTrigger('1'))
 	{
@@ -428,6 +425,7 @@ void Player::Draw()
 	ImGui::SliderFloat("posy", &m_Position.y, 0, 100.0);
 	ImGui::SliderFloat("BlendRate", &m_BlendRate, 0, 1.0);
 	ImGui::Text("Forward=x=%f,y=%f,z=%f", GetForward().x, GetForward().y, GetForward().z);
+	ImGui::Text("Position=x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("State%i", Pstate);
 	ImGui::Text("Blend%f", m_BlendRate);
 	//ImGui::Text("%f\n", m_Position.x);

@@ -71,4 +71,6 @@ public:
 	void Uninit() override;
 	void Update(const char *AnimationName1, int Frame1, const char *AnimationName2, int Frame2, float BlendRate);
 	void Draw() override;
+
+	BONE* GetBONE(const char* _bonename);
 };

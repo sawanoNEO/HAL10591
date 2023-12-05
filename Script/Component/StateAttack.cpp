@@ -1,16 +1,26 @@
 #include "StateAttack.h"
-#include "../Component/Colider.h"
+#include "Colider.h"
+
+#include "../Scene/scene.h"
+
+#include "../System/manager.h"
+
 #include "../GameObject/gameObject.h"
+#include "../GameObject/player.h"
 
 using namespace DirectX::SimpleMath;
 
+void StateAttack::Init()
+{
+	Scene* scene = Manager::GetScene();
+	AttackObj = scene->AddGameObject<GameObject>(1);
+	AttackObj->AddComponent<Colider>();
+	AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
+	AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
+}
+
 void StateAttack::Enter()
 {
-	//if (m_AttackColider == nullptr)
-	//{
-	//	m_AttackColider = m_GameObject->AddComponent<Colider>();
-	//}
-	//m_AttackColider->Init(DEFAULT, Vector3(200.0f, 200.0f, 200.0f));
 }
 
 void StateAttack::Exit()
@@ -20,6 +30,10 @@ void StateAttack::Exit()
 
 void StateAttack::StateUpdate()
 {
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+
+
 }
 
 void StateAttack::Draw()

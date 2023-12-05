@@ -150,6 +150,10 @@ public:
 
 	void UpdateBase()
 	{
+		for (GameObject* child : m_ChildGameObject)
+		{
+			child->UpdateBase();
+		}
 
 		for (Component* component : m_Component)
 		{

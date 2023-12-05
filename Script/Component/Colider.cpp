@@ -45,6 +45,7 @@ void Colider::Update()
 	{
 		pos = m_GameObject->GetPosition();
 		Scale = m_GameObject->GetScale();
+		pos.y += Scale.y*Size.y / 2;
 		switch (type)
 		{
 		case BOX:

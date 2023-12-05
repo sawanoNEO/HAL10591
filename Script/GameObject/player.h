@@ -51,6 +51,8 @@ private:
 	std::string m_Animname1="Idle"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(1)
 	std::string m_Animname2="Walk"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(2)
 
+	class AttackObject* m_Child = {};
+
 public:
 
 	float alpha;//プレイヤーのアルファ値

@@ -30,6 +30,7 @@
 #include "../GameObject/HP.h"
 #include "../GameObject/ColiderLooker.h"
 #include "../GameObject/explosion.h"
+#include "../GameObject/AttackObject.h"
 
 #include <fstream>
 using namespace DirectX::SimpleMath;
@@ -48,6 +49,7 @@ void Game::Init()
 	//AddGameObject<Score>(3);
 	AddGameObject<ST>(3);
 	AddGameObject<HP>(3);
+	AddGameObject<AttackObject>(1);
 
 	// “G’Ç‰Á
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));

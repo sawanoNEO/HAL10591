@@ -51,6 +51,17 @@ void AnimationModel::Draw()
 	}
 }
 
+BONE* AnimationModel::GetBONE(const char* _bonename)
+{
+	auto itr = m_Bone.find(_bonename);
+	if (itr != m_Bone.end()) 
+	{
+		BONE bone = itr->second;
+		return &bone;
+	}
+	return nullptr;
+}
+
 void AnimationModel::Load(const char* FileName)
 {
 	const std::string modelPath(FileName);
