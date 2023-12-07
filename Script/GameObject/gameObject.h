@@ -34,6 +34,7 @@ public:
 	void SetRotation(DirectX::SimpleMath::Vector3 Rotation) { m_Rotation = Rotation; }
 	void SetScale(DirectX::SimpleMath::Vector3 Scale) { m_Scale = Scale; }
 	virtual void SetAnimName2(const char*) {};//アニメーションの機能があるオブジェクトは、この関数を使うことで再生するアニメーションを切り替える事が出来る
+	virtual void Damage(float _damage) {};//ダメージを受ける時の処理
 
 	DirectX::SimpleMath::Vector3 GetForward()//前方向ベクトル取得
 	{

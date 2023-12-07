@@ -61,6 +61,8 @@ private:
 	void UpdateBoneMatrix(aiNode* Node, aiMatrix4x4 Matrix);
 
 	ID3D11Buffer* m_BoneCombMtxCBuffer;						// 定数バッファ　20230909-02
+	void CreateIndexBufferPerMesh(int m, const aiMesh* mesh);		// インデックスバッファを生成
+	void CreateVertexBufferPerMesh(int m, const aiMesh* mesh);		// 頂点バッファを生成
 
 public:
 	using Component::Component;

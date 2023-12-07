@@ -46,12 +46,13 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (2).fbx", "Attack2");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack2");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
 	m_Model->LoadAnimation("asset\\model\\Player\\kensimau.fbx", "Simau");
 	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
+	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	BONE* bone = m_Model->GetBONE("Paladin_J_Nordstrom_Sword");
 
 	//ステートマシンのテスト
@@ -181,15 +182,15 @@ void Player::Update()
 	}*/
 
 	//回転処理
-	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
-		(fNormalR.x * promissDirection.x + fNormalR.z * promissDirection.z)>0)
+	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.97 &&
+		(fNormalR.x * promissDirection.x + fNormalR.z * promissDirection.z)>0) //右ベクトルとの内積
 	{
-		m_Rotation.y += 0.4;
+		m_Rotation.y += 0.2;
 	}
-	else if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.95 &&
-		(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)
+	else if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.97&&
+		(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)//左ベクトルとの内積
 	{
-		m_Rotation.y -= 0.4;
+		m_Rotation.y -= 0.2;
 	}
 
 	

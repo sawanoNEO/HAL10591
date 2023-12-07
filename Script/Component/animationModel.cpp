@@ -62,6 +62,126 @@ BONE* AnimationModel::GetBONE(const char* _bonename)
 	return nullptr;
 }
 
+// 頂点バッファ生成
+void AnimationModel::CreateVertexBufferPerMesh(int m, const aiMesh* mesh) {
+
+	VERTEX_3D* vertex = new VERTEX_3D[mesh->mNumVertices];
+
+	//変形後頂点データ初期化
+	for (unsigned int v = 0; v < mesh->mNumVertices; v++)
+	{
+		DEFORM_VERTEX deformVertex;
+		deformVertex.Position = mesh->mVertices[v];
+		deformVertex.Normal = mesh->mNormals[v];
+		deformVertex.BoneNum = 0;
+
+		for (unsigned int b = 0; b < 4; b++)
+		{
+			deformVertex.BoneName[b] = "";
+			deformVertex.BoneWeight[b] = 0.0f;
+		}
+
+		m_DeformVertex[m].push_back(deformVertex);
+	}
+
+	//ボーンデータ生成
+	for (unsigned int b = 0; b < mesh->mNumBones; b++)
+	{
+		aiBone* bone = mesh->mBones[b];
+
+		m_Bone[bone->mName.C_Str()].OffsetMatrix = bone->mOffsetMatrix;
+
+		//変形後頂点にボーンデータ格納
+		for (unsigned int w = 0; w < bone->mNumWeights; w++)
+		{
+			aiVertexWeight weight = bone->mWeights[w];
+
+			int num = m_DeformVertex[m][weight.mVertexId].BoneNum;
+
+			m_DeformVertex[m][weight.mVertexId].BoneWeight[num] = weight.mWeight;
+			m_DeformVertex[m][weight.mVertexId].BoneName[num] = bone->mName.C_Str();
+
+			// 20230909
+			m_DeformVertex[m][weight.mVertexId].BoneIdx[num] = m_Bone[bone->mName.C_Str()].idx;
+
+			m_DeformVertex[m][weight.mVertexId].BoneNum++;
+
+			assert(m_DeformVertex[m][weight.mVertexId].BoneNum <= 4);
+		}
+	}
+
+	// 頂点データ生成
+	for (unsigned int v = 0; v < mesh->mNumVertices; v++)
+	{
+		vertex[v].Position = Vector3(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
+		vertex[v].Normal = Vector3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
+		vertex[v].TexCoord = Vector2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
+		vertex[v].Diffuse = Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+		vertex[v].BoneIndex[0] = m_DeformVertex[m][v].BoneIdx[0];
+		vertex[v].BoneIndex[1] = m_DeformVertex[m][v].BoneIdx[1];
+		vertex[v].BoneIndex[2] = m_DeformVertex[m][v].BoneIdx[2];
+		vertex[v].BoneIndex[3] = m_DeformVertex[m][v].BoneIdx[3];
+
+		vertex[v].BoneWeight[0] = m_DeformVertex[m][v].BoneWeight[0];
+		vertex[v].BoneWeight[1] = m_DeformVertex[m][v].BoneWeight[1];
+		vertex[v].BoneWeight[2] = m_DeformVertex[m][v].BoneWeight[2];
+		vertex[v].BoneWeight[3] = m_DeformVertex[m][v].BoneWeight[3];
+	}
+
+	// 頂点バッファ生成
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DYNAMIC;
+	bd.ByteWidth = sizeof(VERTEX_3D) * mesh->mNumVertices;
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	D3D11_SUBRESOURCE_DATA sd;
+	ZeroMemory(&sd, sizeof(sd));
+	sd.pSysMem = vertex;
+
+	Renderer::GetDevice()->CreateBuffer(
+		&bd,
+		&sd,
+		&m_VertexBuffer[m]);
+
+	delete[] vertex;
+}
+
+// インデックスバッファを生成
+void AnimationModel::CreateIndexBufferPerMesh(int m, const aiMesh* mesh) {
+
+	unsigned int* index = new unsigned int[mesh->mNumFaces * 3];
+
+	for (unsigned int f = 0; f < mesh->mNumFaces; f++)
+	{
+		const aiFace* face = &mesh->mFaces[f];
+
+		assert(face->mNumIndices == 3);
+
+		index[f * 3 + 0] = face->mIndices[0];
+		index[f * 3 + 1] = face->mIndices[1];
+		index[f * 3 + 2] = face->mIndices[2];
+	}
+
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(unsigned int) * mesh->mNumFaces * 3;
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA sd;
+	ZeroMemory(&sd, sizeof(sd));
+	sd.pSysMem = index;
+
+	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer[m]);
+
+	delete[] index;
+
+}
+
 void AnimationModel::Load(const char* FileName)
 {
 	const std::string modelPath(FileName);
@@ -72,11 +192,10 @@ void AnimationModel::Load(const char* FileName)
 	m_VertexBuffer = new ID3D11Buffer * [m_AiScene->mNumMeshes];
 	m_IndexBuffer = new ID3D11Buffer * [m_AiScene->mNumMeshes];
 
-
 	//変形後頂点配列生成
 	m_DeformVertex = new std::vector<DEFORM_VERTEX>[m_AiScene->mNumMeshes];
 
-	//再帰的にボーン生成
+	//再帰的にボーンの階層構造を生成（ボーン名で検索できる構造を作成）
 	CreateBone(m_AiScene->mRootNode);
 
 	// ボーンの配列位置を格納する				// 20230909
@@ -88,154 +207,13 @@ void AnimationModel::Load(const char* FileName)
 
 	for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
 	{
-		aiMesh* mesh = m_AiScene->mMeshes[m];
+		const aiMesh* mesh = m_AiScene->mMeshes[m];
 
-		// 頂点バッファ生成
-		{
-			VERTEX_3D* vertex = new VERTEX_3D[mesh->mNumVertices];
+		// インデックスバッファを生成
+		CreateIndexBufferPerMesh(m, mesh);
 
-			for (unsigned int v = 0; v < mesh->mNumVertices; v++)
-			{
-				vertex[v].Position = Vector3(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
-				vertex[v].Normal = Vector3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
-				vertex[v].TexCoord = Vector2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
-				vertex[v].Diffuse = Color(1.0f, 1.0f, 1.0f, 1.0f);
-			}
-
-			D3D11_BUFFER_DESC bd;
-			ZeroMemory(&bd, sizeof(bd));
-			bd.Usage = D3D11_USAGE_DYNAMIC;
-			bd.ByteWidth = sizeof(VERTEX_3D) * mesh->mNumVertices;
-			bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-			bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-			D3D11_SUBRESOURCE_DATA sd;
-			ZeroMemory(&sd, sizeof(sd));
-			sd.pSysMem = vertex;
-
-			Renderer::GetDevice()->CreateBuffer(&bd, &sd,
-				&m_VertexBuffer[m]);
-
-			delete[] vertex;
-		}
-
-
-		// インデックスバッファ生成
-		{
-			unsigned int* index = new unsigned int[mesh->mNumFaces * 3];
-
-			for (unsigned int f = 0; f < mesh->mNumFaces; f++)
-			{
-				const aiFace* face = &mesh->mFaces[f];
-
-				assert(face->mNumIndices == 3);
-
-				index[f * 3 + 0] = face->mIndices[0];
-				index[f * 3 + 1] = face->mIndices[1];
-				index[f * 3 + 2] = face->mIndices[2];
-			}
-
-			D3D11_BUFFER_DESC bd;
-			ZeroMemory(&bd, sizeof(bd));
-			bd.Usage = D3D11_USAGE_DEFAULT;
-			bd.ByteWidth = sizeof(unsigned int) * mesh->mNumFaces * 3;
-			bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-			bd.CPUAccessFlags = 0;
-
-			D3D11_SUBRESOURCE_DATA sd;
-			ZeroMemory(&sd, sizeof(sd));
-			sd.pSysMem = index;
-
-			Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer[m]);
-
-			delete[] index;
-		}
-
-
-
-		//変形後頂点データ初期化
-		for (unsigned int v = 0; v < mesh->mNumVertices; v++)
-		{
-			DEFORM_VERTEX deformVertex;
-			deformVertex.Position = mesh->mVertices[v];
-			deformVertex.Normal = mesh->mNormals[v];
-			deformVertex.BoneNum = 0;
-
-			for (unsigned int b = 0; b < 4; b++)
-			{
-				deformVertex.BoneName[b] = "";
-				deformVertex.BoneWeight[b] = 0.0f;
-			}
-
-			m_DeformVertex[m].push_back(deformVertex);
-		}
-
-
-		//ボーンデータ初期化
-		for (unsigned int b = 0; b < mesh->mNumBones; b++)
-		{
-			aiBone* bone = mesh->mBones[b];
-
-			m_Bone[bone->mName.C_Str()].OffsetMatrix = bone->mOffsetMatrix;
-
-			//変形後頂点にボーンデータ格納
-			for (unsigned int w = 0; w < bone->mNumWeights; w++)
-			{
-				aiVertexWeight weight = bone->mWeights[w];
-
-				int num = m_DeformVertex[m][weight.mVertexId].BoneNum;
-
-				m_DeformVertex[m][weight.mVertexId].BoneWeight[num] = weight.mWeight;
-				m_DeformVertex[m][weight.mVertexId].BoneName[num] = bone->mName.C_Str();
-
-				// 20230909
-				m_DeformVertex[m][weight.mVertexId].BoneIdx[num] = m_Bone[bone->mName.C_Str()].idx;
-
-				m_DeformVertex[m][weight.mVertexId].BoneNum++;
-
-				assert(m_DeformVertex[m][weight.mVertexId].BoneNum <= 4);
-			}
-		}
-	}
-
-	// 頂点バッファにボーンインデックスと重み値をセットする　	20230910-01
-	// deformvertexにセットされているデータを頂点バッファにセットする
-	//頂点変換（CPUスキニング）
-	for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
-	{
-		aiMesh* mesh = m_AiScene->mMeshes[m];
-
-		// 頂点バッファロック
-		D3D11_MAPPED_SUBRESOURCE ms;
-		HRESULT hr = Renderer::GetDeviceContext()->Map(m_VertexBuffer[m], 0, D3D11_MAP_WRITE_DISCARD, 0, &ms);
-		if (SUCCEEDED(hr)) {
-			VERTEX_3D* vertex = (VERTEX_3D*)ms.pData;
-
-			for (unsigned int v = 0; v < mesh->mNumVertices; v++)
-			{
-				DEFORM_VERTEX* deformVertex = &m_DeformVertex[m][v];
-
-				vertex->Position = Vector3(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
-				vertex->Normal = Vector3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
-				vertex->TexCoord = Vector2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
-				vertex->Diffuse = Color(1.0f, 1.0f, 1.0f, 1.0f);
-
-				vertex->BoneIndex[0] = deformVertex->BoneIdx[0];
-				vertex->BoneIndex[1] = deformVertex->BoneIdx[1];
-				vertex->BoneIndex[2] = deformVertex->BoneIdx[2];
-				vertex->BoneIndex[3] = deformVertex->BoneIdx[3];
-
-				vertex->BoneWeight[0] = deformVertex->BoneWeight[0];
-				vertex->BoneWeight[1] = deformVertex->BoneWeight[1];
-				vertex->BoneWeight[2] = deformVertex->BoneWeight[2];
-				vertex->BoneWeight[3] = deformVertex->BoneWeight[3];
-
-				vertex++;
-			}
-
-			// 頂点バッファを更新
-			Renderer::GetDeviceContext()->Unmap(m_VertexBuffer[m], 0);  // 20230909-02
-		}
+		// 頂点バッファを生成
+		CreateVertexBufferPerMesh(m, mesh);
 	}
 
 	//テクスチャ読み込み

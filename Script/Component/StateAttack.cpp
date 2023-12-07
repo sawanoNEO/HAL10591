@@ -97,16 +97,14 @@ void StateAttack::StateUpdate()
 			{
 				if (enemys[i] && !hitCheck)
 				{
-					//hitCheck = true;
 					enemys[i]->Damage(Power);
-					//go[i]->SetDestroy();
 				}
 			}
 		}
 	}
 	else if (cnt < Startup + ActiveFrames + Recovery)         //攻撃後の硬直時間。この間の一定のタイミングでもういちど攻撃ボタンを押すと連撃になる
 	{
-		if (Input::GetController(Input::R1, Input::PRESSED,15) &&
+		if (Input::GetController(Input::R1, Input::PRESSED,15)!=-1 &&
 			player->GetST() > 0.0f &&
 			cnt > Startup + ActiveFrames + (Recovery / 3))     //硬直が始まってすぐは連撃に移行できない
 		{

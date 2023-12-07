@@ -32,6 +32,8 @@
 #include "../GameObject/explosion.h"
 #include "../GameObject/AttackObject.h"
 
+#include "../ImGui/imguimanager.h"
+
 #include <fstream>
 using namespace DirectX::SimpleMath;
 
@@ -55,7 +57,7 @@ void Game::Init()
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(5.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(10.0f, 0.0f, 5.0f));
-	AddGameObject<Enemy>(1)->SetPosition(Vector3(15.0f, 0.0f, 5.0f));
+	AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f,10.0f));
 
 	//// チェック完了
 	//{
@@ -158,4 +160,15 @@ void Game::Update()
 	{
 		Manager::SetScene<Result>();
 	}
+}
+
+void Game::Draw()
+{
+	ImGui::Begin("GameScene");
+	if (ImGui::Button("SpawnEnemy"))
+	{
+		Enemy* enemy=AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3{ 0.0f,0.0f,5.0f });
+	}
+	ImGui::End();
 }

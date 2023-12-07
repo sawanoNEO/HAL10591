@@ -13,6 +13,10 @@
 #include "../Component/Colider.h"
 #include "../Component/AnimationManager.h"
 #include "../Component/animationModel.h"
+#include "../Component/EnemyState/EStateNone.h"
+#include "../Component/EnemyState/EStateDamage.h"
+#include "../Component/EnemyState/EStateChase.h"
+
 #include "../ImGui/imguimanager.h"
 
 using namespace DirectX::SimpleMath;
@@ -28,7 +32,14 @@ void Enemy::Init()
 	m_Model->Load("asset\\model\\Player\\Paladin J Nordstrom.fbx");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	
+	AddComponent<EStateNone>();
+	AddComponent<EStateDamage>();
+	AddComponent<EStateChase>();
+	AddComponent<StateMachine>();
+	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
+
 	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 
 	AddComponent<Shadow>()->SetSize(2.0f);
@@ -49,12 +60,12 @@ void Enemy::Update()
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
-	if (player)
-	{
-		Pcol = player->GetComponent<Colider>();
-		forward = XMVector3Normalize(player->GetPosition() - m_Position);
-		playerpos = player->GetPosition();
-	}
+	//if (player)
+	//{
+	//	Pcol = player->GetComponent<Colider>();
+	//	forward = XMVector3Normalize(player->GetPosition() - m_Position);
+	//	playerpos = player->GetPosition();
+	//}
 
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
@@ -64,13 +75,13 @@ void Enemy::Update()
 	case Enemy::NONE:
 		break;
 	case Enemy::NORMAL:
-		if (SearchPlayer(playerpos,m_Position,30.0f,15.0f) == true)////プレイヤーが視野範囲にいたら状態を遷移する
-		{
-			state = BATTLE;
-		}
-		break;
+		//if (SearchPlayer(playerpos,m_Position,30.0f,15.0f) == true)////プレイヤーが視野範囲にいたら状態を遷移する
+		//{
+		//	state = BATTLE;
+		//}
+		//break;
 	case Enemy::BATTLE:
-		rb->AddForce(forward*200.0, ForceMode::Force);
+		/*rb->AddForce(forward*200.0, ForceMode::Force);
 		if (player)
 		{
 			if (GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), Pcol).GetTug() == PLAYER && !Phit&&player->GetInvincible()==false)
@@ -82,7 +93,7 @@ void Enemy::Update()
 			{
 				Phit = false;
 			}
-		}
+		}*/
 		break;
 	default:
 		break;
@@ -100,6 +111,18 @@ void Enemy::Update()
 		rb->SetAccel(acc);
 		rb->SetVelocity(vel);
 	}
+
+	//アニメーションのフレームを進める
+	if (m_BlendRate < 1.0f)
+	{
+		m_BlendRate += 0.1f;
+		m_Frame2 += 1.0f;
+	}
+	if (m_BlendRate > 1.0f)
+	{
+		m_BlendRate = 1.0;
+	}
+	m_Frame1 += 1.0f;
 }
 
 void Enemy::Draw()
@@ -119,6 +142,7 @@ void Enemy::Damage(float damage)
 	
 	if (!hit)
 	{
+		GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		HP -= damage;
 		if (HP < 0)
 		{
@@ -177,3 +201,14 @@ bool Enemy::SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::Simple
 }
 
 
+void Enemy::SetAnimName2(const char* _Name)
+{
+	assert(m_Model->CheckAnimData("_Name") == false && "指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+
+	//再生アニメーションの変更、各アニメーション関連の変数のリセット
+	m_Animname1 = m_Animname2;
+	m_Animname2 = _Name;
+	m_Frame1 = m_Frame2;
+	m_Frame2 = 0;
+	m_BlendRate = 0.0;
+}
