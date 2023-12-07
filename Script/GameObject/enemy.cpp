@@ -4,13 +4,15 @@
 #include "../System/input.h"
 #include "../Scene/scene.h"
 #include "../System/modelRenderer.h"
-#include "../GameObject/enemy.h"
-#include "../GameObject/player.h"
+#include "enemy.h"
+#include "player.h"
 
 #include "../Component/Rigidbody.h"
 #include "../Component/shader.h"
 #include "../Component/shadow.h"
 #include "../Component/Colider.h"
+#include "../Component/AnimationManager.h"
+#include "../Component/animationModel.h"
 #include "../ImGui/imguimanager.h"
 
 using namespace DirectX::SimpleMath;
@@ -20,14 +22,21 @@ void Enemy::Init()
 {
 	MaxHP = 100.0;
 	HP = MaxHP;
-	AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\vertexLightingPS.cso");
-	AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
+	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
+	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
+	m_Model = AddComponent<AnimationModel>();
+	m_Model->Load("asset\\model\\Player\\Paladin J Nordstrom.fbx");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
+	
+	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 
 	AddComponent<Shadow>()->SetSize(2.0f);
-	AddComponent<Colider>()->Init(ENEMY,this->GetScale());
+	AddComponent<Colider>()->Init(ENEMY, Vector3(100.0f,100.0f,100.0f));
 	rb = AddComponent<Rigidbody>();
 	rb->Init(5.0f);
 	state = NORMAL;
+
 }
 
 void Enemy::Update()
@@ -37,12 +46,18 @@ void Enemy::Update()
 	Colider* Pcol;
 	Vector3 forward;
 	Vector3 playerpos;
+	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
+	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
+
 	if (player)
 	{
 		Pcol = player->GetComponent<Colider>();
 		forward = XMVector3Normalize(player->GetPosition() - m_Position);
 		playerpos = player->GetPosition();
 	}
+
+	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
+
 		//state = NONE;
 	switch (state)
 	{

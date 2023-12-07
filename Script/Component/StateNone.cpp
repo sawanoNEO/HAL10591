@@ -1,6 +1,7 @@
 #include "StateNone.h"
 #include "StateMove.h"
 #include "StateRolling.h"
+#include "StateAttack.h"
 
 #include "../GameObject/player.h"
 
@@ -38,6 +39,10 @@ void StateNone::StateUpdate()
 	if (receptionCount > reception||Input::GetController(Input::a,Input::RELEASED))//ˆê’èŽžŠÔA’·‰Ÿ‚µ‚©A‚ð—£‚·‚±‚Æ‚Å‰ñ”ð‚É”h¶
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
+	}
+	if (Input::GetController(Input::R1, Input::PRESSED))
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateAttack>());
 	}
 }
 

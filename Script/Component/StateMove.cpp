@@ -1,6 +1,7 @@
 #include "StateMove.h"
 #include "StateDash.h"
 #include "StateRolling.h"
+#include "StateAttack.h"
 
 #include "../System/input.h"
 #include "../GameObject/player.h"
@@ -101,6 +102,10 @@ void StateMove::StateUpdate()
 		DAccel = 250;
 	}
 
+	if (Input::GetController(Input::R1, Input::PRESSED))
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateAttack>());
+	}
 
 	if (camera->GetRock())//ターゲットカメラ状態の時の処理
 	{
@@ -118,7 +123,6 @@ void StateMove::StateUpdate()
 		forward = XMVector3Normalize(rockPos - m_Position);
 		SetRotation(forward);*/
 	}
-	player->SetPstate(state);
 }
 
 void StateMove::Draw()

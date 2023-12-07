@@ -29,6 +29,7 @@
 #include "../Component/StateNone.h"
 #include "../Component/StateDash.h"
 #include "../Component/StateRolling.h"
+#include "../Component/StateAttack.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -58,6 +59,7 @@ void Player::Init()
 	AddComponent<StateMove>();//oldPositionの更新タイミングの関係上Coliderより先にaddcomponentする
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
+	AddComponent<StateAttack >();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 
@@ -103,7 +105,7 @@ void Player::Init()
 	//AddComponent<Move>();
 	AddComponent<Rigidbody>();
 	GetComponent<Rigidbody>()->Init(5.0);
-	AddComponent<Sword>();
+	//AddComponent<Sword>();
 	Vector3 max = GetComponent<ModelRenderer>()->GetMaxPos();
 	Vector3 min = GetComponent<ModelRenderer>()->GetMinPos();
 	Vector3 scale;

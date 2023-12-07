@@ -219,6 +219,7 @@
     <ClCompile Include="Script\Component\audio.cpp" />
     <ClCompile Include="Script\Component\Colider.cpp" />
     <ClCompile Include="Script\Component\collision.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp" />
     <ClCompile Include="Script\Component\Est.cpp" />
     <ClCompile Include="Script\Component\Item.cpp" />
     <ClCompile Include="Script\Component\Jump.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="Script\Component\Colider.h" />
     <ClInclude Include="Script\Component\collision.h" />
     <ClInclude Include="Script\Component\component.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateNone.h" />
     <ClInclude Include="Script\Component\Est.h" />
     <ClInclude Include="Script\Component\Item.h" />
     <ClInclude Include="Script\Component\Jump.h" />

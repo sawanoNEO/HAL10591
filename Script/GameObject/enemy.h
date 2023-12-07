@@ -14,6 +14,11 @@ private:
 		BATTLE,    //プレイヤーを見つけて攻撃してくる状態
 	};
 	State state;
+	class AnimationModel* m_Model;
+	float m_Frame1;//再生中のアニメーションのフレーム数
+	float m_Frame2;//再生中のアニメーションのフレーム数
+	float m_BlendRate;
+
 	float MaxHP;    //最大体力 
 	float HP;       //現在体力
 	bool hit;       //一回の攻撃で複数回攻撃が当たった判定にならないためのフラグ
@@ -21,6 +26,10 @@ private:
 	Rigidbody* rb;
 	bool Phit=false;
 	float eyesight;//どのぐらいの遠さまで見えるか
+
+	std::string m_Animname1 = "Idle"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(1)
+	std::string m_Animname2 = "Walk"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(2)
+
 public:
 	void Init() override;
 	void Update() override;

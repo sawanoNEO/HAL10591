@@ -30,6 +30,7 @@ void AttackObject::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	Vector3 forward = player->GetForward();
+
     m_Position = player->GetPosition();
 
 	m_Position += forward * 3;

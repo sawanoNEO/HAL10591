@@ -40,6 +40,9 @@
     <Filter Include="ソース ファイル\System">
       <UniqueIdentifier>{09914392-f454-4985-b941-7b7f10857095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\component\EnemyState">
+      <UniqueIdentifier>{2efe9c78-0e52-4c2b-8673-b9d54c104f30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -251,6 +254,9 @@
     <ClCompile Include="Script\GameObject\AttackObject.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -444,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="Script\GameObject\AttackObject.h">
       <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateNone.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
