@@ -5,6 +5,7 @@
 class StateDash : public State
 {
 private:
+	const char* StateName = "Dash";
 	float DAccel;       //ダッシュ時の加速度
 	float MaxSpeed;     //最大移動速度
 	float rotationThreshold = 0.5;//回転するかどうかのズレの許容度

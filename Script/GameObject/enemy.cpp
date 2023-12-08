@@ -16,6 +16,7 @@
 #include "../Component/EnemyState/EStateNone.h"
 #include "../Component/EnemyState/EStateDamage.h"
 #include "../Component/EnemyState/EStateChase.h"
+#include "../Component/EnemyState/EStateAttack.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -37,6 +38,7 @@ void Enemy::Init()
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
+	AddComponent<EStateAttack>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
 

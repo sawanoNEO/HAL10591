@@ -16,9 +16,13 @@ using namespace DirectX;
 
 void Title::Init()
 {
+	GameObject* titleBack = AddGameObject<GameObject>(3);			// 3‚ÍƒŒƒCƒ„”Ô†
+	titleBack->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	titleBack->AddComponent<Sprite>()->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\TitleBack.jpg");
+	
 	GameObject* titleLogo = AddGameObject<GameObject>(3);			// 3‚ÍƒŒƒCƒ„”Ô†
 	titleLogo->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-	titleLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\title.jpg");
+	titleLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, 510*2,112*2, "asset\\texture\\Title.png");
 
 	m_Transition = AddGameObject<Transition>(3);					// 3‚ÍƒŒƒCƒ„”Ô†
 	m_Transition->FadeIn();

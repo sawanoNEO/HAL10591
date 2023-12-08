@@ -17,10 +17,16 @@ using namespace DirectX;
 void StateDash::Enter()
 {
 	DAccel = 150.0;
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	player->SetAnimSpeed(1.5f);
 }
 
 void StateDash::Exit()
 {
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	player->SetAnimSpeed(1.0f);
 }
 
 void StateDash::StateUpdate()

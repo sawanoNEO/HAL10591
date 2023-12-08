@@ -29,7 +29,7 @@ void Manager::Init(Application* ap)
 	Input::Init();
 
 	// Title‚ğ‰ŠúƒV[ƒ“‚É“o˜^
-	SetScene<Game>();
+	SetScene<Title>();
 
 }
 

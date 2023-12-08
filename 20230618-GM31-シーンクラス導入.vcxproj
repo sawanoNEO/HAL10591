@@ -219,6 +219,7 @@
     <ClCompile Include="Script\Component\audio.cpp" />
     <ClCompile Include="Script\Component\Colider.cpp" />
     <ClCompile Include="Script\Component\collision.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateAttack.cpp" />
     <ClCompile Include="Script\Component\EnemyState\EStateChase.cpp" />
     <ClCompile Include="Script\Component\EnemyState\EStateDamage.cpp" />
     <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="Script\Component\Jump.cpp" />
     <ClCompile Include="Script\Component\ModelManager.cpp" />
     <ClCompile Include="Script\Component\Move.cpp" />
+    <ClCompile Include="Script\Component\Obb.cpp" />
     <ClCompile Include="Script\Component\Rigidbody.cpp" />
     <ClCompile Include="Script\Component\Rolling.cpp" />
     <ClCompile Include="Script\Component\shader.cpp" />
@@ -282,6 +284,7 @@
     <ClInclude Include="Script\Component\Colider.h" />
     <ClInclude Include="Script\Component\collision.h" />
     <ClInclude Include="Script\Component\component.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateAttack.h" />
     <ClInclude Include="Script\Component\EnemyState\EStateChase.h" />
     <ClInclude Include="Script\Component\EnemyState\EStateDamage.h" />
     <ClInclude Include="Script\Component\EnemyState\EStateNone.h" />
@@ -290,6 +293,7 @@
     <ClInclude Include="Script\Component\Jump.h" />
     <ClInclude Include="Script\Component\ModelManager.h" />
     <ClInclude Include="Script\Component\Move.h" />
+    <ClInclude Include="Script\Component\Obb.h" />
     <ClInclude Include="Script\Component\Rigidbody.h" />
     <ClInclude Include="Script\Component\Rolling.h" />
     <ClInclude Include="Script\Component\shader.h" />

@@ -18,7 +18,10 @@ using namespace DirectX;
 
 void StateMove::Enter()
 {
-	m_GameObject->SetAnimName2("Walk");
+	if (m_GameObject->GetComponent<StateMachine>()->GetPastStateName() != "Dash")
+	{
+		m_GameObject->SetAnimName2("Run");
+	}
 	Accel = 70.0;//‰Á‘¬‚Ì’l‚ğ‰Šú’l‚É–ß‚·
 	DAccel = 150.0;
 }

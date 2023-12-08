@@ -34,6 +34,9 @@
 
 #include "../ImGui/imguimanager.h"
 
+//すぐ消す
+#include "../Component/Obb.h"
+
 #include <fstream>
 using namespace DirectX::SimpleMath;
 
@@ -86,6 +89,7 @@ void Game::Init()
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 		box->SetScale(Vector3(5.0f, 1.0f, 5.0f));
 	}
+		
 
 
 	//// チェック完了

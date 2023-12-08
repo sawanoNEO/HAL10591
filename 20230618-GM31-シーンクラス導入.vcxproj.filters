@@ -263,6 +263,12 @@
     <ClCompile Include="Script\Component\EnemyState\EStateChase.cpp">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateAttack.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Obb.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -465,6 +471,12 @@
     </ClInclude>
     <ClInclude Include="Script\Component\EnemyState\EStateChase.h">
       <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateAttack.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Obb.h">
+      <Filter>ソース ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ void EStateDamage::Exit()
 
 void EStateDamage::StateUpdate()
 {
-	if (m_Count > 21)
+	if (m_Count > 42)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
 	}

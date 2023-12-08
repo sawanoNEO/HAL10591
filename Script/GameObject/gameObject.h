@@ -12,6 +12,7 @@ class GameObject
 {
 
 protected:
+	DirectX::SimpleMath::Matrix m_Matrix;
 	bool		m_Destroy = false;
 
 	DirectX::SimpleMath::Vector3	m_Position = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
@@ -35,6 +36,8 @@ public:
 	void SetScale(DirectX::SimpleMath::Vector3 Scale) { m_Scale = Scale; }
 	virtual void SetAnimName2(const char*) {};//アニメーションの機能があるオブジェクトは、この関数を使うことで再生するアニメーションを切り替える事が出来る
 	virtual void Damage(float _damage) {};//ダメージを受ける時の処理
+
+	DirectX::SimpleMath::Matrix GetMatrix() { return m_Matrix; }
 
 	DirectX::SimpleMath::Vector3 GetForward()//前方向ベクトル取得
 	{
@@ -174,6 +177,7 @@ public:
 		trans = DirectX::SimpleMath::Matrix::CreateTranslation(m_Position.x, m_Position.y, m_Position.z);
 		world = scale * rot * trans * ParentMatrix;
 
+		m_Matrix = world;
 
 		for (GameObject* child : m_ChildGameObject)
 		{

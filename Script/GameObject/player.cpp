@@ -53,6 +53,8 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\kensimau.fbx", "Simau");
 	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
+	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
+	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
 	BONE* bone = m_Model->GetBONE("Paladin_J_Nordstrom_Sword");
 
 	//ステートマシンのテスト

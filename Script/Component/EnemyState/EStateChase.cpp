@@ -1,5 +1,6 @@
 #include "EStateChase.h"
 #include "EStateNone.h"
+#include "EStateAttack.h"
 
 #include "../Rigidbody.h"
 #include "../Colider.h"
@@ -36,6 +37,10 @@ void EStateChase::StateUpdate()
 	if (vec.Length() > 15.0f)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
+	}
+	else if (vec.Length() > 3.0f)
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateAttack>());
 	}
 
 	rotation.y = atan2(vec.x, vec.z);
