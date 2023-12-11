@@ -202,7 +202,7 @@ Vector3 Camera::GetCamSide()
 
 DirectX::SimpleMath::Vector3 Camera::VecYRemove(DirectX::SimpleMath::Vector3 vec)
 {
-	float XZ = fabs(vec.x) + fabs(vec.z);
+	float XZ = fabsf(vec.x) + fabs(vec.z);
 	float X_ratio = vec.x / XZ;
 	float Z_ratio = vec.z / XZ;
 	vec.x = X_ratio;

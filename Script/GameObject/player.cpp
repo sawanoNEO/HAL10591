@@ -55,7 +55,7 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
-	BONE* bone = m_Model->GetBONE("Paladin_J_Nordstrom_Sword");
+	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 
 	//ステートマシンのテスト
 	AddComponent<StateNone>();
@@ -125,12 +125,12 @@ void Player::Init()
 	//AddComponent<Rolling>();
 	alpha = 1.0f;
 
-	//m_Child = AddChild<AttackObject>();
+	m_Child = AddChild<AttackObject>();
 
 	//m_Child = AddChild<GameObject>();
 	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
 	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
-	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
+	m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
 	
 }
 
@@ -514,6 +514,11 @@ void Player::ASHP(float hp)
 void Player::SetAnimName2(const char* _Name)
 {
 	assert(m_Model->CheckAnimData("_Name")==false&&"指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+
+	if (m_Animname2 == _Name)
+	{
+		return;
+	}
 
 	//再生アニメーションの変更、各アニメーション関連の変数のリセット
 	m_Animname1 = m_Animname2;

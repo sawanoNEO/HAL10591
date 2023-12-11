@@ -4,6 +4,8 @@
 #include "../Component/animationModel.h"
 #include "../System/utility.h"
 
+#include <fstream>
+
 using namespace DirectX::SimpleMath;
 std::unordered_map<std::string, const aiScene*>AnimationModel::loadedScenes;
 
@@ -187,7 +189,7 @@ void AnimationModel::Load(const char* FileName)
 {
 	const std::string modelPath(FileName);
 
-
+	std::ofstream outputFile("asset\\editer\\ModelData.csv");
 	if (loadedScenes.find(FileName) != loadedScenes.end()) 
 	{
 		// Šù‚Éƒ[ƒh‚³‚ê‚Ä‚¢‚éê‡‚Í•Û‘¶‚³‚ê‚½î•ñ‚ğ•Ô‚·
@@ -199,7 +201,20 @@ void AnimationModel::Load(const char* FileName)
 	    m_AiScene = loadedScenes[FileName];
 	}
 
-	    //m_AiScene = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
+	
+
+	//if (outputFile.is_open()) 
+	//{
+	//	outputFile << FileName << std::endl;
+	//	for (unsigned int i = 0; i < m_AiScene->mNumMeshes; ++i)
+	//	{
+	//	}
+	//	outputFile.close();
+	//}
+
+	//m_AiScene = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
+	
+	//outputFile.close();
 	assert(m_AiScene);
 
 	m_VertexBuffer = new ID3D11Buffer * [m_AiScene->mNumMeshes];
