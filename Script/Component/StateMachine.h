@@ -10,6 +10,7 @@ public:
     virtual void Enter() = 0;
     virtual void Exit() = 0;
     virtual void StateUpdate() = 0;
+    virtual void StateChange() = 0;
     const char* GetStateName() { return StateName; }; 
 };
 
@@ -38,6 +39,7 @@ public:
 
     void Update() {
         m_CurrentState->StateUpdate();
+        m_CurrentState->StateChange();
     }
     void Draw() {
         m_CurrentState->Draw();

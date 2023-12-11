@@ -22,11 +22,16 @@ void EStateNone::Exit()
 
 void EStateNone::StateUpdate()
 {
+
+}
+
+void EStateNone::StateChange()
+{
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	Vector3 playerPos = player->GetPosition();
 
-	if (SearchPlayer(playerPos, m_GameObject->GetPosition(), 180.0f, 15.0f))
+	if (SearchPlayer(playerPos, m_GameObject->GetPosition(), 180.0f, 15.0f))//プレイヤーが視界内に居れば追跡を開始
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateChase>());
 	}

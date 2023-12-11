@@ -46,6 +46,7 @@ struct CBBoneCombMatrx
 class AnimationModel : public Component
 {
 private:
+	static std::unordered_map<std::string, const aiScene*> loadedScenes;
 	const aiScene* m_AiScene = nullptr;
 	std::unordered_map<std::string, const aiScene*> m_Animation;
 

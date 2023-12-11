@@ -15,11 +15,15 @@ void EStateDamage::Exit()
 
 void EStateDamage::StateUpdate()
 {
+	m_Count++;
+}
+
+void EStateDamage::StateChange()
+{
 	if (m_Count > 42)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
 	}
-	m_Count++;
 }
 
 void EStateDamage::Draw()

@@ -7,6 +7,7 @@ public:
 	void Enter()override;
 	void Exit()override;
 	void StateUpdate()override;
+	void StateChange()override;
 	void Draw()override;
 };
 

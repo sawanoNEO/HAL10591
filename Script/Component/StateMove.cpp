@@ -58,24 +58,8 @@ void StateMove::StateUpdate()
 	//ここまで
 
 	
-	if (Input::GetController(Input::a, Input::HELD) &&
-		Input::GetStickState() && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
-	{
-		receptionCount++;
-		if (receptionCount > reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
-		{
-			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());
-		}
-	}
-	else if (Input::GetController(Input::a, Input::RELEASED) && ST > 0 && !Wait)
-	{
-		//回避に派生
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
-	}
-	if (Input::GetController(Input::LeftUP, Input::HELD) ||
-		Input::GetController(Input::LeftDown, Input::HELD) ||
-		Input::GetController(Input::LeftLeft, Input::HELD) ||
-		Input::GetController(Input::LeftRight, Input::HELD))        //スティックによる操作が行われていないと加速度をリセットする
+
+	if (Input::GetStickState()==true)        //スティックによる操作が行われていないと加速度をリセットする
 	{
 		//pos += (XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * Accel);
 
@@ -91,10 +75,6 @@ void StateMove::StateUpdate()
 		DAccel = 150.0;
 
 		state = NONE;
-	}
-	else if (Input::GetStickState() == false)
-	{
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
 	if (Accel >= 150)  //基底の量を超えないようにする
 	{
@@ -130,4 +110,31 @@ void StateMove::StateUpdate()
 
 void StateMove::Draw()
 {
+}
+
+void StateMove::StateChange()
+{
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	float ST = player->GetST();
+	float Wait = player->GetWait();
+
+	if (Input::GetController(Input::a, Input::HELD) &&
+		Input::GetStickState() && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
+	{
+		receptionCount++;
+		if (receptionCount > reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
+		{
+			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());
+		}
+	}
+	else if (Input::GetController(Input::a, Input::RELEASED) && ST > 0 && !Wait)
+	{
+		//回避に派生
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
+	}
+	if (Input::GetStickState() == false)
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
+	}
 }

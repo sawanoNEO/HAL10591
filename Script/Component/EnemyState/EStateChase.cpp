@@ -34,14 +34,7 @@ void EStateChase::StateUpdate()
 	Vector3 rotation = m_GameObject->GetRotation();
 	Vector3 vec = player->GetPosition() - m_GameObject->GetPosition();
 
-	if (vec.Length() > 15.0f)
-	{
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
-	}
-	else if (vec.Length() > 3.0f)
-	{
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateAttack>());
-	}
+	
 
 	rotation.y = atan2(vec.x, vec.z);
 	forward = XMVector3Normalize(player->GetPosition() - m_GameObject->GetPosition());
@@ -50,6 +43,21 @@ void EStateChase::StateUpdate()
 	rb->AddForce(forward * 200.0, ForceMode::Force);
 
 
+}
+
+void EStateChase::StateChange()
+{
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	Vector3 vec = player->GetPosition() - m_GameObject->GetPosition();
+	if (vec.Length() > 20.0f)
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
+	}
+	else if (vec.Length() < 3.0f)
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateAttack>());
+	}
 }
 
 void EStateChase::Draw()

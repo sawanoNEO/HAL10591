@@ -63,7 +63,11 @@ void StateDash::StateUpdate()
 			DAccel = 250;
 		}
 	}
-	else if (Input::GetController(Input::a, Input::RELEASED))
+}
+
+void StateDash::StateChange()
+{
+	if (Input::GetController(Input::a, Input::RELEASED))
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateMove>());
 	}

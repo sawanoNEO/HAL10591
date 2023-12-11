@@ -75,11 +75,15 @@ void StateRolling::StateUpdate()
 			this->Enter();
 		}
 	}
-	else if (cnt > 53)
+		cnt++;
+}
+
+void StateRolling::StateChange()
+{
+	if (cnt > startup+invincible+recovery)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
-	cnt++;
 }
 
 void StateRolling::Draw()

@@ -62,6 +62,11 @@ void Enemy::Update()
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
+	if (!player)
+	{
+		GetComponent<StateMachine>()->changeState(GetComponent<EStateNone>());
+	}
+
 	//if (player)
 	//{
 	//	Pcol = player->GetComponent<Colider>();
@@ -124,6 +129,10 @@ void Enemy::Update()
 	{
 		m_BlendRate = 1.0;
 	}
+	if (m_BlendRate == 1.0f)
+	{
+		m_Animname1 = m_Animname2;
+	}
 	m_Frame1 += 1.0f;
 }
 
@@ -131,6 +140,8 @@ void Enemy::Draw()
 {
 	ImGui::Begin("Enemy");
 	ImGui::Text("HP=%f\n\n", HP);
+	ImGui::Text("m_Frame1=%f", m_Frame1);
+	ImGui::Text("m_Frame2=%f", m_Frame2);
 	ImGui::Text("POS...%f,%f,%f\n", m_Position.x, m_Position.y, m_Position.z);
 	if (ImGui::Button("bom"))
 	{

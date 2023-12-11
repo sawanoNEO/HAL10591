@@ -61,6 +61,7 @@ public:
 	void Draw() override;
 	void PreDraw() override;
 
+	void Damage(float _damage)override;
 	void STRecover();       //スタミナを回復する関数
 	void STUse(float);           //スタミナを消費する関数
 	void ASHP(float hp);//HPを増減させる関数
@@ -87,5 +88,7 @@ public:
 	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }
 	void SetAnimName2(const char*);
 	void SetAnimSpeed(float _speed) { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
+	void SetFrame1(int _frame) { m_Frame1 = _frame; }
+	void SetFrame2(int _frame) { m_Frame2 = _frame; }
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }
 };

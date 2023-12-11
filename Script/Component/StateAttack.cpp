@@ -23,12 +23,13 @@ void StateAttack::Init()
 	AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
 	Maxcombo = 2;
 	combo = 0;
-	Startup = 32;
+	Startup = 22;
 	ActiveFrames = 5;
-	Recovery = 35;
+	Recovery = 23;
 	cnt = 0;
 	Power = 45;
 	STconsumption = 17.0;
+	
 }
 
 void StateAttack::Enter()
@@ -37,11 +38,15 @@ void StateAttack::Enter()
 	Player* player = scene->GetGameObject<Player>();
 	player->SetAnimName2("Attack");
 	cnt = 0;
-
+	player->SetAnimSpeed(2.0f);
+	//player->SetFrame1();
 }
 
 void StateAttack::Exit()
 {
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	player->SetAnimSpeed(1.0f);
 }
 
 void StateAttack::StateUpdate()
@@ -75,16 +80,21 @@ void StateAttack::StateUpdate()
 		{
 			enemy->HitReset();
 		}
-		if (cnt == 1)
-		{
-			player->STUse(STconsumption);
-			Vector3 vec = player->GetpromissDirection() * 100.0;
-			rb->AddForce(vec, ForceMode::Impulse);
-		}
 	}
 	else if (cnt < Startup + ActiveFrames)/////攻撃判定が出ている時間。持続部分。
 	{
 		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
+
+		if (cnt == Startup)
+		{
+			player->STUse(STconsumption);
+			Vector3 vec = player->GetForward() * 100.0f;
+			if (Input::GetStickState())
+			{
+				Vector3 vec = player->GetpromissDirection() * 100.0f;
+			}
+			rb->AddForce(vec, ForceMode::Impulse);
+		}
 
 		if (enemys.size() == 0)
 		{
@@ -109,15 +119,20 @@ void StateAttack::StateUpdate()
 			cnt > Startup + ActiveFrames + (Recovery / 3))     //硬直が始まってすぐは連撃に移行できない
 		{
 			cnt = Startup - 10;
+			player->SetFrame1(0);
 			//player->STUse(17.0f);
 		}
 	}
-	else if (cnt > Startup + ActiveFrames + Recovery)
+	
+	cnt++;
+}
+
+void StateAttack::StateChange()
+{
+	if (cnt > Startup + ActiveFrames + Recovery)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
-
-	cnt++;
 }
 
 void StateAttack::Draw()

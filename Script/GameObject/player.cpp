@@ -45,7 +45,7 @@ void Player::Init()
 	m_Model->Load("asset\\model\\Player\\Paladin J Nordstrom.fbx");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack2");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
@@ -95,7 +95,7 @@ void Player::Init()
 	}
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\player.obj");
 
-	AddComponent<Shadow>()->SetSize(1.5f);
+	//AddComponent<Shadow>()->SetSize(1.5f);
 
 	m_SE = AddComponent<Audio>();
 	m_SE->Load("asset\\audio\\wan.wav");
@@ -409,7 +409,10 @@ void Player::Update()
 	{
 		m_BlendRate = 1.0;
 	}
-	m_Frame1+=1.0f*m_AnimSpeed;
+	if (m_BlendRate == 1.0f)
+	{
+		m_Frame1 += 1.0f * m_AnimSpeed;
+	}
 }
 
 void Player::Draw()
@@ -429,10 +432,13 @@ void Player::Draw()
 	ImGui::SliderFloat("Alpha", &alpha, 0, 1.0);
 	ImGui::SliderFloat("posy", &m_Position.y, 0, 100.0);
 	ImGui::SliderFloat("BlendRate", &m_BlendRate, 0, 1.0);
+	ImGui::SliderFloat("m_Frame1", &m_Frame1, -10, 10);
+	ImGui::SliderFloat("m_Frame2", &m_Frame2, -10, 10);
 	ImGui::Text("Forward=x=%f,y=%f,z=%f", GetForward().x, GetForward().y, GetForward().z);
 	ImGui::Text("Position=x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("State%i", Pstate);
 	ImGui::Text("Blend%f", m_BlendRate);
+	ImGui::Text("%c", m_Animname1);
 	//ImGui::Text("%f\n", m_Position.x);
 	//ImGui::Text("%f\n", m_Position.y);
 	//ImGui::Text("%f\n", m_Position.z);
@@ -459,6 +465,11 @@ void Player::Draw()
 	//ImGui::Checkbox("Padright", &right);
 	ImGui::End();
 
+}
+
+void Player::Damage(float _damage)
+{
+	HP -= _damage;
 }
 
 void Player::STRecover()
