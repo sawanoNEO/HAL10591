@@ -54,7 +54,7 @@ void Game::Init()
 	//AddGameObject<Score>(3);
 	AddGameObject<ST>(3);
 	AddGameObject<HP>(3);
-	AddGameObject<AttackObject>(1);
+	//AddGameObject<AttackObject>(1);
 
 	// “G’Ç‰Á
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));

@@ -7,10 +7,10 @@ private:
     const char* StateName;//状態の名前
 public:
     using Component::Component;
-    virtual void Enter() = 0;
-    virtual void Exit() = 0;
-    virtual void StateUpdate() = 0;
-    virtual void StateChange() = 0;
+    virtual void Enter() = 0;    //状態に入った時の処理
+    virtual void Exit() = 0;     //状態を抜け出す時の処理
+    virtual void StateUpdate() = 0; //状態ごとに毎ループ処理
+    virtual void StateChange() = 0; //条件判定関数
     const char* GetStateName() { return StateName; }; 
 };
 
@@ -25,23 +25,27 @@ public:
     //StateMachine(State* initialState) : m_CurrentState(initialState) {
     //    m_CurrentState->Enter();
     //}
-    void changeState(State* newState) {
+    void changeState(State* newState) //状態遷移関数
+    {
         m_CurrentState->Exit();
         m_PastState = m_CurrentState;
         m_CurrentState = newState;
         m_CurrentState->Enter();
     }
 
-    void Init(State* initialState){
+    void Init(State* initialState)
+    {
         m_CurrentState=initialState;
         m_CurrentState->Enter();
     }
 
-    void Update() {
+    void Update() 
+    {
         m_CurrentState->StateUpdate();
         m_CurrentState->StateChange();
     }
-    void Draw() {
+    void Draw()
+    {
         m_CurrentState->Draw();
     }
 

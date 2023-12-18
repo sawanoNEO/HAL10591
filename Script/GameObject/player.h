@@ -24,6 +24,7 @@ private:
 	class Audio*	m_SE{};
 
 	class AnimationModel* m_Model;
+	AnimationModel* m_ChildBone;
 	float m_Frame1;//再生中のアニメーションのフレーム数
 	float m_Frame2;//再生中のアニメーションのフレーム数
 	float m_BlendRate;

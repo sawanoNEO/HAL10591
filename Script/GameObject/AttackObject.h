@@ -9,4 +9,8 @@ public:
 	void Init() override;
 	void Update() override;
 	void Draw()override;
+
+
+
+	//Mattrixhenkan(const class aiMatrix4x4 aiMat);
 };

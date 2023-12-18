@@ -56,6 +56,12 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
+	
+	// シーンからボーンのルートノードを取得
+	//aiNode* boneRootNode = m_Model->Getscene()->mRootNode->FindNode("mixamorig:RightHand");
+	//m_Model->AddBoneChild<AttackObject>("RootNode");
+	//m_Model->AddBoneChild<AttackObject>("mixamorig:RightHand");
+	//m_Model->AddBoneChild<AttackObject>("mixamorig:Spine");
 
 	//ステートマシンのテスト
 	AddComponent<StateNone>();
@@ -130,7 +136,7 @@ void Player::Init()
 	//m_Child = AddChild<GameObject>();
 	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
 	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
-	m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
+	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
 	
 }
 
@@ -439,6 +445,10 @@ void Player::Draw()
 	ImGui::Text("State%i", Pstate);
 	ImGui::Text("Blend%f", m_BlendRate);
 	ImGui::Text("%c", m_Animname1);
+	ImGui::Text("Matrix11%f,%f,%f,%f", GetMatrix()._11,GetMatrix()._12,GetMatrix()._13,GetMatrix()._14);
+	ImGui::Text("Matrix21%f,%f,%f,%f", GetMatrix()._21,GetMatrix()._22,GetMatrix()._23,GetMatrix()._24);
+	ImGui::Text("Matrix31%f,%f,%f,%f", GetMatrix()._31,GetMatrix()._32,GetMatrix()._33,GetMatrix()._34);
+	ImGui::Text("Matrix41%f,%f,%f,%f", GetMatrix()._41,GetMatrix()._42,GetMatrix()._43,GetMatrix()._44);
 	//ImGui::Text("%f\n", m_Position.x);
 	//ImGui::Text("%f\n", m_Position.y);
 	//ImGui::Text("%f\n", m_Position.z);

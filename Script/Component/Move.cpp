@@ -44,6 +44,7 @@ void Move::Update()
 				Input::GetController(Input::LeftLeft, Input::HELD) ||
 				Input::GetController(Input::LeftRight, Input::HELD)) && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
 		{
+			//////////////////////////////移動の処理
 			state = DASH;
 			/*pos += (XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * DAccel);
 			player->SetPosition(pos);

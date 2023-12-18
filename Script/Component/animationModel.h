@@ -1,6 +1,8 @@
 #pragma once
 
 #include <unordered_map>
+#include <vector>
+#include <SimpleMath.h>
 
 #include "assimp/cimport.h"
 #include "assimp/scene.h"
@@ -43,12 +45,14 @@ struct CBBoneCombMatrx
 	DirectX::XMFLOAT4X4 BoneCombMtx[400];			// ボーンコンビネーション行列
 };
 
+
 class AnimationModel : public Component
 {
 private:
 	static std::unordered_map<std::string, const aiScene*> loadedScenes;
 	const aiScene* m_AiScene = nullptr;
 	std::unordered_map<std::string, const aiScene*> m_Animation;
+	DirectX::SimpleMath::Matrix ChildMatrix;
 
 	ID3D11Buffer**	m_VertexBuffer;
 	ID3D11Buffer**	m_IndexBuffer;
@@ -57,6 +61,8 @@ private:
 
 	std::vector<DEFORM_VERTEX>* m_DeformVertex;				//変形後頂点データ
 	std::unordered_map<std::string, BONE> m_Bone;			//ボーンデータ（名前で参照）
+	std::unordered_map<std::string, GameObject*> m_BoneChild;//ボーンの子オブジェクト
+	std::unordered_map<std::string, aiNode*> m_Nods; //ノード達
 
 	void CreateBone(aiNode* Node);
 	void UpdateBoneMatrix(aiNode* Node, aiMatrix4x4 Matrix);
@@ -64,6 +70,7 @@ private:
 	ID3D11Buffer* m_BoneCombMtxCBuffer;						// 定数バッファ　20230909-02
 	void CreateIndexBufferPerMesh(int m, const aiMesh* mesh);		// インデックスバッファを生成
 	void CreateVertexBufferPerMesh(int m, const aiMesh* mesh);		// 頂点バッファを生成
+	aiMatrix4x4 GetCumulativeTransformation(const char* nodename);
 
 public:
 	using Component::Component;
@@ -76,4 +83,22 @@ public:
 	void Draw() override;
 
 	BONE* GetBONE(const char* _bonename);
+	const aiScene* Getscene() { return m_AiScene; }
+	template<typename T>
+	T* AddBoneChild(const char* _bonename)
+	{
+		auto itr = m_Bone.find(_bonename);
+		if (itr == m_Bone.end())
+		{
+			return nullptr;
+		}
+		T* child = new T;
+		m_BoneChild.insert({ _bonename,child });
+		((GameObject*)child)->Init();
+
+		return child;
+	}
+	//void AddBoneChild(const char* _bonename, const char* objname);
+	DirectX::SimpleMath::Matrix ChangeMatrix(aiMatrix4x4 _mat);
+	DirectX::SimpleMath::Matrix GetBoneMatrix(const char* name);
 };

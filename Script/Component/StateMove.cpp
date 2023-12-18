@@ -125,16 +125,18 @@ void StateMove::StateChange()
 		receptionCount++;
 		if (receptionCount > reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
 		{
+			//状態をダッシュに変更
 			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());
 		}
 	}
 	else if (Input::GetController(Input::a, Input::RELEASED) && ST > 0 && !Wait)
 	{
-		//回避に派生
+		//状態を回避に変更
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}
 	if (Input::GetStickState() == false)
 	{
+		//状態を無操作状態に変更
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
 }

@@ -70,7 +70,7 @@ void StateRolling::StateUpdate()
 	else if (cnt <= startup + invincible + recovery)
 	{
 		player->SetInvincible(false);
-		if (Input::GetController(Input::a, Input::RELEASED, 20) != -1)
+		if (Input::GetController(Input::a, Input::RELEASED, 20) != -1)//20f前までの中で、Aボタンが離された瞬間がなければ-1を返す
 		{
 			this->Enter();
 		}
