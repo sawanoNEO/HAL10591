@@ -21,7 +21,7 @@
 #include "../Component/Colider.h"
 #include "../Component/collision.h"
 #include "../Component/Rigidbody.h"
-#include "../Component/Est.h"
+//#include "../Component/Est.h"
 #include "../Component/Rolling.h"
 #include "../Component/animationModel.h"
 #include "../Component/ModelManager.h"
@@ -30,6 +30,8 @@
 #include "../Component/StateDash.h"
 #include "../Component/StateRolling.h"
 #include "../Component/StateAttack.h"
+#include "../Component/StateItem.h"
+#include "../Component/Heal.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -55,6 +57,7 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
+	m_Model->LoadAnimation("asset\\model\\Player\\Drink.fbx", "Drink");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	
 	// シーンからボーンのルートノードを取得
@@ -69,6 +72,9 @@ void Player::Init()
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
+	AddComponent<StateItem>();
+	AddComponent<Heal>();
+	GetComponent<StateItem>()->Init(GetComponent<Heal>());
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 
@@ -126,7 +132,7 @@ void Player::Init()
 
 	colattack=AddComponent<Colider>();
 	colattack->Init(PLAYER, Vector3(1.0f,1.0f,1.0f));
-	AddComponent<Est>();
+	//AddComponent<Est>();
 	HP = 1000;
 	//AddComponent<Rolling>();
 	alpha = 1.0f;

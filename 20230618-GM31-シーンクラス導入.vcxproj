@@ -224,7 +224,7 @@
     <ClCompile Include="Script\Component\EnemyState\EStateDamage.cpp" />
     <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp" />
     <ClCompile Include="Script\Component\Est.cpp" />
-    <ClCompile Include="Script\Component\Item.cpp" />
+    <ClCompile Include="Script\Component\Heal.cpp" />
     <ClCompile Include="Script\Component\Jump.cpp" />
     <ClCompile Include="Script\Component\ModelManager.cpp" />
     <ClCompile Include="Script\Component\Move.cpp" />
@@ -236,6 +236,7 @@
     <ClCompile Include="Script\Component\sprite.cpp" />
     <ClCompile Include="Script\Component\StateAttack.cpp" />
     <ClCompile Include="Script\Component\StateDash.cpp" />
+    <ClCompile Include="Script\Component\StateItem.cpp" />
     <ClCompile Include="Script\Component\StateMove.cpp" />
     <ClCompile Include="Script\Component\StateNone.cpp" />
     <ClCompile Include="Script\Component\StateRolling.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="Script\Component\EnemyState\EStateDamage.h" />
     <ClInclude Include="Script\Component\EnemyState\EStateNone.h" />
     <ClInclude Include="Script\Component\Est.h" />
+    <ClInclude Include="Script\Component\Heal.h" />
     <ClInclude Include="Script\Component\Item.h" />
     <ClInclude Include="Script\Component\Jump.h" />
     <ClInclude Include="Script\Component\ModelManager.h" />
@@ -301,6 +303,7 @@
     <ClInclude Include="Script\Component\sprite.h" />
     <ClInclude Include="Script\Component\StateAttack.h" />
     <ClInclude Include="Script\Component\StateDash.h" />
+    <ClInclude Include="Script\Component\StateItem.h" />
     <ClInclude Include="Script\Component\StateMachine.h" />
     <ClInclude Include="Script\Component\StateMove.h" />
     <ClInclude Include="Script\Component\StateNone.h" />

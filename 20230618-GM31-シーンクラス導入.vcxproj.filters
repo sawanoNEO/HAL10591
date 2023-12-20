@@ -98,9 +98,6 @@
     <ClCompile Include="Script\Component\Est.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
-    <ClCompile Include="Script\Component\Item.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
     <ClCompile Include="Script\Component\Jump.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
@@ -269,6 +266,12 @@
     <ClCompile Include="Script\Component\Obb.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Component\StateItem.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Heal.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -287,9 +290,6 @@
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\Est.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\Component\Item.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\Jump.h">
@@ -476,6 +476,15 @@
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\Obb.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateItem.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Item.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Heal.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include "StateMove.h"
 #include "StateRolling.h"
 #include "StateAttack.h"
+#include "StateItem.h"
 
 #include "../GameObject/player.h"
 
@@ -50,6 +51,11 @@ void StateNone::StateChange()
 	if (Input::GetController(Input::R1, Input::PRESSED))
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateAttack>());
+	}
+	//アイテムを使う
+	if (Input::GetController(Input::x, Input::PRESSED))
+	{
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateItem>());
 	}
 }
 
