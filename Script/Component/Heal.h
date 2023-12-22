@@ -3,7 +3,8 @@
 class Heal : public Item
 {
 public:
-	using Item::Item;
+	void Enter()override;
+	void Exit()override;
 	void Init()override;
 	void Uninit()override;
 	void Update()override;

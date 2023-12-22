@@ -72,9 +72,8 @@ void Player::Init()
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
-	AddComponent<StateItem>();
-	AddComponent<Heal>();
-	GetComponent<StateItem>()->Init(GetComponent<Heal>());
+	//AddComponent<StateItem>();
+	//GetComponent<StateItem>()->Init(HEAL);
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 

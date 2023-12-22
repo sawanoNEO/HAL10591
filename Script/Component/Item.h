@@ -1,7 +1,12 @@
 #pragma once
 #include "component.h"
 
-class Item:public Component
+enum ITEMID
+{
+	HEAL,
+};
+
+class Item
 {
 protected:
 	int m_Count = 0;
@@ -14,7 +19,8 @@ protected:
 	const char* AnimName;
 
 public:
-	using Component::Component;
+	virtual void Enter() = 0;
+	virtual void Exit() = 0;
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Uninit() = 0;

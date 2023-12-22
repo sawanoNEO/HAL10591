@@ -9,6 +9,15 @@
 
 using namespace DirectX::SimpleMath;
 
+void Heal::Enter()
+{
+	m_Count = 0;
+}
+
+void Heal::Exit()
+{
+}
+
 void Heal::Init()
 {
 	m_MaxInventoryCount = 10;
