@@ -10,10 +10,11 @@ private:
 	UINT offset = 0;
 	MATERIAL material;////マテリアル
 
-	int posX;
-	int posY;
+	int posX; //横軸の位置
+	int posY; //縦軸の位置
 
 	float maxHP; //最大HP
+	float m_damegePoint;
 	float currentHP;//現在のHP
 	float pastHP;//HPの減少する前の値
 	int cnt;     //pastHPが減りはじめるまでのカウントをとる

@@ -34,7 +34,8 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
-	
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
+
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
@@ -216,7 +217,7 @@ bool Enemy::SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::Simple
 
 void Enemy::SetAnimName2(const char* _Name)
 {
-	assert(m_Model->CheckAnimData("_Name") == false && "指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+	assert(m_Model->CheckAnimData(_Name) != false && "指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
 
 	//再生アニメーションの変更、各アニメーション関連の変数のリセット
 	m_Animname1 = m_Animname2;

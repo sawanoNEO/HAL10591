@@ -6,10 +6,15 @@
 
 void StateItem::Init(ITEMID _id)
 {
+	Item* item;
 	switch (_id)
 	{
 	case HEAL:
-		m_Items.push_back(new Heal);
+		item = new Heal;
+		item->Init();
+		m_Items.push_back(item);
+		m_Items[0]->SetGameObject(m_GameObject);
+		m_Cursol = 0;
 		break;
 	default:
 		break;

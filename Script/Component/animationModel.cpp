@@ -325,12 +325,14 @@ void AnimationModel::Load(const char* FileName)
 	if (loadedScenes.find(FileName) != loadedScenes.end()) 
 	{
 		// ä˘Ç…ÉçÅ[ÉhÇ≥ÇÍÇƒÇ¢ÇÈèÍçáÇÕï€ë∂Ç≥ÇÍÇΩèÓïÒÇï‘Ç∑
-		m_AiScene=loadedScenes[FileName];
+		m_AiScene = new aiScene(*loadedScenes[FileName]);
+		//m_AiScene=loadedScenes[FileName];
 	}
 	else
 	{
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
-	    m_AiScene = loadedScenes[FileName];
+		m_AiScene = new aiScene(*loadedScenes[FileName]);
+		//m_AiScene = loadedScenes[FileName];
 	}
 
 	
@@ -454,33 +456,31 @@ void AnimationModel::CreateBone(aiNode* node)
 
 void AnimationModel::Uninit()
 {
+	for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
+	{
+		m_VertexBuffer[m]->Release();
+		m_IndexBuffer[m]->Release();
+	}
 
-	//for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
-	//{
-	//	m_VertexBuffer[m]->Release();
-	//	m_IndexBuffer[m]->Release();
-	//}
+	delete[] m_VertexBuffer;
+	delete[] m_IndexBuffer;
 
-	//delete[] m_VertexBuffer;
-	//delete[] m_IndexBuffer;
-
-	//delete[] m_DeformVertex;
-
-
-	//for (std::pair<const std::string, ID3D11ShaderResourceView*> pair : m_Texture)
-	//{
-	//	pair.second->Release();
-	//}
-
-	//m_BoneCombMtxCBuffer->Release();						// 20230909-02
-
-	//aiReleaseImport(m_AiScene);
+	delete[] m_DeformVertex;
 
 
-	//for (std::pair<const std::string, const aiScene*> pair : m_Animation)
-	//{
-	//	aiReleaseImport(pair.second);
-	//}
+	for (std::pair<const std::string, ID3D11ShaderResourceView*> pair : m_Texture)
+	{
+		pair.second->Release();
+	}
+
+	m_BoneCombMtxCBuffer->Release();						// 20230909-02
+
+	aiReleaseImport(m_AiScene);
+
+	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	{
+		aiReleaseImport(pair.second);
+	}
 }
 
 void AnimationModel::Update(const char* AnimationName1, int Frame1, const char* AnimationName2, int Frame2, float BlendRate)

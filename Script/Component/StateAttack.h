@@ -6,6 +6,8 @@ class StateAttack : public State
 private:
 	GameObject* AttackObj;
 	
+	class Slash* slash;
+
 	int Maxcombo;           //連続で攻撃したときのモーションの数
 	int combo;              //現在の最大コンボ
 	int Startup;            //攻撃の前隙のフレーム数

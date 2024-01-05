@@ -56,16 +56,21 @@ void HP::Update()
 		{
 			damage = false;
 		}
-		
-		currentHP = player->GetHP();//HPのデータを更新する
-
+		m_damegePoint = player->GetHP();
+		if (m_damegePoint>currentHP)
+		{
+			float gap = m_damegePoint - currentHP;
+			currentHP += gap/10;//HPのデータを更新する
+		}
+		else if (m_damegePoint<currentHP)
+		{
+			float gap = currentHP - m_damegePoint;
+			currentHP -= gap/10;//HPのデータを更新する
+		}
 		//if (pastHP > currentHP) //前のフレームのHPより現在のHPが下回っていたらダメージを受けたということになる
 		//{
 		//	damage = true;
 		//}
-
-
-
 
 		hpgauge.MaxHP = (maxHP / 100)/3.5f;
 		hpgauge.currentHP = (currentHP / 1000);

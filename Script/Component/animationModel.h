@@ -72,6 +72,8 @@ private:
 	void CreateVertexBufferPerMesh(int m, const aiMesh* mesh);		// 頂点バッファを生成
 	aiMatrix4x4 GetCumulativeTransformation(const char* nodename);
 
+	static int modelNum;
+
 public:
 	using Component::Component;
 

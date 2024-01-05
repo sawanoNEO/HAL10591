@@ -11,6 +11,7 @@
 #include "../GameObject/player.h"
 #include "../GameObject/enemy.h"
 #include "../GameObject/camera.h"
+#include "../GameObject/Effect/Slash.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -85,8 +86,12 @@ void StateAttack::StateUpdate()
 	{
 		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
 
+
 		if (cnt == Startup)
 		{
+			slash = scene->AddGameObject<Slash>(1);
+			slash->SetColor(White);
+			slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
 			player->STUse(STconsumption);
 			Vector3 vec = player->GetForward() * 100.0f;
 			if (Input::GetStickState())
@@ -107,7 +112,11 @@ void StateAttack::StateUpdate()
 			{
 				if (enemys[i] && !hitCheck)
 				{
+					Vector3 enemypos = enemys[i]->GetPosition();
+					enemypos.y += 1.0f;
 					enemys[i]->Damage(Power);
+					slash->SetColor(Red);
+					//slash->SetPosition(enemypos);
 				}
 			}
 		}

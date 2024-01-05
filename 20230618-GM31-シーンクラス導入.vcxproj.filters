@@ -43,6 +43,9 @@
     <Filter Include="ソース ファイル\component\EnemyState">
       <UniqueIdentifier>{2efe9c78-0e52-4c2b-8673-b9d54c104f30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Effect">
+      <UniqueIdentifier>{7d42f2a2-7bab-4126-9b97-1e292c9224e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -272,6 +275,9 @@
     <ClCompile Include="Script\Component\Heal.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="Script\GameObject\Effect\Slash.cpp">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -486,6 +492,9 @@
     </ClInclude>
     <ClInclude Include="Script\Component\Heal.h">
       <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Effect\Slash.h">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

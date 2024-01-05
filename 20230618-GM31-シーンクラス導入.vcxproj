@@ -248,6 +248,7 @@
     <ClCompile Include="Script\GameObject\camera.cpp" />
     <ClCompile Include="Script\GameObject\ColiderLooker.cpp" />
     <ClCompile Include="Script\GameObject\cylinder.cpp" />
+    <ClCompile Include="Script\GameObject\Effect\Slash.cpp" />
     <ClCompile Include="Script\GameObject\enemy.cpp" />
     <ClCompile Include="Script\GameObject\explosion.cpp" />
     <ClCompile Include="Script\GameObject\field.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="Script\GameObject\camera.h" />
     <ClInclude Include="Script\GameObject\ColiderLooker.h" />
     <ClInclude Include="Script\GameObject\cylinder.h" />
+    <ClInclude Include="Script\GameObject\Effect\Slash.h" />
     <ClInclude Include="Script\GameObject\enemy.h" />
     <ClInclude Include="Script\GameObject\explosion.h" />
     <ClInclude Include="Script\GameObject\field.h" />

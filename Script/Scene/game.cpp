@@ -32,6 +32,8 @@
 #include "../GameObject/explosion.h"
 #include "../GameObject/AttackObject.h"
 
+#include"../GameObject/Effect/Slash.h"
+
 #include "../ImGui/imguimanager.h"
 
 //すぐ消す
@@ -45,6 +47,7 @@ void Game::Init()
 {
 	Bullet::Load();
 	Explosion::Load();
+	Slash::Load();
 
 	AddGameObject<Camera>(0);
 	AddGameObject<WallDodgeCamera>(1);
@@ -61,6 +64,8 @@ void Game::Init()
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(5.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(10.0f, 0.0f, 5.0f));
 	AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f,10.0f));
+
+
 
 	//// チェック完了
 	//{
@@ -89,8 +94,6 @@ void Game::Init()
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 		box->SetScale(Vector3(5.0f, 1.0f, 5.0f));
 	}
-		
-
 
 	//// チェック完了
 	//{
@@ -157,6 +160,20 @@ void Game::Update()
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}
+	}
+
+	if (Input::GetController(Input::b, Input::PRESSED))
+	{
+		Slash* slash = AddGameObject<Slash>(2);
+		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
+		slash->SetColor(White);
+	}
+	
+	if (Input::GetController(Input::y, Input::PRESSED))
+	{
+		Slash* slash = AddGameObject<Slash>(2);
+		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
+		slash->SetColor(Red);
 	}
 
 	// フェードアウトが終了しているか？

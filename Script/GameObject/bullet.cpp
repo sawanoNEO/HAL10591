@@ -3,12 +3,14 @@
 #include "../System/manager.h"
 #include "../System/renderer.h"
 #include "../System/modelRenderer.h"
+
 #include "../GameObject/bullet.h"
 #include "../GameObject/enemy.h"
-#include "../Component/shadow.h"
-#include "../Component/shader.h"
 #include "../GameObject/explosion.h"
 #include "../GameObject/score.h"
+
+#include "../Component/shadow.h"
+#include "../Component/shader.h"
 
 using namespace DirectX::SimpleMath;
 

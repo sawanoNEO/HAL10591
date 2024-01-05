@@ -57,7 +57,7 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
-	m_Model->LoadAnimation("asset\\model\\Player\\Drink.fbx", "Drink");
+	m_Model->LoadAnimation("asset\\model\\Player\\Drinking.fbx", "Drink");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	
 	// シーンからボーンのルートノードを取得
@@ -72,8 +72,8 @@ void Player::Init()
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
-	//AddComponent<StateItem>();
-	//GetComponent<StateItem>()->Init(HEAL);
+	AddComponent<StateItem>();
+	GetComponent<StateItem>()->Init(HEAL);
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 
@@ -528,7 +528,7 @@ void Player::ASHP(float hp)
 
 void Player::SetAnimName2(const char* _Name)
 {
-	assert(m_Model->CheckAnimData("_Name")==false&&"指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+	assert(m_Model->CheckAnimData(_Name)!=false&&"指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
 
 	if (m_Animname2 == _Name)
 	{
