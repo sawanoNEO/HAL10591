@@ -9,6 +9,7 @@
 #include "assimp/postprocess.h"
 #include "assimp/matrix4x4.h"
 
+
 #pragma comment (lib, "assimp-vc142-mtd.lib")
 
 #include "../Component/component.h"

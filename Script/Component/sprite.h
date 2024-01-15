@@ -22,6 +22,8 @@ public:
 	void Uninit() override;
 	void Draw() override;
 
+	void SetVertex(int x, int y, int Width, int Height);
+
 	void SetMaterial(MATERIAL Material) { m_Material = Material; }
 
 };

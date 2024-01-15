@@ -91,7 +91,13 @@ void StateAttack::StateUpdate()
 		{
 			slash = scene->AddGameObject<Slash>(1);
 			slash->SetColor(White);
-			slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
+			Vector3 pos = player->GetPosition() + player->GetForward() * 6;
+			pos.y += 2.0;
+			//slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
+			slash->SetPosition(pos);
+			Vector3 rot = { 0.0,0.0,0.0 };
+			rot.z += cos(90 * 3.14 / 180);
+			slash->SetRotation(rot);
 			player->STUse(STconsumption);
 			Vector3 vec = player->GetForward() * 100.0f;
 			if (Input::GetStickState())

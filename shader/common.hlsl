@@ -44,7 +44,7 @@ cbuffer LightBuffer : register(b4)
 	LIGHT Light;
 }
 
-cbuffer BoneMatrixBuffer : register(b5	)
+cbuffer BoneMatrixBuffer : register(b5)
 {
     matrix BoneMatrix[400];
 }
