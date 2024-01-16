@@ -16,18 +16,21 @@ void HP::Init()
 {
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
-	maxHP = player->GetMaxHP();
+	if (player)
+	{
+		maxHP = player->GetMaxHP();
 
-	shader = AddComponent<Shader>();
-	sprite = AddComponent<Sprite>();
+		shader = AddComponent<Shader>();
+		sprite = AddComponent<Sprite>();
 
-	posX = 20;
-	posY = 60;
+		posX = 20;
+		posY = 60;
 
-	//シェーダー読み込み
-	shader->Load("shader\\unlitTextureVS.cso", "shader\\PS_HPguage.cso");
-	sprite->Init(posX, posY, maxHP/3.5f, 20, "asset\\texture\\grass.jpg");
-	damage = false;
+		//シェーダー読み込み
+		shader->Load("shader\\unlitTextureVS.cso", "shader\\PS_HPguage.cso");
+		sprite->Init(posX, posY, maxHP / 3.5f, 20, "asset\\texture\\grass.jpg");
+		damage = false;
+	}
 }
 
 void HP::Uninit()

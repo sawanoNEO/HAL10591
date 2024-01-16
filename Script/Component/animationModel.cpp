@@ -13,6 +13,7 @@
 
 using namespace DirectX::SimpleMath;
 std::unordered_map<std::string, const aiScene*>AnimationModel::loadedScenes;
+std::unordered_map<std::string, int>AnimationModel::m_sceneNum;
 
 void AnimationModel::Draw()
 {
@@ -58,36 +59,36 @@ void AnimationModel::Draw()
 			mesh->mNumFaces * 3, 0, 0);
 	}
 
-	for (auto& pair : m_BoneChild)
-	{
-		BONE bone = m_Bone[pair.first.c_str()];
-		Matrix mat = ChangeMatrix(bone.Matrix);
-		aiMatrix4x4 aaaa = bone.Matrix;
-		for (auto itr = m_Nods[pair.first]; itr->mParent != nullptr; itr = itr->mParent)
-		{
-			aaaa *= m_Bone[itr->mParent->mName.C_Str()].Matrix;
-			mat *= ChangeMatrix(m_Bone[itr->mParent->mName.C_Str()].Matrix);
-		}
-		Matrix result;
-		result._11 = aaaa.a1; result._21 = aaaa.a2; result._31 = aaaa.a3; result._41 = aaaa.a4;
-		result._12 = aaaa.b1; result._22 = aaaa.b2; result._32 = aaaa.b3; result._42 = aaaa.b4;
-		result._13 = aaaa.c1; result._23 = aaaa.c2; result._33 = aaaa.c3; result._43 = aaaa.c4;
-		result._14 = aaaa.d1; result._24 = aaaa.d2; result._34 = aaaa.d3; result._44 = aaaa.d4;
-		result *= m_GameObject->GetMatrix();
-		//mat._41 = bone.Matrix.a4;
-		//mat._42 = bone.Matrix.b4;
-		//mat._43 = bone.Matrix.c4;
+	////for (auto& pair : m_BoneChild)
+	////{
+	////	BONE bone = m_Bone[pair.first.c_str()];
+	////	Matrix mat = ChangeMatrix(bone.Matrix);
+	////	aiMatrix4x4 aaaa = bone.Matrix;
+	////	for (auto itr = m_Nods[pair.first]; itr->mParent != nullptr; itr = itr->mParent)
+	////	{
+	////		aaaa *= m_Bone[itr->mParent->mName.C_Str()].Matrix;
+	////		mat *= ChangeMatrix(m_Bone[itr->mParent->mName.C_Str()].Matrix);
+	////	}
+	////	Matrix result;
+	////	result._11 = aaaa.a1; result._21 = aaaa.a2; result._31 = aaaa.a3; result._41 = aaaa.a4;
+	////	result._12 = aaaa.b1; result._22 = aaaa.b2; result._32 = aaaa.b3; result._42 = aaaa.b4;
+	////	result._13 = aaaa.c1; result._23 = aaaa.c2; result._33 = aaaa.c3; result._43 = aaaa.c4;
+	////	result._14 = aaaa.d1; result._24 = aaaa.d2; result._34 = aaaa.d3; result._44 = aaaa.d4;
+	////	result *= m_GameObject->GetMatrix();
+	////	//mat._41 = bone.Matrix.a4;
+	////	//mat._42 = bone.Matrix.b4;
+	////	//mat._43 = bone.Matrix.c4;
 
-		ImGui::Begin("model");
-		ImGui::Text("Matrix11=%f,%f,%f,%f",mat._11, mat._21, mat._31, mat._41);
-		ImGui::Text("Matrix21=%f,%f,%f,%f", mat._12, mat._22, mat._32, mat._42);
-		ImGui::Text("Matrix31=%f,%f,%f,%f", mat._13, mat._23, mat._33, mat._43);
-		ImGui::Text("Matrix41=%f,%f,%f,%f\n\n", mat._14, mat._24, mat._34, mat._44);
-		ImGui::End();
-		pair.second->DrawBase(result);
+	////	ImGui::Begin("model");
+	////	ImGui::Text("Matrix11=%f,%f,%f,%f",mat._11, mat._21, mat._31, mat._41);
+	////	ImGui::Text("Matrix21=%f,%f,%f,%f", mat._12, mat._22, mat._32, mat._42);
+	////	ImGui::Text("Matrix31=%f,%f,%f,%f", mat._13, mat._23, mat._33, mat._43);
+	////	ImGui::Text("Matrix41=%f,%f,%f,%f\n\n", mat._14, mat._24, mat._34, mat._44);
+	////	ImGui::End();
+	////	pair.second->DrawBase(result);
 
-		int a = 0;
-	}
+	////	int a = 0;
+	////}
 
 	//一旦コメント
 	//for (auto& pair : m_BoneChild)
@@ -322,19 +323,21 @@ void AnimationModel::Load(const char* FileName)
 	const std::string modelPath(FileName);
 
 	std::ofstream outputFile("asset\\editer\\ModelData.csv");
-	if (loadedScenes.find(FileName) != loadedScenes.end()) 
+	if (loadedScenes.find(FileName) != loadedScenes.end()) //既に読み込まれたことのあるデータかどうか
 	{
 		// 既にロードされている場合は保存された情報を返す
 		m_AiScene = new aiScene(*loadedScenes[FileName]);
 		//m_AiScene=loadedScenes[FileName];
+		m_sceneNum[FileName]++;
 	}
 	else
 	{
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
 		m_AiScene = new aiScene(*loadedScenes[FileName]);
+		m_sceneNum[FileName] = 1;
 		//m_AiScene = loadedScenes[FileName];
 	}
-
+	m_sceneID = FileName;//ID割り振り
 	
 
 	//if (outputFile.is_open()) 
@@ -456,36 +459,45 @@ void AnimationModel::CreateBone(aiNode* node)
 
 void AnimationModel::Uninit()
 {
-	//for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
-	//{
-	//	m_VertexBuffer[m]->Release();
-	//	m_IndexBuffer[m]->Release();
-	//}
+	for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
+	{
+		m_VertexBuffer[m]->Release();
+		m_IndexBuffer[m]->Release();
+	}
 
-	//delete[] m_VertexBuffer;
-	//delete[] m_IndexBuffer;
+	delete[] m_VertexBuffer;
+	delete[] m_IndexBuffer;
 
-	//delete[] m_DeformVertex;
+	delete[] m_DeformVertex;
 
 
-	//for (std::pair<const std::string, ID3D11ShaderResourceView*> pair : m_Texture)
-	//{
-	//	pair.second->Release();
-	//}
+	for (std::pair<const std::string, ID3D11ShaderResourceView*> pair : m_Texture)
+	{
+		pair.second->Release();
+	}
 
-	//m_BoneCombMtxCBuffer->Release();						// 20230909-02
+	m_BoneCombMtxCBuffer->Release();						// 20230909-02
 
-	//aiReleaseImport(m_AiScene);
 
-	//for (std::pair<const std::string, const aiScene*> pair : m_Animation)
-	//{
-	//	aiReleaseImport(pair.second);
-	//}
+	if (m_sceneNum[m_sceneID] > 1)// 同一のデータが一つしかないならスキップ
+	{
+		m_sceneNum[m_sceneID]--;
+		return;
+	}
+
+	loadedScenes.clear();
+
+	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	{
+		aiReleaseImport(pair.second);
+	}
+
+	aiReleaseImport(m_AiScene);
+
 }
 
 void AnimationModel::Update(const char* AnimationName1, int Frame1, const char* AnimationName2, int Frame2, float BlendRate)
 {
-	
 	// アニメーションありか？
 	if (m_Animation.count(AnimationName1) == 0)
 		return;

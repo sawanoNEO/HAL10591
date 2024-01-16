@@ -14,8 +14,9 @@ void ST::Init()
 {
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
-	float maxST = player->GetMaxST();
-
+	if (player)
+	{
+		float maxST = player->GetMaxST();
 	shader = AddComponent<Shader>();
 	sprite = AddComponent<Sprite>();
 
@@ -26,6 +27,7 @@ void ST::Init()
 	shader->Load("shader\\unlitTextureVS.cso", "shader\\PS_STgauge.cso");
 	sprite->Init(posX, posY, maxST * 2.0, 20, "asset\\texture\\grass.jpg");
 
+	}
 }
 
 void ST::Uninit()
