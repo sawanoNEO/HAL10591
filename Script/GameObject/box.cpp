@@ -49,61 +49,61 @@ void Box::Update()
 	Player* player = scene->GetGameObject<Player>();
 
 	//////////////////////////////////各方向からの当たり判定を取得する。なにかに当たるとそのオブジェクトの情報を取得する．
-	if (player)
-	{
-		Colider col = GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colright = GetComponent<Colider>()->CollisionAABBRight(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colleft = GetComponent<Colider>()->CollisionAABBLeft(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider coltop = GetComponent<Colider>()->CollisionAABBTop(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colbottom = GetComponent<Colider>()->CollisionAABBBottom(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colhead = GetComponent<Colider>()->CollisionAABBHead(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//if (player)
+	//{
+	//	Colider col = GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//	Colider colright = GetComponent<Colider>()->CollisionAABBRight(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//	Colider colleft = GetComponent<Colider>()->CollisionAABBLeft(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//	Colider coltop = GetComponent<Colider>()->CollisionAABBTop(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//	Colider colbottom = GetComponent<Colider>()->CollisionAABBBottom(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
+	//	Colider colhead = GetComponent<Colider>()->CollisionAABBHead(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 
-		Vector3 oldpos = player->GetoldPosition();    //プレイヤーの前のフレームのposition
-		Vector3 pos = player->GetPosition();                           //プレイヤーの現在位置
-		Vector3 vel = player->GetComponent<Rigidbody>()->GetVelocity();//プレイヤーの速度を取得
+	//	Vector3 oldpos = player->GetoldPosition();    //プレイヤーの前のフレームのposition
+	//	Vector3 pos = player->GetPosition();                           //プレイヤーの現在位置
+	//	Vector3 vel = player->GetComponent<Rigidbody>()->GetVelocity();//プレイヤーの速度を取得
 
 
-		if (colright.GetTug() == PLAYER)
-		{
-			if (vel.x < 0)
-			{
-				pos.x = oldpos.x;
-				vel.x = 0;
-			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		else if (colleft.GetTug() == PLAYER)
-		{
-			if (vel.x > 0)
-			{
-				pos.x = oldpos.x;
-				vel.x = 0;
-			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		if (coltop.GetTug() == PLAYER)
-		{
-			if (vel.z < 0)
-			{
-				pos.z = oldpos.z;
-				vel.z = 0;
-			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		if (colbottom.GetTug() == PLAYER)
-		{
-			if (vel.z > 0)
-			{
-				pos.z = oldpos.z;
-				vel.z = 0;
-			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-	}
+	//	if (colright.GetTug() == PLAYER)
+	//	{
+	//		if (vel.x < 0)
+	//		{
+	//			pos.x = oldpos.x;
+	//			vel.x = 0;
+	//		}
+	//		player->SetPosition(pos);
+	//		player->GetComponent<Rigidbody>()->SetVelocity(vel);
+	//	}
+	//	else if (colleft.GetTug() == PLAYER)
+	//	{
+	//		if (vel.x > 0)
+	//		{
+	//			pos.x = oldpos.x;
+	//			vel.x = 0;
+	//		}
+	//		player->SetPosition(pos);
+	//		player->GetComponent<Rigidbody>()->SetVelocity(vel);
+	//	}
+	//	if (coltop.GetTug() == PLAYER)
+	//	{
+	//		if (vel.z < 0)
+	//		{
+	//			pos.z = oldpos.z;
+	//			vel.z = 0;
+	//		}
+	//		player->SetPosition(pos);
+	//		player->GetComponent<Rigidbody>()->SetVelocity(vel);
+	//	}
+	//	if (colbottom.GetTug() == PLAYER)
+	//	{
+	//		if (vel.z > 0)
+	//		{
+	//			pos.z = oldpos.z;
+	//			vel.z = 0;
+	//		}
+	//		player->SetPosition(pos);
+	//		player->GetComponent<Rigidbody>()->SetVelocity(vel);
+	//	}
+	//}
 }
 
 void Box::Draw()

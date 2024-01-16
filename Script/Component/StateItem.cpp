@@ -23,6 +23,11 @@ void StateItem::Init(ITEMID _id)
 
 void StateItem::Uninit()
 {
+	for (Item* item : m_Items)
+	{
+		delete item;
+	}
+	m_Items.clear();
 }
 
 void StateItem::Enter()
