@@ -19,7 +19,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 	{
 		outDiffuse.xyz = In.Diffuse.xyz;
 		outDiffuse = In.Diffuse;
-		outDiffuse.a = 1.0f;
+		outDiffuse.a = 0.5f;
 	}
 }
 

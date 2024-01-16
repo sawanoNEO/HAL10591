@@ -76,8 +76,9 @@
     <LibraryPath>C:\assimp\lib\Debug;C:\directxtk\lib\x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\directxtk\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\directxtk\lib\x64\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>C;\assimp\include;C:\directxtk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\assimp\lib\Release;C:\directxtk\lib\x64\Release;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,125 +141,25 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)\shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="animationModel.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="audio.cpp" />
-    <ClCompile Include="battery.cpp" />
-    <ClCompile Include="box.cpp" />
-    <ClCompile Include="bullet.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Colider.cpp" />
-    <ClCompile Include="collision.cpp" />
-    <ClCompile Include="cylinder.cpp" />
-    <ClCompile Include="Est.cpp" />
-    <ClCompile Include="HP.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Move.cpp" />
-    <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="explosion.cpp" />
-    <ClCompile Include="field.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="goal.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imguimanager.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_dx11.cpp" />
-    <ClCompile Include="imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="Jump.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="manager.cpp" />
-    <ClCompile Include="modelRenderer.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="ModelManager.cpp" />
-    <ClCompile Include="Polygon2D.cpp" />
-    <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="result.cpp" />
-    <ClCompile Include="Rigidbody.cpp" />
-    <ClCompile Include="Rolling.cpp" />
-    <ClCompile Include="score.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="shadow.cpp" />
-    <ClCompile Include="sky.cpp" />
-    <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="ST.cpp" />
-    <ClCompile Include="Sword.cpp" />
-    <ClCompile Include="title.cpp" />
-    <ClCompile Include="transition.cpp" />
-    <ClCompile Include="utftosjisconv.cpp" />
-    <ClCompile Include="utility.cpp" />
-    <ClCompile Include="WallDodgeCamera.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="animationModel.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="audio.h" />
-    <ClInclude Include="battery.h" />
-    <ClInclude Include="box.h" />
-    <ClInclude Include="bullet.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="Colider.h" />
-    <ClInclude Include="collision.h" />
-    <ClInclude Include="component.h" />
-    <ClInclude Include="cylinder.h" />
-    <ClInclude Include="Est.h" />
-    <ClInclude Include="HP.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Move.h" />
-    <ClInclude Include="enemy.h" />
-    <ClInclude Include="explosion.h" />
-    <ClInclude Include="field.h" />
-    <ClInclude Include="fpscontrol.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="gameObject.h" />
-    <ClInclude Include="goal.h" />
-    <ClInclude Include="imconfig.h" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="imguimanager.h" />
-    <ClInclude Include="imgui_impl_dx11.h" />
-    <ClInclude Include="imgui_impl_win32.h" />
-    <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imstb_rectpack.h" />
-    <ClInclude Include="imstb_textedit.h" />
-    <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="Jump.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="manager.h" />
-    <ClInclude Include="modelRenderer.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="ModelManager.h" />
-    <ClInclude Include="Polygon2D.h" />
-    <ClInclude Include="renderer.h" />
-    <ClInclude Include="result.h" />
-    <ClInclude Include="Rigidbody.h" />
-    <ClInclude Include="Rolling.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="score.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="shadow.h" />
-    <ClInclude Include="sky.h" />
-    <ClInclude Include="sprite.h" />
-    <ClInclude Include="ST.h" />
-    <ClInclude Include="Sword.h" />
-    <ClInclude Include="title.h" />
-    <ClInclude Include="transition.h" />
-    <ClInclude Include="utftosjisconv.h" />
-    <ClInclude Include="utility.h" />
-    <ClInclude Include="WallDodgeCamera.h" />
-  </ItemGroup>
-  <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DisableOptimizations>
+      <EnableDebuggingInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</EnableDebuggingInformation>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Colider.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="shader\PS_guage.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -287,12 +188,13 @@
     <FxCompile Include="shader\unlitTexturePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="shader\unlitTextureVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="shader\vertexLightingOneSkinVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -304,13 +206,165 @@
     <FxCompile Include="shader\vertexLightingPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="shader\vertexLightingVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="shader\VS_Colider.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Script\Component\animationModel.cpp" />
+    <ClCompile Include="Script\Component\audio.cpp" />
+    <ClCompile Include="Script\Component\Colider.cpp" />
+    <ClCompile Include="Script\Component\collision.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateAttack.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateChase.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateDamage.cpp" />
+    <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp" />
+    <ClCompile Include="Script\Component\Est.cpp" />
+    <ClCompile Include="Script\Component\Heal.cpp" />
+    <ClCompile Include="Script\Component\Jump.cpp" />
+    <ClCompile Include="Script\Component\ModelManager.cpp" />
+    <ClCompile Include="Script\Component\Move.cpp" />
+    <ClCompile Include="Script\Component\Obb.cpp" />
+    <ClCompile Include="Script\Component\Rigidbody.cpp" />
+    <ClCompile Include="Script\Component\Rolling.cpp" />
+    <ClCompile Include="Script\Component\shader.cpp" />
+    <ClCompile Include="Script\Component\shadow.cpp" />
+    <ClCompile Include="Script\Component\sprite.cpp" />
+    <ClCompile Include="Script\Component\StateAttack.cpp" />
+    <ClCompile Include="Script\Component\StateDash.cpp" />
+    <ClCompile Include="Script\Component\StateItem.cpp" />
+    <ClCompile Include="Script\Component\StateMove.cpp" />
+    <ClCompile Include="Script\Component\StateNone.cpp" />
+    <ClCompile Include="Script\Component\StateRolling.cpp" />
+    <ClCompile Include="Script\Component\Sword.cpp" />
+    <ClCompile Include="Script\GameObject\AttackObject.cpp" />
+    <ClCompile Include="Script\GameObject\battery.cpp" />
+    <ClCompile Include="Script\GameObject\box.cpp" />
+    <ClCompile Include="Script\GameObject\bullet.cpp" />
+    <ClCompile Include="Script\GameObject\camera.cpp" />
+    <ClCompile Include="Script\GameObject\ColiderLooker.cpp" />
+    <ClCompile Include="Script\GameObject\cylinder.cpp" />
+    <ClCompile Include="Script\GameObject\Effect\Slash.cpp" />
+    <ClCompile Include="Script\GameObject\enemy.cpp" />
+    <ClCompile Include="Script\GameObject\explosion.cpp" />
+    <ClCompile Include="Script\GameObject\field.cpp" />
+    <ClCompile Include="Script\GameObject\goal.cpp" />
+    <ClCompile Include="Script\GameObject\HP.cpp" />
+    <ClCompile Include="Script\GameObject\Particle.cpp" />
+    <ClCompile Include="Script\GameObject\player.cpp" />
+    <ClCompile Include="Script\GameObject\Polygon2D.cpp" />
+    <ClCompile Include="Script\GameObject\sky.cpp" />
+    <ClCompile Include="Script\GameObject\ST.cpp" />
+    <ClCompile Include="Script\GameObject\transition.cpp" />
+    <ClCompile Include="Script\GameObject\WallDodgeCamera.cpp" />
+    <ClCompile Include="Script\ImGui\imgui.cpp" />
+    <ClCompile Include="Script\ImGui\imguimanager.cpp" />
+    <ClCompile Include="Script\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Script\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Script\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Script\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Script\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Script\Scene\game.cpp" />
+    <ClCompile Include="Script\Scene\result.cpp" />
+    <ClCompile Include="Script\Scene\score.cpp" />
+    <ClCompile Include="Script\Scene\title.cpp" />
+    <ClCompile Include="Script\System\Application.cpp" />
+    <ClCompile Include="Script\System\input.cpp" />
+    <ClCompile Include="Script\System\main.cpp" />
+    <ClCompile Include="Script\System\manager.cpp" />
+    <ClCompile Include="Script\System\modelRenderer.cpp" />
+    <ClCompile Include="Script\System\renderer.cpp" />
+    <ClCompile Include="Script\System\utftosjisconv.cpp" />
+    <ClCompile Include="Script\System\utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Script\Component\animationModel.h" />
+    <ClInclude Include="Script\Component\audio.h" />
+    <ClInclude Include="Script\Component\Colider.h" />
+    <ClInclude Include="Script\Component\collision.h" />
+    <ClInclude Include="Script\Component\component.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateAttack.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateChase.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateDamage.h" />
+    <ClInclude Include="Script\Component\EnemyState\EStateNone.h" />
+    <ClInclude Include="Script\Component\Est.h" />
+    <ClInclude Include="Script\Component\Heal.h" />
+    <ClInclude Include="Script\Component\Item.h" />
+    <ClInclude Include="Script\Component\Jump.h" />
+    <ClInclude Include="Script\Component\ModelManager.h" />
+    <ClInclude Include="Script\Component\Move.h" />
+    <ClInclude Include="Script\Component\Obb.h" />
+    <ClInclude Include="Script\Component\Rigidbody.h" />
+    <ClInclude Include="Script\Component\Rolling.h" />
+    <ClInclude Include="Script\Component\shader.h" />
+    <ClInclude Include="Script\Component\shadow.h" />
+    <ClInclude Include="Script\Component\sprite.h" />
+    <ClInclude Include="Script\Component\StateAttack.h" />
+    <ClInclude Include="Script\Component\StateDash.h" />
+    <ClInclude Include="Script\Component\StateItem.h" />
+    <ClInclude Include="Script\Component\StateMachine.h" />
+    <ClInclude Include="Script\Component\StateMove.h" />
+    <ClInclude Include="Script\Component\StateNone.h" />
+    <ClInclude Include="Script\Component\StateRolling.h" />
+    <ClInclude Include="Script\Component\Sword.h" />
+    <ClInclude Include="Script\GameObject\AttackObject.h" />
+    <ClInclude Include="Script\GameObject\battery.h" />
+    <ClInclude Include="Script\GameObject\box.h" />
+    <ClInclude Include="Script\GameObject\bullet.h" />
+    <ClInclude Include="Script\GameObject\camera.h" />
+    <ClInclude Include="Script\GameObject\ColiderLooker.h" />
+    <ClInclude Include="Script\GameObject\cylinder.h" />
+    <ClInclude Include="Script\GameObject\Effect\Slash.h" />
+    <ClInclude Include="Script\GameObject\enemy.h" />
+    <ClInclude Include="Script\GameObject\explosion.h" />
+    <ClInclude Include="Script\GameObject\field.h" />
+    <ClInclude Include="Script\GameObject\gameObject.h" />
+    <ClInclude Include="Script\GameObject\goal.h" />
+    <ClInclude Include="Script\GameObject\HP.h" />
+    <ClInclude Include="Script\GameObject\Particle.h" />
+    <ClInclude Include="Script\GameObject\player.h" />
+    <ClInclude Include="Script\GameObject\Polygon2D.h" />
+    <ClInclude Include="Script\GameObject\score.h" />
+    <ClInclude Include="Script\GameObject\sky.h" />
+    <ClInclude Include="Script\GameObject\ST.h" />
+    <ClInclude Include="Script\GameObject\transition.h" />
+    <ClInclude Include="Script\GameObject\WallDodgeCamera.h" />
+    <ClInclude Include="Script\ImGui\imconfig.h" />
+    <ClInclude Include="Script\ImGui\imgui.h" />
+    <ClInclude Include="Script\ImGui\imguimanager.h" />
+    <ClInclude Include="Script\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Script\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Script\ImGui\imgui_internal.h" />
+    <ClInclude Include="Script\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Script\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Script\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Script\Scene\game.h" />
+    <ClInclude Include="Script\Scene\result.h" />
+    <ClInclude Include="Script\Scene\scene.h" />
+    <ClInclude Include="Script\Scene\title.h" />
+    <ClInclude Include="Script\System\Application.h" />
+    <ClInclude Include="Script\System\fpscontrol.h" />
+    <ClInclude Include="Script\System\input.h" />
+    <ClInclude Include="Script\System\main.h" />
+    <ClInclude Include="Script\System\manager.h" />
+    <ClInclude Include="Script\System\modelRenderer.h" />
+    <ClInclude Include="Script\System\renderer.h" />
+    <ClInclude Include="Script\System\utftosjisconv.h" />
+    <ClInclude Include="Script\System\utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -34,328 +34,18 @@
     <Filter Include="ヘッダー ファイル\GameObject">
       <UniqueIdentifier>{be95235f-bf66-449e-8ed6-662875888b7a}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Application.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="audio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="modelRenderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="utftosjisconv.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="transition.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="utility.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="battery.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="explosion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="imguimanager.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Jump.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Rolling.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Sword.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Rigidbody.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Colider.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="bullet.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="box.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="cylinder.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="field.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="goal.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygon2D.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="score.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="shadow.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="sky.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="ST.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Est.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="HP.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="animationModel.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="WallDodgeCamera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="collision.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="battery.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="audio.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="explosion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="fpscontrol.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="modelRenderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="transition.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="utftosjisconv.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="utility.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="imguimanager.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imconfig.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_win32.h">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="component.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Jump.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Move.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Rolling.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Rigidbody.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Colider.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="ST.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="box.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="cylinder.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="field.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="goal.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygon2D.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="score.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="shadow.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="sky.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Est.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="HP.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="animationModel.h">
-      <Filter>ヘッダー ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="WallDodgeCamera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{e82b478b-fec7-44a4-a1de-8a0dcd5bbf5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System">
+      <UniqueIdentifier>{09914392-f454-4985-b941-7b7f10857095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\component\EnemyState">
+      <UniqueIdentifier>{2efe9c78-0e52-4c2b-8673-b9d54c104f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\Effect">
+      <UniqueIdentifier>{7d42f2a2-7bab-4126-9b97-1e292c9224e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -388,5 +78,429 @@
     <FxCompile Include="shader\vertexLightingOneSkinVS.hlsl">
       <Filter>ソース ファイル\shader</Filter>
     </FxCompile>
+    <FxCompile Include="shader\VS_Colider.hlsl">
+      <Filter>ソース ファイル\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Colider.hlsl">
+      <Filter>ソース ファイル\shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Script\Component\animationModel.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\audio.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Colider.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\collision.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Est.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Jump.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\ModelManager.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Move.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Rigidbody.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Rolling.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\shader.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\shadow.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\sprite.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Sword.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\battery.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\box.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\bullet.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\camera.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\cylinder.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\enemy.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\explosion.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\field.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\goal.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\HP.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\player.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\Polygon2D.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\sky.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\ST.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\transition.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\WallDodgeCamera.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imguimanager.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui_draw.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui_impl_dx11.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui_impl_win32.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui_tables.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ImGui\imgui_widgets.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Scene\game.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Scene\result.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Scene\title.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\Application.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\input.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\main.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\manager.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\modelRenderer.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\renderer.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\utftosjisconv.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\System\utility.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\ColiderLooker.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateMove.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateNone.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateDash.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateRolling.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateAttack.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\AttackObject.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateDamage.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Scene\score.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateChase.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateAttack.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Obb.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateItem.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\Heal.cpp">
+      <Filter>ソース ファイル\component</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\Effect\Slash.cpp">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\Particle.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Script\Component\animationModel.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\audio.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Colider.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\collision.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\component.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Est.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Jump.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\ModelManager.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Move.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Rigidbody.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Rolling.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\shader.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\shadow.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\sprite.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Sword.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\battery.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\box.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\bullet.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\camera.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\cylinder.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\enemy.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\explosion.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\field.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\gameObject.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\goal.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\HP.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\player.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Polygon2D.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\score.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\sky.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\ST.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\transition.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\WallDodgeCamera.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imconfig.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imgui.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imguimanager.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imgui_impl_dx11.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imgui_impl_win32.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imgui_internal.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imstb_rectpack.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imstb_textedit.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ImGui\imstb_truetype.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Scene\game.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Scene\result.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Scene\scene.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Scene\title.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\Application.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\fpscontrol.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\input.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\main.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\manager.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\modelRenderer.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\renderer.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\utftosjisconv.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\utility.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\ColiderLooker.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateMachine.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateMove.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateDash.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateNone.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateRolling.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateAttack.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\AttackObject.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateNone.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateDamage.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateChase.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateAttack.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Obb.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateItem.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Item.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\Heal.h">
+      <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Effect\Slash.h">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Particle.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

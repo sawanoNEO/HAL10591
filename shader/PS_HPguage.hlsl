@@ -10,8 +10,6 @@ cbuffer HPGauge : register(b7)
     float4 gupColor;  //Œ¸­‚·‚éHP‚ÌF
 }
 
-
-
 void main(in PS_IN In, out float4 outDiffuse : SV_TARGET)
 {
     float4 color = float4(0.0f, 0.0f, 0.0f, 1.0f); //‰ŠúF‚Ìİ’è(•)
