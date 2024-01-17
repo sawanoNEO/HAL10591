@@ -53,19 +53,19 @@ void Game::Init()
 	AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
-	//AddGameObject<Player>(1);
 	//AddGameObject<Score>(3);
 	AddGameObject<ST>(3);
 	AddGameObject<HP>(3);
 	//AddGameObject<AttackObject>(1);
 
 	// 敵追加
-	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(5.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(10.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f,10.0f));
 
 
+	AddGameObject<Player>(1);
 
 	//// チェック完了
 	//{

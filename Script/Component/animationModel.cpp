@@ -326,14 +326,13 @@ void AnimationModel::Load(const char* FileName)
 	if (loadedScenes.find(FileName) != loadedScenes.end()) //既に読み込まれたことのあるデータかどうか
 	{
 		// 既にロードされている場合は保存された情報を返す
-		m_AiScene = new aiScene(*loadedScenes[FileName]);
-		//m_AiScene=loadedScenes[FileName];
+		m_AiScene = loadedScenes[FileName];
 		m_sceneNum[FileName]++;
 	}
 	else
 	{
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
-		m_AiScene = new aiScene(*loadedScenes[FileName]);
+		m_AiScene = loadedScenes[FileName];
 		m_sceneNum[FileName] = 1;
 		//m_AiScene = loadedScenes[FileName];
 	}
