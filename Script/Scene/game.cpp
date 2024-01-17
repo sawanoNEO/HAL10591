@@ -54,8 +54,6 @@ void Game::Init()
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
 	//AddGameObject<Score>(3);
-	AddGameObject<ST>(3);
-	AddGameObject<HP>(3);
 	//AddGameObject<AttackObject>(1);
 
 	// 敵追加
@@ -66,6 +64,8 @@ void Game::Init()
 
 
 	AddGameObject<Player>(1);
+	AddGameObject<ST>(3);
+	AddGameObject<HP>(3);
 
 	//// チェック完了
 	//{

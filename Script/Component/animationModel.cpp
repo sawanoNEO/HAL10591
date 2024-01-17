@@ -426,6 +426,8 @@ void AnimationModel::LoadAnimation(const char* FileName, const char* Name)
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
 		m_Animation[Name] = loadedScenes[FileName];
 	}
+	m_AnimNames.push_back(Name);
+	m_sceneNum[Name]++;
 
 	//loadedScenes[FileName]= aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
 	//m_Animation[Name] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
@@ -485,6 +487,15 @@ void AnimationModel::Uninit()
 	}
 
 	loadedScenes.clear();
+
+	//2024/01/17
+	//for (auto animName : m_AnimNames)
+	//{
+	//	if (m_sceneNum[animName] <= 1)
+	//	{
+	//		m_Animation[animName]
+	//	}
+	//}
 
 	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
 	{
