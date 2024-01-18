@@ -480,28 +480,29 @@ void AnimationModel::Uninit()
 	m_BoneCombMtxCBuffer->Release();						// 20230909-02
 
 
+
+	loadedScenes.clear();
+
+	//2024/01/17
+	for (auto animName : m_AnimNames)
+	{
+		if (m_sceneNum[animName] <= 1)
+		{
+			aiReleaseImport(m_Animation[animName]);
+		}
+		m_sceneNum[animName]--;
+	}
+
+	//for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	//{
+	//	aiReleaseImport(pair.second);
+	//}
+
 	if (m_sceneNum[m_sceneID] > 1)// 同一のデータが一つしかないならスキップ
 	{
 		m_sceneNum[m_sceneID]--;
 		return;
 	}
-
-	loadedScenes.clear();
-
-	//2024/01/17
-	//for (auto animName : m_AnimNames)
-	//{
-	//	if (m_sceneNum[animName] <= 1)
-	//	{
-	//		m_Animation[animName]
-	//	}
-	//}
-
-	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
-	{
-		aiReleaseImport(pair.second);
-	}
-
 	aiReleaseImport(m_AiScene);
 
 }

@@ -15,7 +15,7 @@ void ModelManager::Init()
 //	//m_animationmodel->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
 //	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 //	m_animationmodel->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
-//
+//z
 //	Scene* scene = Manager::GetScene();
 //
 //	player = scene->GetGameObject<Player>();

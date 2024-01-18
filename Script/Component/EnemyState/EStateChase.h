@@ -1,7 +1,18 @@
 #pragma once
 #include "../StateMachine.h"
+
+
 class EStateChase : public State
 {
+private:
+	enum Actionrand
+	{
+		Attack,
+		WaitAndSee,
+	};
+
+	Actionrand m_Action;
+
 public:
 	State::State;
 	void Enter()override;

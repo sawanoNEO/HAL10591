@@ -260,6 +260,7 @@
     <ClCompile Include="Script\GameObject\cylinder.cpp" />
     <ClCompile Include="Script\GameObject\Effect\Slash.cpp" />
     <ClCompile Include="Script\GameObject\enemy.cpp" />
+    <ClCompile Include="Script\GameObject\EnemyHP.cpp" />
     <ClCompile Include="Script\GameObject\explosion.cpp" />
     <ClCompile Include="Script\GameObject\field.cpp" />
     <ClCompile Include="Script\GameObject\goal.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="Script\GameObject\cylinder.h" />
     <ClInclude Include="Script\GameObject\Effect\Slash.h" />
     <ClInclude Include="Script\GameObject\enemy.h" />
+    <ClInclude Include="Script\GameObject\EnemyHP.h" />
     <ClInclude Include="Script\GameObject\explosion.h" />
     <ClInclude Include="Script\GameObject\field.h" />
     <ClInclude Include="Script\GameObject\gameObject.h" />

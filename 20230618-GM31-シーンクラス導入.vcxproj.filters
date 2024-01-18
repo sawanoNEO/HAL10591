@@ -281,6 +281,9 @@
     <ClCompile Include="Script\GameObject\Particle.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Script\GameObject\EnemyHP.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -500,6 +503,9 @@
       <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Script\GameObject\Particle.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\EnemyHP.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

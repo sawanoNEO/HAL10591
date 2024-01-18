@@ -171,6 +171,7 @@ public:
 
 	void DrawBase(DirectX::SimpleMath::Matrix ParentMatrix)
 	{
+		Draw();
 		PreDraw();
 		// マトリクス設定
 		DirectX::SimpleMath::Matrix world, scale, rot, trans;
@@ -194,6 +195,5 @@ public:
 			component->Draw();
 		}
 
-		Draw();
 	}
 };
