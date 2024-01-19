@@ -88,7 +88,7 @@ void Game::Init()
 	//	box->SetScale(Vector3(3.0f, 3.0f, 3.0f));
 	//}
 	
-	// チェック完了
+	//チェック完了
 	{
 		Box* box = AddGameObject<Box>(1);
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));

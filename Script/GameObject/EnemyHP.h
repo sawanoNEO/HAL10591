@@ -11,7 +11,10 @@ private:
 	int cnt;     //pastHPが減りはじめるまでのカウントをとる
 	bool damage; //一つ前のフレームでダメージを受けていたらtrue
 	struct HPGauge hpgauge;
-	class Sprite* sprite;
+
+	static ID3D11Buffer* m_VertexBuffer;
+	static ID3D11ShaderResourceView* m_Texture;
+
 public:
 
 	void Init() override;

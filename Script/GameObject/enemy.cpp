@@ -67,6 +67,9 @@ void Enemy::Update()
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
 	m_HP->deliverParamater(HP);
+	m_HP->SetPosition(Vector3(m_Position.x, m_Position.y+2.0f, m_Position.z));
+
+
 	if (!player)
 	{
 		GetComponent<StateMachine>()->changeState(GetComponent<EStateNone>());
@@ -153,6 +156,7 @@ void Enemy::Draw()
 	{
 		state=BATTLE;
 	}
+	ImGui::Text("HPPos%f%f%f", m_HP->GetPosition().x, m_HP->GetPosition().y, m_HP->GetPosition().z);
 	ImGui::End();
 }
 

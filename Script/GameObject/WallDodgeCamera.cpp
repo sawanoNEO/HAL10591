@@ -43,9 +43,9 @@ void WallDodgeCamera::Update()
 
 void WallDodgeCamera::Draw()
 {
-	Scene* scene = Manager::GetScene();
-	vector<Box*> gameobject = scene->GetGameObjects<Box>();
-	ImGui::Begin("WallCamera");
-	ImGui::Text("gameobject%f", gameobject[0]->GetPosition().x);
-	ImGui::End();
+	//Scene* scene = Manager::GetScene();
+	//vector<Box*> gameobject = scene->GetGameObjects<Box>();
+	//ImGui::Begin("WallCamera");
+	//ImGui::Text("gameobject%f", gameobject[0]->GetPosition().x);
+	//ImGui::End();
 }
