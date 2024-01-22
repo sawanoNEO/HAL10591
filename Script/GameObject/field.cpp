@@ -48,7 +48,7 @@ void Field::Init()
 	// テクスチャ読み込み
 	DirectX::CreateWICTextureFromFile(
 		Renderer::GetDevice(),
-		L"asset/texture/floor.jpg",
+		L"asset/texture/2C2MKhCTdiGgsGsQI80AAQ.jpg",
 		nullptr,
 		&m_Texture);
 

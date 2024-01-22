@@ -1,12 +1,13 @@
 #pragma once
 #include "../StateMachine.h"
-class EStateDamage : public State
+class EStateWaitandSee : public State
 {
 private:
-	int m_Count = 0; //動作カウント
-	int m_Recover = 40;//ダメージリアクションの硬直フレーム
+
+
+	
 public:
-	State::State;
+	using State::State;
 	void Enter()override;
 	void Exit()override;
 	void StateUpdate()override;

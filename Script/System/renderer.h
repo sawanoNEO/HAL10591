@@ -79,6 +79,15 @@ struct PlayerColor
 	DirectX::SimpleMath::Vector4 color;
 };
 
+enum EBlendState
+{
+	BS_NONE,   //‚Å‚Ó‚§
+	BS_ALPHA,  //ƒ¿
+	BS_ADD,    //‰ÁŽZ
+	BS_SUB,    //Œ¸ŽZ
+	MAX_BLENDSTATE
+};
+
 // ƒŒƒ“ƒ_ƒ‰
 class Renderer
 {
@@ -106,7 +115,7 @@ private:
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
 
-	static ID3D11BlendState*		m_BlendState;
+	static ID3D11BlendState*		m_BlendState[4];
 	static ID3D11BlendState*		m_BlendStateATC;
 
 	static Application* m_Application;
@@ -139,5 +148,6 @@ public:
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
+	static void SetBlendState(int nBlendState);
 
 };

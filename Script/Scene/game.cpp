@@ -33,6 +33,7 @@
 #include "../GameObject/AttackObject.h"
 
 #include"../GameObject/Effect/Slash.h"
+#include"../GameObject/Effect/Puntch.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -48,6 +49,7 @@ void Game::Init()
 	Bullet::Load();
 	Explosion::Load();
 	Slash::Load();
+	Puntch::Load();
 
 	AddGameObject<Camera>(0);
 	AddGameObject<WallDodgeCamera>(1);
@@ -164,9 +166,9 @@ void Game::Update()
 
 	if (Input::GetController(Input::b, Input::PRESSED))
 	{
-		Slash* slash = AddGameObject<Slash>(2);
+		Puntch* slash = AddGameObject<Puntch>(2);
 		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		slash->SetColor(White);
+		//slash->SetColor(White);
 	}
 	
 	if (Input::GetController(Input::y, Input::PRESSED))

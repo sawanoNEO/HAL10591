@@ -136,13 +136,11 @@ void Player::Init()
 	//AddComponent<Rolling>();
 	alpha = 1.0f;
 
-	m_Child = AddChild<AttackObject>();
-
+	//m_Child = AddChild<AttackObject>();
 	//m_Child = AddChild<GameObject>();
 	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
 	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
 	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
-	
 }
 
 void Player::Update()

@@ -32,8 +32,13 @@ void AttackObject::Update()
 	Vector3 forward = player->GetForward();
 
 	m_Model = player->GetComponent<AnimationModel>();
+	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	Matrix mat = m_Model->GetBoneMatrix("mixamorig:RightHand");
-	SetPosition(Vector3(-mat._41, -mat._42, -mat._43));
+
+	m_Position = Vector3(mat._41, mat._42, mat._43);
+
+	//SetPosition(Vector3(-mat._41, mat._42, mat._43));
+	SetRotation(Vector3(mat._31, mat._32, mat._33 * cos(180 * 3.14 / 180)));
 
 	//
 	//// シーンからボーンのルートノードを取得
@@ -75,6 +80,8 @@ void AttackObject::Update()
 
 void AttackObject::Draw()
 {
+	Matrix mat = m_Model->GetBoneMatrix("mixamorig:RightHand");
+
 	ImGui::Begin("AttackObj");
 	//ImGui::SliderFloat("aaaa", &m_Position.y, 0, 50);
 	//ImGui::Text("%f%f%f",m_Position.x,m_Position.y,m_Position.z);
@@ -90,5 +97,20 @@ void AttackObject::Draw()
 	ImGui::Text("Matrix21%f,%f,%f,%f", GetMatrix()._21, GetMatrix()._22, GetMatrix()._23, GetMatrix()._24);
 	ImGui::Text("Matrix31%f,%f,%f,%f", GetMatrix()._31, GetMatrix()._32, GetMatrix()._33, GetMatrix()._34);
 	ImGui::Text("Matrix41%f,%f,%f,%f", GetMatrix()._41, GetMatrix()._42, GetMatrix()._43, GetMatrix()._44);
+	ImGui::Text("Matrix11%f,%f,%f,%f", mat._11, mat._12, mat._13, mat._14);
+	ImGui::Text("Matrix21%f,%f,%f,%f", mat._21, mat._22, mat._23, mat._24);
+	ImGui::Text("Matrix31%f,%f,%f,%f", mat._31, mat._32, mat._33, mat._34);
+	ImGui::Text("Matrix41%f,%f,%f,%f", mat._41, mat._42, mat._43, mat._44);
+	if (ImGui::Button("a"))
+	{
+		flga *= -1;
+	}
+	if (ImGui::Button("b"))
+	{
+		flgb *= -1;
+	}if (ImGui::Button("c"))
+	{
+		flgc *= -1;
+	}
 	ImGui::End();
 }
