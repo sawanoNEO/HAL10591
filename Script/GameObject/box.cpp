@@ -48,10 +48,19 @@ void Box::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 
+	std::vector<GameObject*> gameobjects = scene->GetGameObjects<GameObject>();
+	std::vector<Colider*> coliders;
+	for (auto itr : gameobjects)
+	{
+		if (itr->GetComponent<Colider>())
+		{
+			coliders.push_back(itr->GetComponent<Colider>());
+		}
+	}
+
 	//////////////////////////////////各方向からの当たり判定を取得する。なにかに当たるとそのオブジェクトの情報を取得する．
 	if (player)
 	{
-		Colider col = GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 		Colider colright = GetComponent<Colider>()->CollisionAABBRight(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 		Colider colleft = GetComponent<Colider>()->CollisionAABBLeft(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
 		Colider coltop = GetComponent<Colider>()->CollisionAABBTop(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
