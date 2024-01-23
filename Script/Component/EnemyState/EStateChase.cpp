@@ -19,6 +19,7 @@ using namespace DirectX::SimpleMath;
 void EStateChase::Enter()
 {
 	m_GameObject->SetAnimName2("Walk");
+	m_Action = NONE;
 }
 
 void EStateChase::Exit()
@@ -52,10 +53,10 @@ void EStateChase::StateUpdate()
 		switch (rand()%2)
 		{
 		case 0:
-			m_Action = Attack;
+			m_Action = ATTACK;
 			break;
 		case 1:
-			m_Action = WaitAndSee;
+			m_Action = WAITANDSEE;
 			break;
 		default:
 			break;
@@ -77,7 +78,7 @@ void EStateChase::StateChange()
 		//‘Ò‹@ó‘Ô‚É–ß‚é
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());
 	}
-	else if (/*vec.Length() < 3.0f*/m_Action==Attack)
+	else if (/*vec.Length() < 3.0f*/m_Action==ATTACK)
 	{
 		//UŒ‚‚·‚é
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateAttack>());

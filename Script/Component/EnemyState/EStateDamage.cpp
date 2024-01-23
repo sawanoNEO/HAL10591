@@ -14,12 +14,20 @@ using namespace DirectX::SimpleMath;
 
 void EStateDamage::Enter()
 {
-	m_GameObject->SetAnimName2("Impact");
-	m_Count = 0;
+	if (m_Hitting == false)
+	{
+		m_GameObject->SetAnimName2("Impact");
+		m_Count = 0;
+	}
+	m_Hitting = true;
 }
 
 void EStateDamage::Exit()
 {
+	if (m_Count > m_Recover)
+	{
+		m_Hitting = false;
+	}
 }
 
 void EStateDamage::StateUpdate()

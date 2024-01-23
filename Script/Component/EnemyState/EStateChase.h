@@ -5,13 +5,14 @@
 class EStateChase : public State
 {
 private:
-	enum Actionrand
+	enum Action
 	{
-		Attack,
-		WaitAndSee,
+		NONE,
+		ATTACK,
+		WAITANDSEE,
 	};
 
-	Actionrand m_Action;
+	Action m_Action;
 
 public:
 	State::State;

@@ -165,6 +165,7 @@ void Enemy::Damage(float damage)
 	
 	if (!hit)
 	{
+
 		GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		HP -= damage;
 		if (HP < 0)
