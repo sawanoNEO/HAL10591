@@ -114,8 +114,8 @@ void StateAttack::StateUpdate()
 		}
 		for (int i = 0; i < enemys.size(); i++)
 		{
-			Colider hit = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
-			if (hit.GetTug() == ENEMY)
+			Colider* hit = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
+			if (hit->GetTug() == ENEMY)
 			{
 				if (enemys[i] && !hitCheck)
 				{

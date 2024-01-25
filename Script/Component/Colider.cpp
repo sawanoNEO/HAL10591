@@ -86,7 +86,7 @@ void Colider::Draw()
 }
 
 // AABB
-Colider Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
+Colider* Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
 
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -117,10 +117,10 @@ Colider Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
 		return nullptr;
 	}
 
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
 {
 
 	AABB2 p2aabb = p2->GetAABB();
@@ -161,10 +161,10 @@ Colider Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -203,10 +203,10 @@ Colider Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -246,10 +246,10 @@ Colider Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -294,10 +294,10 @@ Colider Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -332,10 +332,10 @@ Colider Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -358,7 +358,7 @@ Colider Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
 		return nullptr;
 	}
 
-	return *p2;
+	return p2;
 }
 
 

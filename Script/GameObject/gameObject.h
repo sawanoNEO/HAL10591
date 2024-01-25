@@ -18,6 +18,7 @@ protected:
 	DirectX::SimpleMath::Vector3	m_Position = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 	DirectX::SimpleMath::Vector3	m_Rotation = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 	DirectX::SimpleMath::Vector3	m_Scale = DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f);
+	DirectX::SimpleMath::Vector3	m_OldPosition = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 
 	std::list<Component*> m_Component;
 
@@ -65,6 +66,11 @@ public:
 		forward.z = rot._33;
 
 		return forward;
+	}
+
+	DirectX::SimpleMath::Vector3 GetOldPosition()//前回のフレームのポジションを返す
+	{
+		return m_OldPosition;
 	}
 
 	void SetDestroy() { m_Destroy = true; }
@@ -167,6 +173,7 @@ public:
 		}
 
 		Update();
+		m_OldPosition = m_Position;
 	}
 
 	void DrawBase(DirectX::SimpleMath::Matrix ParentMatrix)

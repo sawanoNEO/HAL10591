@@ -63,7 +63,7 @@ void EStateAttack::StateUpdate()
 		}
 
 		//UŒ‚‚ª“–‚½‚Á‚Ä‚¢‚é‚©”»’è‚·‚é
-		if (AttackObj->GetComponent<Colider>()->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col).GetTug() == PLAYER)
+		if (AttackObj->GetComponent<Colider>()->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col)->GetTug() == PLAYER)
 		{
 			player->Damage(Power);
 		}

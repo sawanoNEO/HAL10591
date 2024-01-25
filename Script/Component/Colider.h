@@ -62,13 +62,13 @@ public:
 	void Draw();
 
 	// AABB
-	Colider CollisionAABB(AABB2 p1,Colider* p2);
-	Colider CollisionAABBRight(AABB2 p1, Colider* p2);
-	Colider CollisionAABBLeft(AABB2 p1, Colider* p2);
-	Colider CollisionAABBTop(AABB2 p1, Colider* p2);
-	Colider CollisionAABBBottom(AABB2 p1, Colider* p2);
-	Colider CollisionAABBHead(AABB2 p1, Colider* p2);
-	Colider CollisionAABB2D(AABB2 p1, Colider* p2);
+	Colider* CollisionAABB(AABB2 p1,Colider* p2);
+	Colider* CollisionAABBRight(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBLeft(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBTop(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBBottom(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBHead(AABB2 p1, Colider* p2);
+	Colider* CollisionAABB2D(AABB2 p1, Colider* p2);
 
 	AABB2 GetAABB() { return aabb; }
 	Tug GetTug() { return tug; }
