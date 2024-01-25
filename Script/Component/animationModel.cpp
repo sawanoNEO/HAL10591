@@ -326,14 +326,13 @@ void AnimationModel::Load(const char* FileName)
 	if (loadedScenes.find(FileName) != loadedScenes.end()) //既に読み込まれたことのあるデータかどうか
 	{
 		// 既にロードされている場合は保存された情報を返す
-		m_AiScene = new aiScene(*loadedScenes[FileName]);
-		//m_AiScene=loadedScenes[FileName];
+		m_AiScene = loadedScenes[FileName];
 		m_sceneNum[FileName]++;
 	}
 	else
 	{
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
-		m_AiScene = new aiScene(*loadedScenes[FileName]);
+		m_AiScene = loadedScenes[FileName];
 		m_sceneNum[FileName] = 1;
 		//m_AiScene = loadedScenes[FileName];
 	}
@@ -427,6 +426,8 @@ void AnimationModel::LoadAnimation(const char* FileName, const char* Name)
 		loadedScenes[FileName] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
 		m_Animation[Name] = loadedScenes[FileName];
 	}
+	m_AnimNames.push_back(Name);
+	m_sceneNum[Name]++;
 
 	//loadedScenes[FileName]= aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
 	//m_Animation[Name] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
@@ -479,19 +480,29 @@ void AnimationModel::Uninit()
 	m_BoneCombMtxCBuffer->Release();						// 20230909-02
 
 
+
+	loadedScenes.clear();
+
+	//2024/01/17
+	for (auto animName : m_AnimNames)
+	{
+		if (m_sceneNum[animName] <= 1)
+		{
+			aiReleaseImport(m_Animation[animName]);
+		}
+		m_sceneNum[animName]--;
+	}
+
+	//for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	//{
+	//	aiReleaseImport(pair.second);
+	//}
+
 	if (m_sceneNum[m_sceneID] > 1)// 同一のデータが一つしかないならスキップ
 	{
 		m_sceneNum[m_sceneID]--;
 		return;
 	}
-
-	loadedScenes.clear();
-
-	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
-	{
-		aiReleaseImport(pair.second);
-	}
-
 	aiReleaseImport(m_AiScene);
 
 }

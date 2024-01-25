@@ -23,6 +23,12 @@ void StateItem::Init(ITEMID _id)
 
 void StateItem::Uninit()
 {
+	for (auto itr = m_Items.begin();itr!=m_Items.end();itr++)
+	{
+		Item* item = *itr;
+		item->Uninit();
+		delete item;
+	}
 }
 
 void StateItem::Enter()

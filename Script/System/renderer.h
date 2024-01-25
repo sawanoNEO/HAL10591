@@ -3,7 +3,7 @@
 #include	<d3d11.h>
 #include	<SimpleMath.h>
 #include	"../System/Application.h"
-
+#include    <list>
 // リンクすべき外部ライブラリ
 #pragma comment(lib,"directxtk.lib")
 #pragma comment(lib,"d3d11.lib")
@@ -79,6 +79,15 @@ struct PlayerColor
 	DirectX::SimpleMath::Vector4 color;
 };
 
+enum EBlendState
+{
+	BS_NONE,   //でふぉ
+	BS_ALPHA,  //α
+	BS_ADD,    //加算
+	BS_SUB,    //減算
+	MAX_BLENDSTATE
+};
+
 // レンダラ
 class Renderer
 {
@@ -100,13 +109,13 @@ private:
 	static ID3D11Buffer*			m_PolarBuffer;
 	static ID3D11Buffer*			m_GaugeBuffer;
 	static ID3D11Buffer*			m_HPGaugeBuffer;
+	static std::list<ID3D11Buffer*>	m_HPGaugeBuffer2;
 	static ID3D11Buffer*			m_PlayerColorBuffer;
-
 
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
 
-	static ID3D11BlendState*		m_BlendState;
+	static ID3D11BlendState*		m_BlendState[4];
 	static ID3D11BlendState*		m_BlendStateATC;
 
 	static Application* m_Application;
@@ -129,7 +138,7 @@ public:
 	static void SetGauge(Gauge gauge);  //スタミナゲージ
 	static void SetHPGauge(HPGauge hpgauge);  //HPゲージ
 	static void SetPlayerColor(PlayerColor playercolor);  //プレイヤーカラー
-
+	static void AddHPGuage(ID3D11Buffer* _hpbuffer) { m_HPGaugeBuffer2.push_back(_hpbuffer); }
 
 	static ID3D11Device* GetDevice( void ){ return m_Device; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_DeviceContext; }
@@ -139,5 +148,6 @@ public:
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
+	static void SetBlendState(int nBlendState);
 
 };

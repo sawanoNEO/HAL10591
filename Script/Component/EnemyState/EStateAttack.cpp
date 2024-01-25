@@ -10,6 +10,8 @@
 #include "../../Scene/scene.h"
 #include "../../System/manager.h"
 
+#include "../../ImGui/imguimanager.h"
+
 using namespace DirectX::SimpleMath;
 
 void EStateAttack::Init()
@@ -21,7 +23,7 @@ void EStateAttack::Init()
 	AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
 	Startup = 22;
 	ActiveFrames = 5;
-	Recovery = 23;
+	Recovery = 21;
 	cnt = 0;
 	Power = 45;
 }
@@ -92,4 +94,7 @@ void EStateAttack::StateChange()
 
 void EStateAttack::Draw()
 {
+	ImGui::Begin("EnemyAttaState");
+	ImGui::SliderInt("Frame", &Recovery, 0, 50);
+	ImGui::End();
 }

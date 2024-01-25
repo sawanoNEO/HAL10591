@@ -42,7 +42,7 @@ void HP::Update()
 {
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
-	HPGauge hpgauge{};
+	//HPGauge hpgauge{};
 
 	if (player) //プレイヤーオブジェクトが見つからなかった場合処理をスキップする
 	{
@@ -78,7 +78,7 @@ void HP::Update()
 		hpgauge.MaxHP = (maxHP / 100)/3.5f;
 		hpgauge.currentHP = (currentHP / 1000);
 		hpgauge.pastHP = (pastHP / 1000);
-		Renderer::SetHPGauge(hpgauge);
+		//Renderer::SetHPGauge(hpgauge);
 	}
 }
 
@@ -91,5 +91,10 @@ void HP::Draw()
 	{
 		damage != damage;
 	}
+	ImGui::Text("MaxHP%f", (maxHP / 100) / 3.5f);
+	ImGui::Text("CurrentHP%f", currentHP / 1000);
+	ImGui::Text("pastHP%f", pastHP / 1000);
 	ImGui::End();
+	Renderer::SetHPGauge(hpgauge);
+
 }

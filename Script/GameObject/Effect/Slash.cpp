@@ -63,7 +63,7 @@ void Slash::Load()
 	// テクスチャ読み込み
 	DirectX::CreateWICTextureFromFile(
 		Renderer::GetDevice(),
-		L"asset/texture/SlashW.png",
+		L"asset/texture/PuntchN.png",
 		nullptr,
 		&m_Texture);
 	m_Textures["SlashW"] = m_Texture;
@@ -72,7 +72,7 @@ void Slash::Load()
 
 	DirectX::CreateWICTextureFromFile(
 		Renderer::GetDevice(),
-		L"asset/texture/SlashR.png",
+		L"asset/texture/PuntchR.png",
 		nullptr,
 		&m_Texture);
 	m_Textures["SlashR"] = m_Texture;
@@ -106,7 +106,7 @@ void Slash::Update()
 {
 	m_Count++;
 
-	if (m_Count >= 9)
+	if (m_Count >= 10)
 	{
 		SetDestroy();
 		return;
@@ -123,9 +123,10 @@ void Slash::Draw()
 	ImGui::End();
 
 
+	Renderer::SetBlendState(BS_ADD);
 
 	//テクスチャ座標算出
-	float x = m_Count % 9 * (1.0f / 9);
+	float x = m_Count % 10 * (1.0f / 10);
 
 	//頂点データ書き換え
 	D3D11_MAPPED_SUBRESOURCE msr;
@@ -142,7 +143,7 @@ void Slash::Draw()
 	vertex[1].Position = Vector3(2.0f, 2.0f, 0.0f);
 	vertex[1].Normal = Vector3(0.0f, 1.0f, 0.0f);
 	vertex[1].Diffuse = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[1].TexCoord = Vector2(x + (1.0/9), 0.0f);
+	vertex[1].TexCoord = Vector2(x + (1.0/10), 0.0f);
 
 	vertex[2].Position = Vector3(-2.0f, -2.0f, 0.0f);
 	vertex[2].Normal = Vector3(0.0f, 1.0f, 0.0f);
@@ -152,7 +153,7 @@ void Slash::Draw()
 	vertex[3].Position = Vector3(2.0f, -2.0f, 0.0f);
 	vertex[3].Normal = Vector3(0.0f, 1.0f, 0.0f);
 	vertex[3].Diffuse = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[3].TexCoord = Vector2(x + (1.0 / 9),1.0f);
+	vertex[3].TexCoord = Vector2(x + (1.0 / 10),1.0f);
 
 	Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
@@ -199,6 +200,7 @@ void Slash::Draw()
 	// ポリゴン描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
+	Renderer::SetBlendState(BS_ALPHA);
 }
 
 void Slash::SetColor(SlashType _type)

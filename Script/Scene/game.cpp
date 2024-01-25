@@ -33,6 +33,7 @@
 #include "../GameObject/AttackObject.h"
 
 #include"../GameObject/Effect/Slash.h"
+#include"../GameObject/Effect/Puntch.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -48,24 +49,25 @@ void Game::Init()
 	Bullet::Load();
 	Explosion::Load();
 	Slash::Load();
+	Puntch::Load();
 
 	AddGameObject<Camera>(0);
 	AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
-	//AddGameObject<Player>(1);
 	//AddGameObject<Score>(3);
-	AddGameObject<ST>(3);
-	AddGameObject<HP>(3);
 	//AddGameObject<AttackObject>(1);
 
 	// 敵追加
-	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(5.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(10.0f, 0.0f, 5.0f));
 	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f,10.0f));
 
 
+	AddGameObject<Player>(1);
+	AddGameObject<ST>(3);
+	AddGameObject<HP>(3);
 
 	//// チェック完了
 	//{
@@ -88,7 +90,7 @@ void Game::Init()
 	//	box->SetScale(Vector3(3.0f, 3.0f, 3.0f));
 	//}
 	
-	// チェック完了
+	//チェック完了
 	{
 		Box* box = AddGameObject<Box>(1);
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
@@ -164,9 +166,9 @@ void Game::Update()
 
 	if (Input::GetController(Input::b, Input::PRESSED))
 	{
-		Slash* slash = AddGameObject<Slash>(2);
+		Puntch* slash = AddGameObject<Puntch>(2);
 		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		slash->SetColor(White);
+		//slash->SetColor(White);
 	}
 	
 	if (Input::GetController(Input::y, Input::PRESSED))

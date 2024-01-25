@@ -136,13 +136,11 @@ void Player::Init()
 	//AddComponent<Rolling>();
 	alpha = 1.0f;
 
-	m_Child = AddChild<AttackObject>();
-
+	//m_Child = AddChild<AttackObject>();
 	//m_Child = AddChild<GameObject>();
 	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
 	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
 	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
-	
 }
 
 void Player::Update()
@@ -295,88 +293,88 @@ void Player::Update()
 
 	//boxとの当たり判定(すり抜けをなくす)
 
-		std::vector<Box*>box = scene->GetGameObjects<Box>();
+	//	std::vector<Box*>box = scene->GetGameObjects<Box>();
 
-		std::vector<float>Onthegap;
-		if (box.size() != 0)
-		{
-			Onthegap.resize(box.size());
-			if (box[0])
-			{
-				for (int i = 0; i < box.size(); i++)
-				{
-					Vector3 position = box[i]->GetPosition();
-					Vector3 scale = box[i]->GetScale();
-					Onthegap[i] = 0.0f;
+	//	std::vector<float>Onthegap;
+	//	if (box.size() != 0)
+	//	{
+	//		Onthegap.resize(box.size());
+	//		if (box[0])
+	//		{
+	//			for (int i = 0; i < box.size(); i++)
+	//			{
+	//				Vector3 position = box[i]->GetPosition();
+	//				Vector3 scale = box[i]->GetScale();
+	//				Onthegap[i] = 0.0f;
 
-					float a = scale.y / 3;
-					if (a < 1)
-					{
-						a = 0;
-					}
+	//				float a = scale.y / 3;
+	//				if (a < 1)
+	//				{
+	//					a = 0;
+	//				}
 
-					// boxのAABB作成
-					AABB aabbBox;
-					Vector3 BoxSize(2.0f, 5.0f, 2.0f);
-					aabbBox = SetAABB(
-						position,
-						fabs(BoxSize.x * scale.x),
-						fabs(BoxSize.y * scale.y - (a * 0.1)),
-						fabs(BoxSize.z * scale.z));
+	//				// boxのAABB作成
+	//				AABB aabbBox;
+	//				Vector3 BoxSize(2.0f, 5.0f, 2.0f);
+	//				aabbBox = SetAABB(
+	//					position,
+	//					fabs(BoxSize.x * scale.x),
+	//					fabs(BoxSize.y * scale.y - (a * 0.1)),
+	//					fabs(BoxSize.z * scale.z));
 
-					// プレイヤのAABB作成
-					AABB aabbPlayer;
-					Vector3 PlayerSize(1.0f, 1.0f, 1.0f);
-					aabbPlayer = SetAABB(
-						Vector3(m_Position.x, m_Position.y + 1.0f, m_Position.z),
-						fabs(PlayerSize.x * m_Scale.x),
-						fabs(PlayerSize.y * m_Scale.y),
-						fabs(PlayerSize.z * m_Scale.z));
+	//				// プレイヤのAABB作成
+	//				AABB aabbPlayer;
+	//				Vector3 PlayerSize(1.0f, 1.0f, 1.0f);
+	//				aabbPlayer = SetAABB(
+	//					Vector3(m_Position.x, m_Position.y + 1.0f, m_Position.z),
+	//					fabs(PlayerSize.x * m_Scale.x),
+	//					fabs(PlayerSize.y * m_Scale.y),
+	//					fabs(PlayerSize.z * m_Scale.z));
 
-					// AABB当たり判定
-					bool stsr = CollisionAABBRight(aabbPlayer, aabbBox);
-					bool stsl = CollisionAABBLeft(aabbPlayer, aabbBox);
-					bool stst = CollisionAABBTop(aabbPlayer, aabbBox);
-					bool stsb = CollisionAABBBottom(aabbPlayer, aabbBox);
-					bool stsh = CollisionAABBHead(aabbPlayer, aabbBox);
-					if (stsh)
-					{
-						//Onthegap[i] = 1.5;
-						Onthegap[i] = scale.y * 2.0f - 0.1f;
-						if (scale.y >= 3.0f)
-						{
-							Onthegap[i] = scale.y * 2.05f - 0.1f + position.y;
-						}
-					}
-					/*		else if (stsr)
-							{
-								m_Position.x += 0.1f;
-							}
-							else if (stsl)
-							{
-								m_Position.x -= 0.1f;
-							}
-							else if (stst)
-							{
-								m_Position.z += 0.1f;
-							}
-							else if (stsb)
-							{
-								m_Position.z -= 0.1f;
-							}*/
-				}
+	//				// AABB当たり判定
+	//				bool stsr = CollisionAABBRight(aabbPlayer, aabbBox);
+	//				bool stsl = CollisionAABBLeft(aabbPlayer, aabbBox);
+	//				bool stst = CollisionAABBTop(aabbPlayer, aabbBox);
+	//				bool stsb = CollisionAABBBottom(aabbPlayer, aabbBox);
+	//				bool stsh = CollisionAABBHead(aabbPlayer, aabbBox);
+	//				if (stsh)
+	//				{
+	//					//Onthegap[i] = 1.5;
+	//					Onthegap[i] = scale.y * 2.0f - 0.1f;
+	//					if (scale.y >= 3.0f)
+	//					{
+	//						Onthegap[i] = scale.y * 2.05f - 0.1f + position.y;
+	//					}
+	//				}
+	//				/*		else if (stsr)
+	//						{
+	//							m_Position.x += 0.1f;
+	//						}
+	//						else if (stsl)
+	//						{
+	//							m_Position.x -= 0.1f;
+	//						}
+	//						else if (stst)
+	//						{
+	//							m_Position.z += 0.1f;
+	//						}
+	//						else if (stsb)
+	//						{
+	//							m_Position.z -= 0.1f;
+	//						}*/
+	//			}
 
-			}
-		}
-	float found = 0.0f;
-	for (int i = 0; i < Onthegap.size(); i++)
-	{
-		if (Onthegap[i] > found)
-		{
-			found = Onthegap[i];
-		}
-	}
-	groundHeight = found;
+	//		}
+	//	}
+	//float found = 0.0f;
+	//for (int i = 0; i < Onthegap.size(); i++)
+	//{
+	//	if (Onthegap[i] > found)
+	//	{
+	//		found = Onthegap[i];
+	//	}
+	//}
+	//groundHeight = found;
 	//弾発射
 	if (Input::GetKeyTrigger('K'))
 	{

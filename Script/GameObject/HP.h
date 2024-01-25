@@ -23,6 +23,9 @@ private:
 	class Shader* shader;
 	class Sprite* sprite;
 
+	struct HPGauge hpgauge;
+	ID3D11Buffer* m_HPGaugeBuffer3;
+
 public:
 	void Init();
 	void Uninit();

@@ -18,4 +18,5 @@ public:
 	void Uninit() override;
 	void Draw() override;
 
+	ID3D11PixelShader* GetPs() { return m_PixelShader; };
 };

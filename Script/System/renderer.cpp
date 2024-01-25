@@ -28,7 +28,7 @@ ID3D11DepthStencilState* Renderer::m_DepthStateEnable{};
 ID3D11DepthStencilState* Renderer::m_DepthStateDisable{};
 
 
-ID3D11BlendState*		Renderer::m_BlendState{};
+ID3D11BlendState*		Renderer::m_BlendState[MAX_BLENDSTATE]={};
 ID3D11BlendState*		Renderer::m_BlendStateATC{};
 
 Application*			Renderer::m_Application;
@@ -137,26 +137,63 @@ void Renderer::Init(Application* ap)
 
 
 	// ブレンドステート設定
-	D3D11_BLEND_DESC blendDesc{};
-	blendDesc.AlphaToCoverageEnable = FALSE;
-	blendDesc.IndependentBlendEnable = FALSE;
-	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	//D3D11_BLEND_DESC blendDesc{};
+	//blendDesc.AlphaToCoverageEnable = FALSE;
+	//blendDesc.IndependentBlendEnable = FALSE;
+	//blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	//blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	//blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	//blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
-	m_Device->CreateBlendState( &blendDesc, &m_BlendState );
+	//m_Device->CreateBlendState( &blendDesc, &m_BlendState );
 
-	blendDesc.AlphaToCoverageEnable = TRUE;
-	m_Device->CreateBlendState( &blendDesc, &m_BlendStateATC );
+	//blendDesc.AlphaToCoverageEnable = TRUE;
+	//m_Device->CreateBlendState( &blendDesc, &m_BlendStateATC );
 
-	float blendFactor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-	m_DeviceContext->OMSetBlendState(m_BlendState, blendFactor, 0xffffffff );
+	//float blendFactor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+	//m_DeviceContext->OMSetBlendState(m_BlendState, blendFactor, 0xffffffff );
+	// ブレンド ステート生成
+	D3D11_BLEND_DESC BlendDesc;
+	ZeroMemory(&BlendDesc, sizeof(BlendDesc));
+	BlendDesc.AlphaToCoverageEnable = FALSE;
+	BlendDesc.IndependentBlendEnable = TRUE;
+	BlendDesc.RenderTarget[0].BlendEnable = FALSE;
+	BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	BlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	BlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	BlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	BlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
+	m_Device->CreateBlendState(&BlendDesc, &m_BlendState[0]);
+
+	// ブレンド ステート生成 (アルファ ブレンド用)
+	//BlendDesc.AlphaToCoverageEnable = TRUE;
+	BlendDesc.RenderTarget[0].BlendEnable = TRUE;
+	m_Device->CreateBlendState(&BlendDesc, &m_BlendState[1]);
+
+	// ブレンド ステート生成 (加算合成用)
+	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_Device->CreateBlendState(&BlendDesc, &m_BlendState[2]);
+
+	// ブレンド ステート生成 (減算合成用)
+	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_REV_SUBTRACT;
+	m_Device->CreateBlendState(&BlendDesc, &m_BlendState[3]);
+
+	SetBlendState(BS_ALPHA);
+
+	// 加算ブレンドステートをセット
+	/*float addBlendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	m_DeviceContext->OMSetBlendState(m_AddBlendState, addBlendFactor, 0xffffffff);*/
+
+	// あるいは、減算ブレンドステートをセット
+	// float subBlendFactor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+	// m_DeviceContext->OMSetBlendState(m_SubBlendState, subBlendFactor, 0xffffffff);
 
 
 
@@ -360,7 +397,7 @@ void Renderer::SetATCEnable( bool Enable )
 	if (Enable)
 		m_DeviceContext->OMSetBlendState(m_BlendStateATC, blendFactor, 0xffffffff);
 	else
-		m_DeviceContext->OMSetBlendState(m_BlendState, blendFactor, 0xffffffff);
+		m_DeviceContext->OMSetBlendState(m_BlendState[0], blendFactor, 0xffffffff);
 
 }
 
@@ -533,4 +570,12 @@ void Renderer::CreatePixelShader( ID3D11PixelShader** PixelShader, const char* F
 	m_Device->CreatePixelShader(buffer, fsize, NULL, PixelShader);
 
 	delete[] buffer;
+}
+
+void Renderer::SetBlendState(int nBlendState)
+{
+	if (nBlendState >= 0 && nBlendState < MAX_BLENDSTATE) {
+		float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		m_DeviceContext->OMSetBlendState(m_BlendState[nBlendState], blendFactor, 0xffffffff);
+	}
 }

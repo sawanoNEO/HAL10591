@@ -53,6 +53,7 @@ private:
 	static std::unordered_map<std::string, const aiScene*> loadedScenes;
 	static std::unordered_map<std::string, int> m_sceneNum; //同一のデータがいくつメモリ上にあるかを数える
 	std::string m_sceneID;//解放処理の際に使用する
+	std::list<std::string> m_AnimNames;
 	const aiScene* m_AiScene = nullptr;
 	std::unordered_map<std::string, const aiScene*> m_Animation;
 	

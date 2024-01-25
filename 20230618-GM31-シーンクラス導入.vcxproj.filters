@@ -281,6 +281,15 @@
     <ClCompile Include="Script\GameObject\Particle.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Script\GameObject\EnemyHP.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\GameObject\Effect\Puntch.cpp">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\EnemyState\EStateWaitandSee.cpp">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -501,6 +510,15 @@
     </ClInclude>
     <ClInclude Include="Script\GameObject\Particle.h">
       <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\EnemyHP.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Effect\Puntch.h">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\EnemyState\EStateWaitandSee.h">
+      <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

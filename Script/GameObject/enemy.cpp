@@ -6,6 +6,7 @@
 #include "../System/modelRenderer.h"
 #include "enemy.h"
 #include "player.h"
+#include "EnemyHP.h"
 
 #include "../Component/Rigidbody.h"
 #include "../Component/shader.h"
@@ -51,6 +52,8 @@ void Enemy::Init()
 	rb->Init(5.0f);
 	state = NORMAL;
 
+    m_HP = AddChild<EnemyHP>();
+
 }
 
 void Enemy::Update()
@@ -62,6 +65,10 @@ void Enemy::Update()
 	Vector3 playerpos;
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
+
+	m_HP->deliverParamater(HP);
+	m_HP->SetPosition(Vector3(m_Position.x, m_Position.y+2.0f, m_Position.z));
+
 
 	if (!player)
 	{
@@ -77,7 +84,7 @@ void Enemy::Update()
 
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
-		//state = NONE;
+	//state = NONE;
 	switch (state)
 	{
 	case Enemy::NONE:
@@ -144,10 +151,12 @@ void Enemy::Draw()
 	ImGui::Text("m_Frame1=%f", m_Frame1);
 	ImGui::Text("m_Frame2=%f", m_Frame2);
 	ImGui::Text("POS...%f,%f,%f\n", m_Position.x, m_Position.y, m_Position.z);
+	ImGui::SliderFloat("HP", &HP, 0, 100);
 	if (ImGui::Button("bom"))
 	{
 		state=BATTLE;
 	}
+	ImGui::Text("HPPos%f%f%f", m_HP->GetPosition().x, m_HP->GetPosition().y, m_HP->GetPosition().z);
 	ImGui::End();
 }
 
@@ -156,6 +165,7 @@ void Enemy::Damage(float damage)
 	
 	if (!hit)
 	{
+
 		GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		HP -= damage;
 		if (HP < 0)

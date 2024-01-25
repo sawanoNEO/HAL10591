@@ -13,6 +13,8 @@
 #include "../GameObject/camera.h"
 #include "../GameObject/Effect/Slash.h"
 
+#include "../ImGui/imguimanager.h"
+
 using namespace DirectX::SimpleMath;
 
 void StateAttack::Init()
@@ -30,7 +32,6 @@ void StateAttack::Init()
 	cnt = 0;
 	Power = 45;
 	STconsumption = 17.0;
-	
 }
 
 void StateAttack::Enter()
@@ -152,4 +153,7 @@ void StateAttack::StateChange()
 
 void StateAttack::Draw()
 {
+	ImGui::Begin("StateAttack");
+	ImGui::SliderInt("Recovery", &Recovery, -20, 20);
+	ImGui::End();
 }
