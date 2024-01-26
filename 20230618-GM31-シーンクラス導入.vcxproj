@@ -259,6 +259,7 @@
     <ClCompile Include="Script\GameObject\camera.cpp" />
     <ClCompile Include="Script\GameObject\ColiderLooker.cpp" />
     <ClCompile Include="Script\GameObject\cylinder.cpp" />
+    <ClCompile Include="Script\GameObject\Effect\HealEffect.cpp" />
     <ClCompile Include="Script\GameObject\Effect\Puntch.cpp" />
     <ClCompile Include="Script\GameObject\Effect\Slash.cpp" />
     <ClCompile Include="Script\GameObject\enemy.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="Script\GameObject\camera.h" />
     <ClInclude Include="Script\GameObject\ColiderLooker.h" />
     <ClInclude Include="Script\GameObject\cylinder.h" />
+    <ClInclude Include="Script\GameObject\Effect\HealEffect.h" />
     <ClInclude Include="Script\GameObject\Effect\Puntch.h" />
     <ClInclude Include="Script\GameObject\Effect\Slash.h" />
     <ClInclude Include="Script\GameObject\enemy.h" />

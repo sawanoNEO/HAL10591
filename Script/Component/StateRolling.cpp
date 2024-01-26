@@ -20,7 +20,11 @@ void StateRolling::Enter()
 	player->STUse(16.0);     //スタミナを消費する
 	player->SetAnimSpeed(2.0f);
 	m_GameObject->SetAnimName2("Rolling");
-	cnt = 0;
+	m_Count = 0;
+	if (Input::GetController(Input::a, Input::HELD))
+	{
+		m_KeepABurron = true;
+	}
 }
 
 void StateRolling::Exit()
@@ -29,7 +33,8 @@ void StateRolling::Exit()
 	Player* player = scene->GetGameObject<Player>();
 
 	player->SetAnimSpeed(1.0f);//再生速度を元に戻す
-	cnt = 0;
+	m_Count = 0;
+	m_KeepABurron = false;
 }
 
 void StateRolling::StateUpdate()
@@ -42,45 +47,46 @@ void StateRolling::StateUpdate()
 	Camera* camera;
 	Vector3 camforward;//カメラの前向きベクトル
 	Vector3 camside;   //カメラの横向きベクトル
-
+	float Sutamina = player->GetST();
 	forward = player->GetForward();
 	rb = player->GetComponent<Rigidbody>();
 	camera = scene->GetGameObject<Camera>();
 	camforward = camera->GetCamForward();
 	camside = camera->GetCamSide();
 
-	if (cnt < startup)
+	if (m_Count < m_Startup)
 	{
 		if (Input::GetStickState())
 		{
-			Rolvec = XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)));//ローリングの方向を決定
+			m_Rolvec = XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)));//ローリングの方向を決定
 		}
 		else
 		{
-			Rolvec = player->GetForward();
+			m_Rolvec = player->GetForward();
 		}
-		player->SetpromissDirection(Rolvec);
-		rb->AddForce(Rolvec * 75, ForceMode::Impulse);              //プレイヤーに移動の力を与える
+		player->SetpromissDirection(m_Rolvec);
+		rb->AddForce(m_Rolvec * 60, ForceMode::Impulse);              //プレイヤーに移動の力を与える
 	}
-	else if (cnt < startup + invincible)
+	else if (m_Count < m_Startup + m_Invincible)
 	{
 		player->SetInvincible(true);
-		rb->AddForce(Rolvec * 150, ForceMode::Acceleration);              //プレイヤーに移動の力を与える
+		rb->AddForce(m_Rolvec * 120, ForceMode::Acceleration);              //プレイヤーに移動の力を与える
 	}
-	else if (cnt <= startup + invincible + recovery)
+	else if (m_Count <= m_Startup + m_Invincible + m_Recovery)
 	{
 		player->SetInvincible(false);
-		if (Input::GetController(Input::a, Input::RELEASED, 20) != -1)//20f前までの中で、Aボタンが離された瞬間がなければ-1を返す
+		if (Input::GetController(Input::a, Input::RELEASED, 10) != -1&&      //10f前までの中で、Aボタンが離された瞬間がなければ-1を返す
+			m_KeepABurron==false&&Sutamina>5.0)
 		{
 			this->Enter();
 		}
 	}
-		cnt++;
+		m_Count++;
 }
 
 void StateRolling::StateChange()
 {
-	if (cnt > startup+invincible+recovery)
+	if (m_Count > m_Startup+m_Invincible + m_Recovery)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}

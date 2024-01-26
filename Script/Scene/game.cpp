@@ -8,11 +8,12 @@
 #include "../GameObject/player.h"
 #include "../GameObject/box.h"
 #include "../GameObject/cylinder.h"
+#include "../GameObject/Polygon2D.h"
+
 
 #include "../Scene/game.h"
 #include "../System/input.h"
 #include "../Component/audio.h"
-#include "../GameObject/Polygon2D.h"
 
 #include "../System/manager.h"
 #include "../System/utility.h"
@@ -34,6 +35,7 @@
 
 #include"../GameObject/Effect/Slash.h"
 #include"../GameObject/Effect/Puntch.h"
+#include"../GameObject/Effect/HealEffect.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -50,6 +52,7 @@ void Game::Init()
 	Explosion::Load();
 	Slash::Load();
 	Puntch::Load();
+	HealEffect::Load();
 
 	AddGameObject<Camera>(0);
 	AddGameObject<WallDodgeCamera>(1);
@@ -95,6 +98,12 @@ void Game::Init()
 		Box* box = AddGameObject<Box>(1);
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 		box->SetScale(Vector3(5.0f, 1.0f, 5.0f));
+	}
+
+	{
+		Box* box = AddGameObject<Box>(1);
+		box->SetPosition(Vector3(-15.0f, 0.0f, 0.0f));
+		box->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 	}
 
 	//// チェック完了
@@ -166,7 +175,7 @@ void Game::Update()
 
 	if (Input::GetController(Input::b, Input::PRESSED))
 	{
-		Puntch* slash = AddGameObject<Puntch>(2);
+		HealEffect* slash = AddGameObject<HealEffect>(2);
 		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
 		//slash->SetColor(White);
 	}

@@ -36,6 +36,7 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
@@ -125,6 +126,37 @@ void Enemy::Update()
 		acc = force / mass;                //加速度を摩擦で減少させる
 		rb->SetAccel(acc);
 		rb->SetVelocity(vel);
+	}
+
+	//敵と接触していた場合に移動度を0にする処理
+	std::array<std::list<Colider*>, HITDIRMAX> coliders = GetComponent<Colider>()->GetAllHitColiders();
+	for (int i = 0; i < HITDIRMAX; i++)
+	{
+		for (auto itr : coliders[i])
+		{
+			if (itr->GetTug() == PLAYER)
+			{
+				switch (i)
+				{
+				case TOP:
+					m_Position.z = m_OldPosition.z;
+					vel.z = 0.0;
+					break;
+				case BOTTOM:
+					m_Position.z = m_OldPosition.z;
+					vel.z = 0.0;
+					break;
+				case RIGHT:
+					m_Position.x = m_OldPosition.x;
+					vel.x = 0.0;
+					break;
+				case LEFT:
+					m_Position.x = m_OldPosition.x;
+					vel.x = 0.0;
+					break;
+				}
+			}
+		}
 	}
 
 	//アニメーションのフレームを進める

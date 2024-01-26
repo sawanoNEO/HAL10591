@@ -290,6 +290,9 @@
     <ClCompile Include="Script\Component\EnemyState\EStateWaitandSee.cpp">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClCompile>
+    <ClCompile Include="Script\GameObject\Effect\HealEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -519,6 +522,9 @@
     </ClInclude>
     <ClInclude Include="Script\Component\EnemyState\EStateWaitandSee.h">
       <Filter>ソース ファイル\component\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Effect\HealEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

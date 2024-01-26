@@ -77,7 +77,8 @@ void Box::Update()
 
 		if (hitcheck != nullptr)
 		{
-			if (colright->GetTug() != DEFAULT)
+			//if (colright->GetTug() != DEFAULT)
+			if (colright)
 			{
 				if (vel.x < 0)
 				{
@@ -87,7 +88,8 @@ void Box::Update()
 				objects->SetPosition(pos);
 				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			else if (colleft->GetTug() != DEFAULT)
+			//else if (colleft->GetTug() != DEFAULT)
+			else if (colleft)
 			{
 				if (vel.x > 0)
 				{
@@ -97,7 +99,8 @@ void Box::Update()
 				objects->SetPosition(pos);
 				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			if (coltop->GetTug() != DEFAULT)
+			//if (coltop->GetTug() != DEFAULT)
+			if (coltop)
 			{
 				if (vel.z < 0)
 				{
@@ -107,7 +110,8 @@ void Box::Update()
 				objects->SetPosition(pos);
 				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			if (colbottom->GetTug() != DEFAULT)
+			//if (colbottom->GetTug() != DEFAULT)
+			if (colbottom)
 			{
 				if (vel.z > 0)
 				{

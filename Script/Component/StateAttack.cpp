@@ -62,7 +62,7 @@ void StateAttack::StateUpdate()
 	Vector3 camforward = camera->GetCamForward();
 	Vector3 camside = camera->GetCamSide();
 	Vector3 pos = player->GetPosition();
-	bool hitCheck = false;
+	bool hit = false;
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 
 	AttackObj->SetPosition(player->GetPosition()+forward*3);
@@ -114,10 +114,10 @@ void StateAttack::StateUpdate()
 		}
 		for (int i = 0; i < enemys.size(); i++)
 		{
-			Colider* hit = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
-			if (hit->GetTug() == ENEMY)
+			Colider* hitobj = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
+			if (hitobj != nullptr && hitobj->GetTug() == ENEMY)
 			{
-				if (enemys[i] && !hitCheck)
+				if (enemys[i] && !hit)
 				{
 					Vector3 enemypos = enemys[i]->GetPosition();
 					enemypos.y += 1.0f;

@@ -30,9 +30,9 @@ private:
 	float m_BlendRate;
 
 	float MaxHP=1000;     //最大体力
-	float HP;             //現在体力
+	float HP=1000;             //現在体力
 	float groundHeight; //床の高さ
-	float ST;           //スタミナ
+	float ST=100;           //スタミナ
 	float MaxST = 100;        //スタミナ最大値
 	float Speed;        //基本の移動速度
 	float Accel;        //通常の加速度

@@ -2,6 +2,8 @@
 #include "StateDash.h"
 #include "StateRolling.h"
 #include "StateAttack.h"
+#include "StateNone.h"
+#include "StateItem.h"
 
 #include "../System/input.h"
 #include "../GameObject/player.h"
@@ -11,7 +13,6 @@
 #include "../GameObject/camera.h"
 #include "../Component/Rigidbody.h"
 #include "../Component/animationModel.h"
-#include "StateNone.h"
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -119,7 +120,12 @@ void StateMove::StateChange()
 	float ST = player->GetST();
 	float Wait = player->GetWait();
 
-	if (Input::GetController(Input::a, Input::HELD) &&
+	if (Input::GetStickState() == false)
+	{
+		//状態を無操作状態に変更
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
+	}
+	else if (Input::GetController(Input::a, Input::HELD) &&
 		Input::GetStickState() && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
 	{
 		receptionCount++;
@@ -134,9 +140,9 @@ void StateMove::StateChange()
 		//状態を回避に変更
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}
-	if (Input::GetStickState() == false)
+	else if (Input::GetController(Input::x, Input::PRESSED))
 	{
-		//状態を無操作状態に変更
-		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
+		//状態をアイテム使用に変更
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateItem>());
 	}
 }

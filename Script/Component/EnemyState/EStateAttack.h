@@ -5,14 +5,16 @@
 class EStateAttack : public State
 {
 private:
-	GameObject* AttackObj;
-	int Startup;            //攻撃の前隙のフレーム数
-	int ActiveFrames;       //攻撃の持続フレーム数
-	int Recovery;           //攻撃の後隙のフレーム数
-	int cnt = 0;                //現在どれだけ攻撃のモーションが進んでいるか
-	int Power;              //攻撃力
+	GameObject* m_AttackObj;
+	int m_Startup;            //攻撃の前隙のフレーム数
+	int m_ActiveFrames;       //攻撃の持続フレーム数
+	int m_Recovery;           //攻撃の後隙のフレーム数
+	int m_cnt = 0;                //現在どれだけ攻撃のモーションが進んでいるか
+	int m_Power;              //攻撃力
+	int m_DubleAttackRate=10;    //連続攻撃の確率(%)
 
-	bool hit = false;       //一度の攻撃で複数ヒットした判定になるのを防ぐフラグ
+	bool m_DoubleAttack = false;//連続攻撃を出したかどうか
+	bool m_hit = false;       //一度の攻撃で複数ヒットした判定になるのを防ぐフラグ
 public:
 	using State::State;
 	void Init()override;

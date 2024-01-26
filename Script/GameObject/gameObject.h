@@ -162,6 +162,7 @@ public:
 
 	void UpdateBase()
 	{
+		m_OldPosition = m_Position;
 		for (GameObject* child : m_ChildGameObject)
 		{
 			child->UpdateBase();
@@ -173,7 +174,6 @@ public:
 		}
 
 		Update();
-		m_OldPosition = m_Position;
 	}
 
 	void DrawBase(DirectX::SimpleMath::Matrix ParentMatrix)

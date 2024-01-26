@@ -75,13 +75,13 @@ void Camera::Update()
 		if (Input::GetStick(Input::RightY) > 0.1 || Input::GetStick(Input::RightY) < -0.1)
 		{
 			Yangle += Input::GetStick(Input::RightY) * 1.5f;
-			if (Yangle > 160.0f)
+			if (Yangle > 100.0f)
 			{
-				Yangle = 160.0f;
+				Yangle = 100.0f;
 			}
-			else if (Yangle < 25.0)
+			else if (Yangle < 45.0)
 			{
-				Yangle = 25.0f;
+				Yangle = 45.0f;
 			}
 		}
 	}

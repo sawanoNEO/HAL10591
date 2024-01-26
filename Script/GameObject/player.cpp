@@ -48,10 +48,10 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Idle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash.fbx", "Attack2");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (3).fbx", "Attack3");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (4).fbx", "Attack4");
-	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield slash (5).fbx", "Attack5");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash2.fbx", "Attack2");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash4.fbx", "Attack4");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash5.fbx", "Attack5");
 	m_Model->LoadAnimation("asset\\model\\Player\\kensimau.fbx", "Simau");
 	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
@@ -404,6 +404,37 @@ void Player::Update()
 		}
 	}
 
+	//“G‚ÆÚG‚µ‚Ä‚¢‚½ê‡‚ÉˆÚ“®“x‚ğ0‚É‚·‚éˆ—
+	std::array<std::list<Colider*>,HITDIRMAX> coliders = colme->GetAllHitColiders();
+	for (int i=0;i<HITDIRMAX;i++)
+	{
+		for (auto itr : coliders[i])
+		{
+			if (itr->GetTug() == ENEMY)
+			{
+				switch (i)
+				{
+				case TOP:
+					m_Position.z = m_OldPosition.z;
+					vel.z = 0.0;
+					break;
+				case BOTTOM:
+					m_Position.z = m_OldPosition.z;
+					vel.z = 0.0;
+					break;
+				case RIGHT:
+					m_Position.x = m_OldPosition.x;
+					vel.x = 0.0;
+					break;
+				case LEFT:
+					m_Position.x = m_OldPosition.x;
+					vel.x = 0.0;
+					break;
+				}
+			}
+		}
+	}
+
 	if (HP <= 0)
 	{
 		SetPstate(DEATH);
@@ -482,7 +513,10 @@ void Player::Draw()
 
 void Player::Damage(float _damage)
 {
-	HP -= _damage;
+	if (m_Invincible == false)
+	{
+		HP -= _damage;
+	}
 }
 
 void Player::STRecover()
