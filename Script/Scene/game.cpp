@@ -167,7 +167,12 @@ void Game::Update()
 		if (goal == nullptr || enemy == nullptr)
 		{
 			m_Goal = true;
-
+			Camera* camera = GetGameObject<Camera>();
+			Player* player = GetGameObject<Player>();
+			Vector3 rot = player->GetRotation();
+			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+			player->SetRotation(rot);
+			player->SetAnimName2("Dance");
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}

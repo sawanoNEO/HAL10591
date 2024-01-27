@@ -1,9 +1,9 @@
 #include "EStateChase.h"
 #include "EStateNone.h"
 #include "EStateAttack.h"
+#include "EStateWaitAndSee.h"
 
 #include "../Rigidbody.h"
-#include "../Colider.h"
 
 #include "../../System/manager.h"
 #include "../../Scene/scene.h"
@@ -82,6 +82,11 @@ void EStateChase::StateChange()
 	{
 		//UŒ‚‚·‚é
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateAttack>());
+	}
+	else if (/*vec.Length() < 3.0f*/m_Action==WAITANDSEE)
+	{
+		//UŒ‚‚·‚é
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateWaitandSee>());
 	}
 }
 

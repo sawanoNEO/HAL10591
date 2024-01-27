@@ -246,6 +246,7 @@
     <ClCompile Include="Script\Component\shadow.cpp" />
     <ClCompile Include="Script\Component\sprite.cpp" />
     <ClCompile Include="Script\Component\StateAttack.cpp" />
+    <ClCompile Include="Script\Component\StateDamage.cpp" />
     <ClCompile Include="Script\Component\StateDash.cpp" />
     <ClCompile Include="Script\Component\StateItem.cpp" />
     <ClCompile Include="Script\Component\StateMove.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="Script\Component\shadow.h" />
     <ClInclude Include="Script\Component\sprite.h" />
     <ClInclude Include="Script\Component\StateAttack.h" />
+    <ClInclude Include="Script\Component\StateDamage.h" />
     <ClInclude Include="Script\Component\StateDash.h" />
     <ClInclude Include="Script\Component\StateItem.h" />
     <ClInclude Include="Script\Component\StateMachine.h" />

@@ -12,7 +12,8 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void StateRolling::Enter()
+void StateRolling::
+Enter()
 {
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();

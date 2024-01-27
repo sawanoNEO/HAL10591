@@ -18,6 +18,7 @@
 #include "../Component/EnemyState/EStateDamage.h"
 #include "../Component/EnemyState/EStateChase.h"
 #include "../Component/EnemyState/EStateAttack.h"
+#include "../Component/EnemyState/EStateWaitAndSee.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -37,11 +38,14 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStarafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLefttStarafe");
 
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
 	AddComponent<EStateAttack>();
+	AddComponent<EStateWaitandSee>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
 
@@ -163,7 +167,7 @@ void Enemy::Update()
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
-		m_Frame2 += 1.0f;
+		m_Frame2 += 1.0f * m_AnimSpeed;
 	}
 	if (m_BlendRate > 1.0f)
 	{
@@ -173,7 +177,7 @@ void Enemy::Update()
 	{
 		m_Animname1 = m_Animname2;
 	}
-	m_Frame1 += 1.0f;
+	m_Frame1 += 1.0f * m_AnimSpeed;
 }
 
 void Enemy::Draw()

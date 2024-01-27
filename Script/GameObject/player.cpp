@@ -22,15 +22,15 @@
 #include "../Component/collision.h"
 #include "../Component/Rigidbody.h"
 //#include "../Component/Est.h"
-#include "../Component/Rolling.h"
 #include "../Component/animationModel.h"
 #include "../Component/ModelManager.h"
+#include "../Component/StateAttack.h"
 #include "../Component/StateMove.h"
 #include "../Component/StateNone.h"
 #include "../Component/StateDash.h"
 #include "../Component/StateRolling.h"
-#include "../Component/StateAttack.h"
 #include "../Component/StateItem.h"
+#include "../Component/StateDamage.h"
 #include "../Component/Heal.h"
 
 #include "../ImGui/imguimanager.h"
@@ -52,12 +52,15 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash4.fbx", "Attack4");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash5.fbx", "Attack5");
-	m_Model->LoadAnimation("asset\\model\\Player\\kensimau.fbx", "Simau");
+	//m_Model->LoadAnimation("asset\\model\\Player\\RightStrafe.fbx", "Simau");
 	m_Model->LoadAnimation("asset\\model\\Player\\Stand To Roll.fbx", "Rolling");
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Run.fbx", "Run");
 	m_Model->LoadAnimation("asset\\model\\Player\\sword and shield run (2).fbx", "Run2");
 	m_Model->LoadAnimation("asset\\model\\Player\\Drinking.fbx", "Drink");
+	m_Model->LoadAnimation("asset\\model\\Player\\Dancing.fbx", "Dance");
+	m_Model->LoadAnimation("asset\\model\\Player\\RightStrafe.fbx", "RightStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\LeftStrafe.fbx", "LeftStrafe");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	
 	// シーンからボーンのルートノードを取得
@@ -72,6 +75,7 @@ void Player::Init()
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
+	AddComponent<StateDamage >();
 	AddComponent<StateItem>();
 	GetComponent<StateItem>()->Init(HEAL);
 	AddComponent<StateMachine>();
@@ -156,10 +160,10 @@ void Player::Update()
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
-	if (Input::GetKeyTrigger('M'))
-	{
-		SetAnimName2("Simau");
-	}
+	//if (Input::GetKeyTrigger('M'))
+	//{
+	//	SetAnimName2("Simau");
+	//}
 	if (Input::GetKeyTrigger('1'))
 	{
 		SetAnimName2("Attack2");
@@ -443,7 +447,7 @@ void Player::Update()
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
-		m_Frame2+=1.0f*m_AnimSpeed;
+		m_Frame2+=1.0f * m_AnimSpeed;
 	}
 	if (m_BlendRate > 1.0f)
 	{
@@ -515,6 +519,7 @@ void Player::Damage(float _damage)
 {
 	if (m_Invincible == false)
 	{
+	    GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
 		HP -= _damage;
 	}
 }
