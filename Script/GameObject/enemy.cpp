@@ -19,6 +19,8 @@
 #include "../Component/EnemyState/EStateChase.h"
 #include "../Component/EnemyState/EStateAttack.h"
 #include "../Component/EnemyState/EStateWaitAndSee.h"
+#include "../Component/StateDeath.h"
+#include "../Component/audio.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -40,12 +42,31 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\Death.fbx", "Death");
+
+	m_SE["Puntch1"] = AddComponent<Audio>();
+	m_SE["Puntch1"]->Load("asset\\audio\\SE\\Puntch1.wav");
+	m_SE["Puntch2"] = AddComponent<Audio>();
+	m_SE["Puntch2"]->Load("asset\\audio\\SE\\Puntch2.wav");
+	m_SE["Puntch3"] = AddComponent<Audio>();
+	m_SE["Puntch3"]->Load("asset\\audio\\SE\\Puntch3.wav");
+	m_SE["Swing1"] = AddComponent<Audio>();
+	m_SE["Swing1"]->Load("asset\\audio\\SE\\Swing1.wav");
+	m_SE["Swing2"] = AddComponent<Audio>();
+	m_SE["Swing2"]->Load("asset\\audio\\SE\\Swing2.wav");
+	m_SE["Swing3"] = AddComponent<Audio>();
+	m_SE["Swing3"]->Load("asset\\audio\\SE\\Swing3.wav");
+	m_SE["Walk"] = AddComponent<Audio>();
+	m_SE["Walk"]->Load("asset\\audio\\SE\\çªÇÃè„1.wav");
+	m_SE["Dash"] = AddComponent<Audio>();
+	m_SE["Dash"]->Load("asset\\audio\\SE\\çªÇÃè„2.wav");
 
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
 	AddComponent<EStateAttack>();
 	AddComponent<EStateWaitandSee>();
+	AddComponent<StateDeath>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
 
@@ -152,6 +173,7 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Enemy");
 	ImGui::Text("HP=%f\n\n", HP);
 	ImGui::Text("m_Frame1=%f", m_Frame1);
@@ -160,19 +182,21 @@ void Enemy::Draw()
 	ImGui::SliderFloat("HP", &HP, 0, 100);
 	ImGui::Text("HPPos%f%f%f", m_HP->GetPosition().x, m_HP->GetPosition().y, m_HP->GetPosition().z);
 	ImGui::End();
+#endif
 }
 
 void Enemy::Damage(float damage)
-{
-	
+{	
 	if (!hit)
 	{
-
-		GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		HP -= damage;
-		if (HP < 0)
+		if (HP <= 0)
 		{
-			this->SetDestroy();
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
+		}
+		else
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		}
 		hit = true;
 	}
@@ -195,4 +219,19 @@ void Enemy::SetAnimName2(const char* _Name)
 	m_Frame1 = m_Frame2;
 	m_Frame2 = 0;
 	m_BlendRate = 0.0;
+}
+
+void Enemy::PlaySE(const char* _SEname)
+{
+	m_SE[_SEname]->Play();
+}
+
+void Enemy::PlaySE(const char* _SEname, bool _loop)
+{
+	m_SE[_SEname]->Play(_loop);
+}
+
+void Enemy::StopSE(const char* _SEname)
+{
+	m_SE[_SEname]->Stop();
 }

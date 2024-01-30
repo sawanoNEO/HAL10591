@@ -1,6 +1,7 @@
 #pragma once
 #include "gameObject.h"
 #include <iostream>
+#include <unordered_map>
 
 enum PLAYERSTATE
 {
@@ -21,7 +22,7 @@ class Player : public GameObject
 private:
 	PLAYERSTATE Pstate = NONE;
 	DirectX::SimpleMath::Vector3		m_Velocity{};
-	class Audio*	m_SE{};
+	std::unordered_map< const char*,class Audio*> m_SE{};
 
 	class AnimationModel* m_Model;
 	AnimationModel* m_ChildBone;
@@ -91,5 +92,9 @@ public:
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 	void SetFrame1(int _frame) { m_Frame1 = _frame; }
 	void SetFrame2(int _frame) { m_Frame2 = _frame; }
+	std::unordered_map<const char*, Audio*> GetSEs() { return m_SE; }
+	void PlaySE(const char* _SEname)override;
+	void PlaySE(const char* _SEname,bool _loop)override;
+	void StopSE(const char* _SEname)override;
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }
 };

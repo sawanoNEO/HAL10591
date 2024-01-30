@@ -21,11 +21,11 @@ void ST::Init()
 	sprite = AddComponent<Sprite>();
 
 	posX = 20;
-	posY = 80;
+	posY = 100;
 
 	//シェーダー読み込み
 	shader->Load("shader\\unlitTextureVS.cso", "shader\\PS_STgauge.cso");
-	sprite->Init(posX, posY, maxST * 2.0, 20, "asset\\texture\\grass.jpg");
+	sprite->Init(posX, posY, maxST * 5.0, 40, "asset\\texture\\grass.jpg");
 
 	}
 }

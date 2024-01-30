@@ -150,5 +150,10 @@ void Audio::Play(bool Loop)
 
 }
 
+void Audio::Stop()
+{
+	m_SourceVoice->Stop();
+}
+
 
 

@@ -81,7 +81,7 @@ void AttackObject::Update()
 void AttackObject::Draw()
 {
 	Matrix mat = m_Model->GetBoneMatrix("mixamorig:RightHand");
-
+#if _DEBUG
 	ImGui::Begin("AttackObj");
 	//ImGui::SliderFloat("aaaa", &m_Position.y, 0, 50);
 	//ImGui::Text("%f%f%f",m_Position.x,m_Position.y,m_Position.z);
@@ -113,4 +113,5 @@ void AttackObject::Draw()
 		flgc *= -1;
 	}
 	ImGui::End();
+#endif
 }

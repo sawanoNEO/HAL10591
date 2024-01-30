@@ -28,7 +28,7 @@ void HP::Init()
 
 		//シェーダー読み込み
 		shader->Load("shader\\unlitTextureVS.cso", "shader\\PS_HPguage.cso");
-		sprite->Init(posX, posY, maxHP / 3.5f, 20, "asset\\texture\\grass.jpg");
+		sprite->Init(posX, posY, maxHP / 1.5f, 40, "asset\\texture\\grass.jpg");
 		damage = false;
 	}
 }
@@ -75,7 +75,7 @@ void HP::Update()
 		//	damage = true;
 		//}
 
-		hpgauge.MaxHP = (maxHP / 100)/3.5f;
+		hpgauge.MaxHP = (maxHP / 100)/1.5f;
 		hpgauge.currentHP = (currentHP / 1000);
 		hpgauge.pastHP = (pastHP / 1000);
 		//Renderer::SetHPGauge(hpgauge);
@@ -84,6 +84,7 @@ void HP::Update()
 
 void HP::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("HP");
 	ImGui::Text("pastHP=%f", &pastHP);
 	ImGui::Text("currentHP=%f", &currentHP);
@@ -95,6 +96,6 @@ void HP::Draw()
 	ImGui::Text("CurrentHP%f", currentHP / 1000);
 	ImGui::Text("pastHP%f", pastHP / 1000);
 	ImGui::End();
+#endif
 	Renderer::SetHPGauge(hpgauge);
-
 }

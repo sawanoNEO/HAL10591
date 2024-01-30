@@ -78,15 +78,15 @@ void AnimationModel::Draw()
 	////	//mat._41 = bone.Matrix.a4;
 	////	//mat._42 = bone.Matrix.b4;
 	////	//mat._43 = bone.Matrix.c4;
-
+#if _DEBUG
 	////	ImGui::Begin("model");
 	////	ImGui::Text("Matrix11=%f,%f,%f,%f",mat._11, mat._21, mat._31, mat._41);
 	////	ImGui::Text("Matrix21=%f,%f,%f,%f", mat._12, mat._22, mat._32, mat._42);
 	////	ImGui::Text("Matrix31=%f,%f,%f,%f", mat._13, mat._23, mat._33, mat._43);
 	////	ImGui::Text("Matrix41=%f,%f,%f,%f\n\n", mat._14, mat._24, mat._34, mat._44);
 	////	ImGui::End();
+#endif
 	////	pair.second->DrawBase(result);
-
 	////	int a = 0;
 	////}
 

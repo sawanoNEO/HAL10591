@@ -66,6 +66,7 @@ void StateRolling::StateUpdate()
 			m_Rolvec = player->GetForward();
 		}
 		player->SetpromissDirection(m_Rolvec);
+		m_GameObject->PlaySE("Rolling");
 		rb->AddForce(m_Rolvec * 60, ForceMode::Impulse);              //ƒvƒŒƒCƒ„[‚ÉˆÚ“®‚Ì—Í‚ğ—^‚¦‚é
 	}
 	else if (m_Count < m_Startup + m_Invincible)

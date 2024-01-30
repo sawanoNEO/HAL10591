@@ -42,7 +42,6 @@ void Heal::Init()
 
 void Heal::Uninit()
 {
-
 }
 
 void Heal::Update()
@@ -55,7 +54,11 @@ void Heal::Update()
 	if (m_Count < m_StartUpTime)
 	{
 	}
-	else if (m_Count < m_StartUpTime + m_ActionTime)
+	else if (m_Count == m_StartUpTime)
+	{
+		m_GameObject->PlaySE("Heal");
+	}
+	else if (m_Count == m_StartUpTime + m_ActionTime)
 	{
 		player->ASHP(650);
 		for (int i = 0; i < m_ParticleNum; i++)
@@ -95,8 +98,10 @@ void Heal::Update()
 
 void Heal::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Heal");
 	ImGui::SliderInt("ParticleNum", &m_ParticleNum, 0, 20);
 	ImGui::End();
+#endif
 }
 

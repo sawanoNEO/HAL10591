@@ -104,10 +104,11 @@ void Puntch::Update()
 
 void Puntch::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Puntch");
 	ImGui::Text("aaaaa");
 	ImGui::End();
-
+#endif
 
 	Renderer::SetBlendState(BS_ADD);
 

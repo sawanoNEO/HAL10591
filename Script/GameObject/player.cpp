@@ -31,6 +31,7 @@
 #include "../Component/StateRolling.h"
 #include "../Component/StateItem.h"
 #include "../Component/StateDamage.h"
+#include "../Component/StateDeath.h"
 #include "../Component/Heal.h"
 
 #include "../ImGui/imguimanager.h"
@@ -69,13 +70,14 @@ void Player::Init()
 	//m_Model->AddBoneChild<AttackObject>("mixamorig:RightHand");
 	//m_Model->AddBoneChild<AttackObject>("mixamorig:Spine");
 
-	//ステートマシンのテスト
+	//ステートマシンのaddcomponent
 	AddComponent<StateNone>();
 	AddComponent<StateMove>();//oldPositionの更新タイミングの関係上Coliderより先にaddcomponentする
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
 	AddComponent<StateDamage >();
+	AddComponent<StateDeath >();
 	AddComponent<StateItem>();
 	GetComponent<StateItem>()->Init(HEAL);
 	AddComponent<StateMachine>();
@@ -112,8 +114,26 @@ void Player::Init()
 
 	//AddComponent<Shadow>()->SetSize(1.5f);
 
-	m_SE = AddComponent<Audio>();
-	m_SE->Load("asset\\audio\\wan.wav");
+	m_SE["Puntch1"] = AddComponent<Audio>();
+	m_SE["Puntch1"]->Load("asset\\audio\\SE\\Puntch1.wav");
+	m_SE["Puntch2"] = AddComponent<Audio>();
+	m_SE["Puntch2"]->Load("asset\\audio\\SE\\Puntch2.wav");
+	m_SE["Puntch3"] = AddComponent<Audio>();
+	m_SE["Puntch3"]->Load("asset\\audio\\SE\\Puntch3.wav");
+	m_SE["Swing1"] = AddComponent<Audio>();
+	m_SE["Swing1"]->Load("asset\\audio\\SE\\Swing1.wav");
+	m_SE["Swing2"] = AddComponent<Audio>();
+	m_SE["Swing2"]->Load("asset\\audio\\SE\\Swing2.wav");
+	m_SE["Swing3"] = AddComponent<Audio>();
+	m_SE["Swing3"]->Load("asset\\audio\\SE\\Swing3.wav");
+	m_SE["Walk"] = AddComponent<Audio>();
+	m_SE["Walk"]->Load("asset\\audio\\SE\\砂の上1.wav");
+	m_SE["Dash"] = AddComponent<Audio>();
+	m_SE["Dash"]->Load("asset\\audio\\SE\\砂の上2.wav");
+	m_SE["Heal"] = AddComponent<Audio>();
+	m_SE["Heal"]->Load("asset\\audio\\SE\\治癒と蘇生の魔法・聖なる光.wav");
+	m_SE["Rolling"] = AddComponent<Audio>();
+	m_SE["Rolling"]->Load("asset\\audio\\SE\\回避.wav");
 
 	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 	m_Position = Vector3(0.0f, 0.0f, -10.0f);
@@ -387,7 +407,7 @@ void Player::Update()
 		bullet->SetPosition(m_Position + Vector3(0.0f, 1.0f, 0.0f));
 		bullet->SetVelocity(forward * 0.5f);
 
-		m_SE->Play();
+		//m_SE->Play();
 	}
 	Vector3 vel = GetComponent<Rigidbody>()->GetVelocity();
 	Vector3 acc = GetComponent<Rigidbody>()->GetAccel();
@@ -439,11 +459,6 @@ void Player::Update()
 		}
 	}
 
-	if (HP <= 0)
-	{
-		SetPstate(DEATH);
-	}
-
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
@@ -466,7 +481,7 @@ void Player::Draw()
 	//bool down = Input::GetController(Input::LeftDown, DirectX::GamePad::ButtonStateTracker::HELD);
 	//bool left = Input::GetController(Input::LeftLeft, DirectX::GamePad::ButtonStateTracker::HELD);
 	//bool right = Input::GetController(Input::LeftRight, DirectX::GamePad::ButtonStateTracker::HELD);
-
+#if _DEBUG
 	Colider* c = colattack;
 	Colider* co = colme;
 
@@ -512,15 +527,22 @@ void Player::Draw()
 	//ImGui::Checkbox("Padleft", &left);
 	//ImGui::Checkbox("Padright", &right);
 	ImGui::End();
-
+#endif
 }
 
 void Player::Damage(float _damage)
 {
 	if (m_Invincible == false)
 	{
-	    GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
 		HP -= _damage;
+		if (HP <= 0)
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
+		}
+		else
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
+		}
 	}
 }
 
@@ -578,6 +600,21 @@ void Player::SetAnimName2(const char* _Name)
 	m_Frame1 = m_Frame2;
 	m_Frame2 = 0;
 	m_BlendRate = 0.0;
+}
+
+void Player::PlaySE(const char* _SEname)
+{
+	m_SE[_SEname]->Play();
+}
+
+void Player::PlaySE(const char* _SEname, bool _loop)
+{
+	m_SE[_SEname]->Play(_loop);
+}
+
+void Player::StopSE(const char* _SEname)
+{
+	m_SE[_SEname]->Stop();
 }
 
 void Player::PreDraw()

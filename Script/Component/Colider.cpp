@@ -58,18 +58,23 @@ void Colider::Update()
 	    if (a == 0)//当たり判定可視化のためのオブジェクトを生成
 	    {
 	    	Scale = { fabs(aabb.max.x - aabb.min.x),fabs(aabb.max.y - aabb.min.y),fabs(aabb.max.z - aabb.min.z) };
+#if _DEBUG
 			box = scene->AddGameObject<ColiderLooker>(1);
 	        box->SetPosition(pos);
 	        box->SetScale(Scale/2);
 	    	a++;
+#endif
 	    }
+#if _DEBUG
 		box = m_GameObject->GetComponent<Colider>()->box;
 		box->SetPosition(pos);
+#endif
 	}
 }
 
 void Colider::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Colider");
 	if (ImGui::Button("ObjectSporn"))
 	{
@@ -83,6 +88,7 @@ void Colider::Draw()
 	ImGui::Text("dekasa=%f,%f,%f,", Scale.x, Scale.y, Scale.z);
 
 	ImGui::End();
+#endif
 }
 
 // AABB

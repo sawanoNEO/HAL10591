@@ -67,8 +67,10 @@ void Title::Update()
 
 void Title::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("www");
 	ImGui::Text("%f%f%f", m_gameobject->GetPosition().x, m_gameobject->GetPosition().y, m_gameobject->GetPosition().z);
 	ImGui::Text("%i", x);
 	ImGui::End();
+#endif
 }

@@ -135,6 +135,11 @@ void Game::Init()
 		goal->SetScale(Vector3(0.5f, 0.5f, 0.5f));
 	}
 
+
+	GameObject* audioobj = AddGameObject<GameObject>(0);
+	audioobj->AddComponent<Audio>()->InitMaster();
+	audioobj->GetComponent<Audio>()->Load("asset\\audio\\BGM\\Battle.wav");
+	audioobj->GetComponent<Audio>()->Play(true);
 	//AddGameObject<Battery>(1)->SetPosition(Vector3(20.0f, 0.0f, 5.0f));
 
 	// ‰æ–Ê‘JˆÚƒIƒuƒWƒFƒNƒg‚ð“o˜^
@@ -214,6 +219,7 @@ void Game::Update()
 
 void Game::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::Button("SpawnEnemy"))
 	{
@@ -228,4 +234,5 @@ void Game::Draw()
 		enemy->SetAnimName2("BossAppearance");
 	}
 	ImGui::End();
+#endif
 }

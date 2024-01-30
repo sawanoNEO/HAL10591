@@ -55,7 +55,9 @@ void EStateDamage::StateChange()
 
 void EStateDamage::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("EstateDamege");
 	ImGui::SliderInt("Recover", &m_Recover, 20, 42);
 	ImGui::End();
+#endif
 }

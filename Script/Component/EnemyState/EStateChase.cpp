@@ -97,8 +97,10 @@ void EStateChase::StateChange()
 
 void EStateChase::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("EnemyChase");
 	ImGui::Text("Attack%i", m_AttackRate);
 	ImGui::Text("WAS%i", m_WaitandSeeRate);
 	ImGui::End();
+#endif
 }

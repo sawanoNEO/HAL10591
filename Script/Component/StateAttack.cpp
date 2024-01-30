@@ -2,6 +2,7 @@
 #include "StateNone.h"
 #include "Colider.h"
 #include "Rigidbody.h"
+#include "audio.h"
 
 #include "../Scene/scene.h"
 
@@ -64,6 +65,7 @@ void StateAttack::StateUpdate()
 	Vector3 pos = player->GetPosition();
 	bool hit = false;
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
+	std::unordered_map<const char*,Audio*> se = player->GetSEs();
 
 	AttackObj->SetPosition(player->GetPosition()+forward*3);
 
@@ -73,11 +75,12 @@ void StateAttack::StateUpdate()
 		col[i] = enemys[i]->GetComponent<Colider>();
 	}
 
-	if (m_Count < m_Startup)
+	if (m_Count < m_Startup)//攻撃の予備動作
 	{
 
 		m_Staminaconsumption = 17.0f;
 
+		//既にヒットしたという判定をリセット
 		for (const auto enemy : enemys)
 		{
 			enemy->HitReset();
@@ -87,7 +90,7 @@ void StateAttack::StateUpdate()
 	{
 		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
 
-
+		//攻撃が発生する瞬間だけ行う処理
 		if (m_Count == m_Startup)
 		{
 			//エフェクトとなるオブジェクトを前方に生成
@@ -108,19 +111,57 @@ void StateAttack::StateUpdate()
 				Vector3 vec = player->GetpromissDirection() * 100.0f;
 			}
 			rb->AddForce(vec, ForceMode::Impulse);
+
+			//拳が空を切る音を再生
+			m_SENumber = rand() % 3;//再生する音を決定
+			switch (m_SENumber)
+			{
+			case 0:
+				se["Swing1"]->Play(false);
+				break;
+			case 1:
+				se["Swing2"]->Play(false);
+				break;
+			case 2:
+				se["Swing3"]->Play(false);
+				break;
+			default:
+				break;
+			}
 		}
 
 		if (enemys.size() == 0)
 		{
 			return;
 		}
+
+		//敵と攻撃判定が接触しているか判定する
 		for (int i = 0; i < enemys.size(); i++)
 		{
 			Colider* hitobj = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
+
 			if (hitobj != nullptr && hitobj->GetTug() == ENEMY)
 			{
+			    //攻撃がヒットした時の処理
 				if (enemys[i] && !hit)
 				{
+					switch (m_SENumber)
+					{
+					case 0:
+						se["Swing1"]->Stop();
+						se["Puntch1"]->Play(false);
+						break;
+					case 1:
+						se["Swing2"]->Stop();
+						se["Puntch2"]->Play(false);
+						break;
+					case 2:
+						se["Swing3"]->Stop();
+						se["Puntch3"]->Play(false);
+						break;
+					default:
+						break;
+					}
 					Vector3 enemypos = enemys[i]->GetPosition();
 					enemypos.y += 1.0f;
 					enemys[i]->Damage(m_Power);
@@ -155,7 +196,9 @@ void StateAttack::StateChange()
 
 void StateAttack::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("StateAttack");
 	ImGui::SliderInt("Recovery", &m_Recovery, -20, 20);
 	ImGui::End();
+#endif
 }

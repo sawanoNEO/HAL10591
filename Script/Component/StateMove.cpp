@@ -25,11 +25,13 @@ void StateMove::Enter()
 		m_GameObject->SetAnimName2("Run");
 	Accel = 70.0;//加速の値を初期値に戻す
 	DAccel = 150.0;
+	m_GameObject->PlaySE("Walk", true);
 }
 
 void StateMove::Exit()
 {
 	receptionCount = 0;
+	m_GameObject->StopSE("Walk");
 }
 
 void StateMove::StateUpdate()
@@ -58,7 +60,6 @@ void StateMove::StateUpdate()
 	player->SetRotation(currentRot);
 	//ここまで
 
-	
 
 	if (Input::GetStickState()==true)        //スティックによる操作が行われていないと加速度をリセットする
 	{

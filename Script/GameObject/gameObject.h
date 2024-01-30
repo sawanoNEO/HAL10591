@@ -40,6 +40,9 @@ public:
 	virtual void SetFrame1(int) {};//アニメーションフレーム1をセット
 	virtual void SetFrame2(int) {};//アニメーションフレーム2をセット
 	virtual void Damage(float _damage) {};//ダメージを受ける時の処理
+	virtual void PlaySE(const char* _SEname) {};
+	virtual void PlaySE(const char* _SEname,bool _Loop) {};
+	virtual void StopSE(const char* _SEname) {};
 
 	DirectX::SimpleMath::Matrix GetMatrix() { return m_Matrix; }
 

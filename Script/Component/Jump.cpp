@@ -44,8 +44,10 @@ void Jump::Update()
 
 void Jump::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("JumpComponent");
 	ImGui::Text("time=%i\n",time );
 	ImGui::Text("Player=%i\n",i );
 	ImGui::End();
+#endif
 }

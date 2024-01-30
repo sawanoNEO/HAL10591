@@ -50,6 +50,7 @@ void Rigidbody::Update()
 
 void Rigidbody::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("RigidBody");
 	ImGui::Text("Velocity");
 	ImGui::Text("x=%f\n",GetVelocity().x);
@@ -57,4 +58,5 @@ void Rigidbody::Draw()
 	ImGui::Text("z=%f\n",GetVelocity().z);
 	ImGui::Text("Accel=%f\n", Acc);
 	ImGui::End();
+#endif
 }
