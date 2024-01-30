@@ -15,8 +15,6 @@ using namespace DirectX::SimpleMath;
 
 void Explosion::Load()
 {
-
-
 	VERTEX_3D vertex[4];
 
 	vertex[0].Position = Vector3(-1.0f, 1.0f, 0.0f);
@@ -70,10 +68,8 @@ void Explosion::Load()
 
 void Explosion::Unload()
 {
-
 	m_VertexBuffer->Release();
 	m_Texture->Release();
-
 }
 
 
@@ -81,7 +77,6 @@ void Explosion::Unload()
 void Explosion::Init()
 {
 	AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-
 }
 
 

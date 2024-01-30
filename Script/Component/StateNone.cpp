@@ -15,11 +15,16 @@
 void StateNone::Enter()
 {
 	m_GameObject->SetAnimName2("Idle");
-	receptionCount = 0;
+	m_ReceptionCount = 0;
+	if (Input::GetController(Input::a, Input::HELD))
+	{
+		m_KeepAButton = true;
+	}
 }
 
 void StateNone::Exit()
 {
+	m_KeepAButton = false;
 }
 
 void StateNone::StateUpdate()
@@ -28,6 +33,16 @@ void StateNone::StateUpdate()
 	Player* player = scene->GetGameObject<Player>();
 	
 	player->STRecover();//スタミナの回復を行う
+
+	//////各行動の後にAボタンを押しっぱなしにしていても回避などが暴発しないようにする
+	if (m_KeepAButton == true)
+	{
+		m_ReceptionCount = 0;
+	}
+	if (Input::GetController(Input::a, Input::UP))
+	{
+		m_KeepAButton = false;
+	}
 }
 
 void StateNone::StateChange()
@@ -40,10 +55,10 @@ void StateNone::StateChange()
 
 	if (Input::GetController(Input::a, Input::PRESSED) || Input::GetController(Input::a, Input::HELD))
 	{
-		receptionCount++;
+		m_ReceptionCount++;
 	}
 	//回避
-	if (receptionCount > reception || Input::GetController(Input::a, Input::RELEASED))//一定時間A長押しかAを離すことで回避に派生
+	if (m_ReceptionCount > m_Reception || (Input::GetController(Input::a, Input::RELEASED)&&m_KeepAButton!=true))//一定時間A長押しかAを離すことで回避に派生
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
 	}

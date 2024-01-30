@@ -18,6 +18,7 @@ protected:
 	DirectX::SimpleMath::Vector3	m_Position = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 	DirectX::SimpleMath::Vector3	m_Rotation = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 	DirectX::SimpleMath::Vector3	m_Scale = DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f);
+	DirectX::SimpleMath::Vector3	m_OldPosition = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
 
 	std::list<Component*> m_Component;
 
@@ -35,6 +36,7 @@ public:
 	void SetRotation(DirectX::SimpleMath::Vector3 Rotation) { m_Rotation = Rotation; }
 	void SetScale(DirectX::SimpleMath::Vector3 Scale) { m_Scale = Scale; }
 	virtual void SetAnimName2(const char*) {};//アニメーションの機能があるオブジェクトは、この関数を使うことで再生するアニメーションを切り替える事が出来る
+	virtual void SetAnimSpeed(float) {};//アニメーションの機能があるオブジェクトは、この関数を使うことで再生するアニメーションの再生速度を切り替える事が出来る
 	virtual void SetFrame1(int) {};//アニメーションフレーム1をセット
 	virtual void SetFrame2(int) {};//アニメーションフレーム2をセット
 	virtual void Damage(float _damage) {};//ダメージを受ける時の処理
@@ -59,12 +61,17 @@ public:
 		DirectX::SimpleMath::Matrix rot;
 		rot = DirectX::SimpleMath::Matrix::CreateFromYawPitchRoll(m_Rotation.y+89.535f, m_Rotation.x, m_Rotation.z);//89.535はマジックナンバー
 
-		DirectX::SimpleMath::Vector3 forward;
-		forward.x = rot._31;
-		forward.y = rot._32;
-		forward.z = rot._33;
+		DirectX::SimpleMath::Vector3 side;
+		side.x = rot._31;
+		side.y = rot._32;
+		side.z = rot._33;
 
-		return forward;
+		return side;
+	}
+
+	DirectX::SimpleMath::Vector3 GetOldPosition()//前回のフレームのポジションを返す
+	{
+		return m_OldPosition;
 	}
 
 	void SetDestroy() { m_Destroy = true; }
@@ -156,6 +163,7 @@ public:
 
 	void UpdateBase()
 	{
+		m_OldPosition = m_Position;
 		for (GameObject* child : m_ChildGameObject)
 		{
 			child->UpdateBase();

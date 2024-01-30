@@ -1,19 +1,13 @@
 #pragma once
 
 #include "../GameObject/gameObject.h"
+#include <string>
 
 class Rigidbody;
 
 class Enemy : public GameObject
 {
-private:
-	enum State
-	{
-		NONE,
-		NORMAL,    //通常の状態。偵察状態
-		BATTLE,    //プレイヤーを見つけて攻撃してくる状態
-	};
-	State state;
+protected:
 	class AnimationModel* m_Model;
 	float m_Frame1;//再生中のアニメーションのフレーム数
 	float m_Frame2;//再生中のアニメーションのフレーム数
@@ -25,10 +19,11 @@ private:
 	float groundHeight; //床の高さ
 	Rigidbody* rb;
 	bool Phit = false;
-	float eyesight;//どのぐらいの遠さまで見えるか
+	float m_EyeSight=15.0f;//どのぐらいの遠さまで見えるか
 
 	std::string m_Animname1 = "Idle"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(1)
 	std::string m_Animname2 = "Walk"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(2)
+	float m_AnimSpeed = 1.0f;//アニメーションの再生速度(倍率)
 
 	class EnemyHP* m_HP;
 
@@ -41,7 +36,8 @@ public:
 	void Damage(float);
 	void HitReset();
 
-	void SetAnimName2(const char*);//アニメーション切り替え
+	void SetAnimName2(const char*) override;//アニメーション切り替え
+	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 
-	bool SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::SimpleMath::Vector3 m_pos, float fov, float length);//視野範囲チェック関数。
+	float GetEyeSight() { return m_EyeSight; }
 };

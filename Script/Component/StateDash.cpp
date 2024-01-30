@@ -1,6 +1,7 @@
 #include "StateDash.h"
-#include "StateMachine.h"
+#include "StateItem.h"
 #include "StateMove.h"
+#include "StateNone.h"
 #include "Rigidbody.h"
 
 #include "../System/manager.h"
@@ -47,7 +48,6 @@ void StateDash::StateUpdate()
 	Vector3 currentRot = player->GetRotation();//回転取得
 	PLAYERSTATE state = player->GetPstate();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
-	float ST = player->GetST();
 	bool Wait = player->GetWait();
 
 	if (Input::GetController(Input::a,Input::HELD))
@@ -67,9 +67,23 @@ void StateDash::StateUpdate()
 
 void StateDash::StateChange()
 {
-	if (Input::GetController(Input::a, Input::RELEASED))
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	float stamina = player->GetST();
+
+	if (Input::GetController(Input::a, Input::RELEASED)|| stamina <= 0)
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateMove>());
+	}
+	else if (Input::GetController(Input::x, Input::PRESSED))
+	{
+		//状態をアイテム使用に変更
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateItem>());
+	}
+	else if (Input::GetStickState() == false)
+	{
+		//状態を無操作状態に変更
+		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
 }
 

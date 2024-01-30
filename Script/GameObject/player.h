@@ -30,9 +30,9 @@ private:
 	float m_BlendRate;
 
 	float MaxHP=1000;     //最大体力
-	float HP;             //現在体力
+	float HP=1000;             //現在体力
 	float groundHeight; //床の高さ
-	float ST;           //スタミナ
+	float ST=100;           //スタミナ
 	float MaxST = 100;        //スタミナ最大値
 	float Speed;        //基本の移動速度
 	float Accel;        //通常の加速度
@@ -88,7 +88,7 @@ public:
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
 	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }
 	void SetAnimName2(const char*);
-	void SetAnimSpeed(float _speed) { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
+	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 	void SetFrame1(int _frame) { m_Frame1 = _frame; }
 	void SetFrame2(int _frame) { m_Frame2 = _frame; }
 	//DirectX::SimpleMath::Vector3 GetOldPos() { return oldPosition; }

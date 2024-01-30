@@ -48,69 +48,79 @@ void Box::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 
-	std::vector<GameObject*> gameobjects = scene->GetGameObjects<GameObject>();
-	std::vector<Colider*> coliders;
-	for (auto itr : gameobjects)
+	std::vector<GameObject*> gameobjects = scene->GetAllObjects();//シーン内のオブジェクトを取得
+	std::vector<GameObject*>coliderobjects;  //Coliderを持っているGameObject
+	for (auto object : gameobjects)
 	{
-		if (itr->GetComponent<Colider>())
+		if (object->GetComponent<Colider>()&& object->GetComponent<Rigidbody>())
 		{
-			coliders.push_back(itr->GetComponent<Colider>());
+			coliderobjects.push_back(object);
 		}
 	}
 
 	//////////////////////////////////各方向からの当たり判定を取得する。なにかに当たるとそのオブジェクトの情報を取得する．
-	if (player)
+	for (auto objects:coliderobjects)
 	{
-		Colider colright = GetComponent<Colider>()->CollisionAABBRight(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colleft = GetComponent<Colider>()->CollisionAABBLeft(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider coltop = GetComponent<Colider>()->CollisionAABBTop(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colbottom = GetComponent<Colider>()->CollisionAABBBottom(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-		Colider colhead = GetComponent<Colider>()->CollisionAABBHead(GetComponent<Colider>()->GetAABB(), player->GetComponent<Colider>());
-
-		Vector3 oldpos = player->GetoldPosition();    //プレイヤーの前のフレームのposition
-		Vector3 pos = player->GetPosition();                           //プレイヤーの現在位置
-		Vector3 vel = player->GetComponent<Rigidbody>()->GetVelocity();//プレイヤーの速度を取得
+		Colider* colider = objects->GetComponent<Colider>();
+		Colider* colright = GetComponent<Colider>()->CollisionAABBRight(GetComponent<Colider>()->GetAABB(), colider);
+		Colider* colleft = GetComponent<Colider>()->CollisionAABBLeft(GetComponent<Colider>()->GetAABB(), colider);
+		Colider* coltop = GetComponent<Colider>()->CollisionAABBTop(GetComponent<Colider>()->GetAABB(), colider);
+		Colider* colbottom = GetComponent<Colider>()->CollisionAABBBottom(GetComponent<Colider>()->GetAABB(), colider);
+		Colider* colhead = GetComponent<Colider>()->CollisionAABBHead(GetComponent<Colider>()->GetAABB(), colider);
 
 
-		if (colright.GetTug() == PLAYER)
+		Vector3 oldpos = objects->GetOldPosition();    //オブジェクトの前のフレームのposition
+		Vector3 pos = objects->GetPosition();                           //オブジェクトの現在位置
+		Vector3 vel = objects->GetComponent<Rigidbody>()->GetVelocity();//オブジェクトの速度を取得
+
+		Colider* hitcheck = GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), colider);
+
+		if (hitcheck != nullptr)
 		{
-			if (vel.x < 0)
+			//if (colright->GetTug() != DEFAULT)
+			if (colright)
 			{
-				pos.x = oldpos.x;
-				vel.x = 0;
+				if (vel.x < 0)
+				{
+					pos.x = oldpos.x;
+					vel.x = 0;
+				}
+				objects->SetPosition(pos);
+				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		else if (colleft.GetTug() == PLAYER)
-		{
-			if (vel.x > 0)
+			//else if (colleft->GetTug() != DEFAULT)
+			else if (colleft)
 			{
-				pos.x = oldpos.x;
-				vel.x = 0;
+				if (vel.x > 0)
+				{
+					pos.x = oldpos.x;
+					vel.x = 0;
+				}
+				objects->SetPosition(pos);
+				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		if (coltop.GetTug() == PLAYER)
-		{
-			if (vel.z < 0)
+			//if (coltop->GetTug() != DEFAULT)
+			if (coltop)
 			{
-				pos.z = oldpos.z;
-				vel.z = 0;
+				if (vel.z < 0)
+				{
+					pos.z = oldpos.z;
+					vel.z = 0;
+				}
+				objects->SetPosition(pos);
+				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
-		}
-		if (colbottom.GetTug() == PLAYER)
-		{
-			if (vel.z > 0)
+			//if (colbottom->GetTug() != DEFAULT)
+			if (colbottom)
 			{
-				pos.z = oldpos.z;
-				vel.z = 0;
+				if (vel.z > 0)
+				{
+					pos.z = oldpos.z;
+					vel.z = 0;
+				}
+				objects->SetPosition(pos);
+				objects->GetComponent<Rigidbody>()->SetVelocity(vel);
 			}
-			player->SetPosition(pos);
-			player->GetComponent<Rigidbody>()->SetVelocity(vel);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "../Component/component.h"
 #include <SimpleMath.h>
+#include <list>
 	
     struct BoundingSphere2 {
 		DirectX::SimpleMath::Vector3	center;
@@ -14,12 +15,15 @@
 	};
 
 
-	enum HitState
+	enum HitDirection
 	{
-		NORMAL = 0,
-		HIT = 1,
-		ESCAPE = 2,
-		TOUTCH = 3,
+		TOP = 0,
+		BOTTOM = 1,
+		RIGHT = 2,
+		LEFT = 3,
+		HEAD = 4,
+		HIT = 5,
+		HITDIRMAX = 6
 	};
 
 	enum Tug
@@ -47,7 +51,6 @@ private:
 	BoundingSphere2 Sphere;                   //球型の当たり判定
 	AABB2 aabb;                               //□の当たり判定
 	bool enable;                             //このコンポーネントが有効であるかどうか(falseだと物体に当たらない
-	HitState hitstate;                       //当たり判定の状況
 	Tug tug;
 	Type type;
 	int a = 0;
@@ -62,13 +65,15 @@ public:
 	void Draw();
 
 	// AABB
-	Colider CollisionAABB(AABB2 p1,Colider* p2);
-	Colider CollisionAABBRight(AABB2 p1, Colider* p2);
-	Colider CollisionAABBLeft(AABB2 p1, Colider* p2);
-	Colider CollisionAABBTop(AABB2 p1, Colider* p2);
-	Colider CollisionAABBBottom(AABB2 p1, Colider* p2);
-	Colider CollisionAABBHead(AABB2 p1, Colider* p2);
-	Colider CollisionAABB2D(AABB2 p1, Colider* p2);
+	Colider* CollisionAABB(AABB2 p1,Colider* p2);
+	Colider* CollisionAABBRight(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBLeft(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBTop(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBBottom(AABB2 p1, Colider* p2);
+	Colider* CollisionAABBHead(AABB2 p1, Colider* p2);
+	Colider* CollisionAABB2D(AABB2 p1, Colider* p2);
+
+	std::array<std::list<Colider*>,HITDIRMAX> GetAllHitColiders();
 
 	AABB2 GetAABB() { return aabb; }
 	Tug GetTug() { return tug; }

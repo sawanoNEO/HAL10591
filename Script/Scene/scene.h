@@ -123,4 +123,16 @@ public:
 		}
 		return objects;
 	}
+	std::vector<GameObject*>GetAllObjects()
+	{
+		std::vector<GameObject*> objects;
+		for (auto& objectList : m_GameObject)
+		{
+			for (GameObject* object : objectList)
+			{
+				objects.push_back(object);
+			}
+		}
+		return objects;
+	}
 };

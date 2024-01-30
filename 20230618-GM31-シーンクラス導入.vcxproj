@@ -246,6 +246,7 @@
     <ClCompile Include="Script\Component\shadow.cpp" />
     <ClCompile Include="Script\Component\sprite.cpp" />
     <ClCompile Include="Script\Component\StateAttack.cpp" />
+    <ClCompile Include="Script\Component\StateDamage.cpp" />
     <ClCompile Include="Script\Component\StateDash.cpp" />
     <ClCompile Include="Script\Component\StateItem.cpp" />
     <ClCompile Include="Script\Component\StateMove.cpp" />
@@ -254,11 +255,13 @@
     <ClCompile Include="Script\Component\Sword.cpp" />
     <ClCompile Include="Script\GameObject\AttackObject.cpp" />
     <ClCompile Include="Script\GameObject\battery.cpp" />
+    <ClCompile Include="Script\GameObject\Boss.cpp" />
     <ClCompile Include="Script\GameObject\box.cpp" />
     <ClCompile Include="Script\GameObject\bullet.cpp" />
     <ClCompile Include="Script\GameObject\camera.cpp" />
     <ClCompile Include="Script\GameObject\ColiderLooker.cpp" />
     <ClCompile Include="Script\GameObject\cylinder.cpp" />
+    <ClCompile Include="Script\GameObject\Effect\HealEffect.cpp" />
     <ClCompile Include="Script\GameObject\Effect\Puntch.cpp" />
     <ClCompile Include="Script\GameObject\Effect\Slash.cpp" />
     <ClCompile Include="Script\GameObject\enemy.cpp" />
@@ -318,6 +321,7 @@
     <ClInclude Include="Script\Component\shadow.h" />
     <ClInclude Include="Script\Component\sprite.h" />
     <ClInclude Include="Script\Component\StateAttack.h" />
+    <ClInclude Include="Script\Component\StateDamage.h" />
     <ClInclude Include="Script\Component\StateDash.h" />
     <ClInclude Include="Script\Component\StateItem.h" />
     <ClInclude Include="Script\Component\StateMachine.h" />
@@ -327,11 +331,13 @@
     <ClInclude Include="Script\Component\Sword.h" />
     <ClInclude Include="Script\GameObject\AttackObject.h" />
     <ClInclude Include="Script\GameObject\battery.h" />
+    <ClInclude Include="Script\GameObject\Boss.h" />
     <ClInclude Include="Script\GameObject\box.h" />
     <ClInclude Include="Script\GameObject\bullet.h" />
     <ClInclude Include="Script\GameObject\camera.h" />
     <ClInclude Include="Script\GameObject\ColiderLooker.h" />
     <ClInclude Include="Script\GameObject\cylinder.h" />
+    <ClInclude Include="Script\GameObject\Effect\HealEffect.h" />
     <ClInclude Include="Script\GameObject\Effect\Puntch.h" />
     <ClInclude Include="Script\GameObject\Effect\Slash.h" />
     <ClInclude Include="Script\GameObject\enemy.h" />

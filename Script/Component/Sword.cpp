@@ -101,8 +101,8 @@ void Sword::Update()
 
 		for (int i = 0; i < gameobject.size(); i++)
 		{
-			Colider hit = col[i]->CollisionAABB(Pcol->GetAABB(), col[i]);
-			if ( hit.GetTug() == ENEMY)
+			Colider* hit = col[i]->CollisionAABB(Pcol->GetAABB(), col[i]);
+			if ( hit->GetTug() == ENEMY)
 			{
 				if (gameobject[i] && !hitCheck)
 				{

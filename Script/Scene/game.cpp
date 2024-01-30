@@ -8,11 +8,12 @@
 #include "../GameObject/player.h"
 #include "../GameObject/box.h"
 #include "../GameObject/cylinder.h"
+#include "../GameObject/Polygon2D.h"
+
 
 #include "../Scene/game.h"
 #include "../System/input.h"
 #include "../Component/audio.h"
-#include "../GameObject/Polygon2D.h"
 
 #include "../System/manager.h"
 #include "../System/utility.h"
@@ -20,7 +21,8 @@
 
 #include "../Scene/result.h"
 
-#include "../GameObject/goal.h""
+#include "../GameObject/AttackObject.h"
+#include "../GameObject/goal.h"
 #include "../GameObject/bullet.h"
 #include "../GameObject/enemy.h"
 #include "../GameObject/battery.h"
@@ -30,10 +32,11 @@
 #include "../GameObject/HP.h"
 #include "../GameObject/ColiderLooker.h"
 #include "../GameObject/explosion.h"
-#include "../GameObject/AttackObject.h"
+#include "../GameObject/Boss.h"
 
 #include"../GameObject/Effect/Slash.h"
 #include"../GameObject/Effect/Puntch.h"
+#include"../GameObject/Effect/HealEffect.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -50,6 +53,7 @@ void Game::Init()
 	Explosion::Load();
 	Slash::Load();
 	Puntch::Load();
+	HealEffect::Load();
 
 	AddGameObject<Camera>(0);
 	AddGameObject<WallDodgeCamera>(1);
@@ -95,6 +99,12 @@ void Game::Init()
 		Box* box = AddGameObject<Box>(1);
 		box->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 		box->SetScale(Vector3(5.0f, 1.0f, 5.0f));
+	}
+
+	{
+		Box* box = AddGameObject<Box>(1);
+		box->SetPosition(Vector3(-15.0f, 0.0f, 0.0f));
+		box->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 	}
 
 	//// チェック完了
@@ -149,24 +159,41 @@ void Game::Update()
 //	}
 
 	// ゴールしていないのであれば
-	if (!m_Goal)
+	if (m_Goal==false)
 	{
 		Goal* goal = GetGameObject<Goal>();
 		Enemy* enemy = GetGameObject<Enemy>();
+		Player* player = GetGameObject<Player>();
 
 		// ゴールした際にゴールオブジェクトは削除される
-		if (goal == nullptr || enemy == nullptr)
+		if (goal == nullptr || enemy == nullptr || player == nullptr)
 		{
 			m_Goal = true;
-
+			//Camera* camera = GetGameObject<Camera>();
+			//Player* player = GetGameObject<Player>();
+			//Vector3 rot = player->GetRotation();
+			//rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+			//player->SetRotation(rot);
+			//player->SetAnimName2("Dance");
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
+		}
+	}
+	else if (m_Goal == true)
+	{
+		Camera* camera = GetGameObject<Camera>();
+		Player* player = GetGameObject<Player>();
+		if (player != nullptr)
+		{
+			Vector3 rot = player->GetRotation();
+			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+			player->SetRotation(rot);
 		}
 	}
 
 	if (Input::GetController(Input::b, Input::PRESSED))
 	{
-		Puntch* slash = AddGameObject<Puntch>(2);
+		HealEffect* slash = AddGameObject<HealEffect>(2);
 		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
 		//slash->SetColor(White);
 	}
@@ -191,7 +218,14 @@ void Game::Draw()
 	if (ImGui::Button("SpawnEnemy"))
 	{
 		Enemy* enemy=AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
+	}
+	if (ImGui::Button("SpawnBoss"))
+	{
+		Boss* enemy=AddGameObject<Boss>(1);
 		enemy->SetPosition(Vector3{ 0.0f,0.0f,5.0f });
+		enemy->SetRotation(Vector3{ 0.0f,3.0f,0.0f });
+		enemy->SetAnimName2("BossAppearance");
 	}
 	ImGui::End();
 }

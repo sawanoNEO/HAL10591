@@ -15,9 +15,9 @@ void Rolling::Init()
 	startup = 2;
 	invincible = 17;
 	recovery = 15;
-	reception = 20;
+	m_Reception = 20;
 	cnt = 0;
-	receptioncnt = 0;
+	m_Receptioncnt = 0;
 }
 
 void Rolling::Update()
@@ -43,13 +43,13 @@ void Rolling::Update()
 
 		if (pstate == DASH)
 		{
-			receptioncnt++;
+			m_Receptioncnt++;
 		}
 		
 		if (pstate == NONE &&     //プレイヤーが特殊な状態でない
 			Input::GetController(Input::a, Input::RELEASED) &&          //回避ボタンを離す
-			receptioncnt < reception&&                                  //回避受付時間内である
-			player->GetST()>10.0)    /////回避(ダッシュ)ボタンを押してからreceptionで設定されているフレームまでは回避を受け付ける
+			m_Receptioncnt < m_Reception&&                                  //回避受付時間内である
+			player->GetST()>10.0)    /////回避(ダッシュ)ボタンを押してからm_Receptionで設定されているフレームまでは回避を受け付ける
 		{
 			player->STUse(16.0);     //スタミナを消費する
 			cnt++;
@@ -105,29 +105,29 @@ void Rolling::Update()
 			if ((pstate == ROLLING || pstate == BACKSTEP) && cnt > startup + invincible+7)
 			{
 				//先行入力を実装した2023/11/10
-				if (Input::GetController(Input::a, Input::RELEASED, 20) > 0 && receptioncnt < reception && player->GetST()>10.0)
+				if (Input::GetController(Input::a, Input::RELEASED, 20) > 0 && m_Receptioncnt < m_Reception && player->GetST()>10.0)
 				{
 					cnt = 1;
 					player->STUse(16.0);
 				}
 				else if (Input::GetController(Input::a, Input::UP))
 				{
-					receptioncnt = 0;
+					m_Receptioncnt = 0;
 				}
 				else if (Input::GetController(Input::a, Input::HELD))
 				{
-					receptioncnt++;
+					m_Receptioncnt++;
 				}
 				//先行入力実装前比較用
 				//if (Input::GetController(Input::a, Input::UP))
 				//{
-				//	receptioncnt = 0;
+				//	m_Receptioncnt = 0;
 				//}
 				//else if (Input::GetController(Input::a, Input::HELD))
 				//{
-				//	receptioncnt++;
+				//	m_Receptioncnt++;
 				//}
-				//else if (Input::GetController(Input::a, Input::RELEASED) && receptioncnt < reception&& player->GetST()>10.0)
+				//else if (Input::GetController(Input::a, Input::RELEASED) && m_Receptioncnt < m_Reception&& player->GetST()>10.0)
 				//{
 				//	cnt = 1;
 				//	player->STUse(16.0);
@@ -144,7 +144,7 @@ void Rolling::Update()
 		{
 			pstate = NONE;
 			cnt = 0;
-			receptioncnt = 0;
+			m_Receptioncnt = 0;
             //後隙終了時にスティックによる入力をしていたならある程度移動量を保存する
 			rb->AddForce(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)))*150, ForceMode::Acceleration);
 			player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY))));
@@ -153,11 +153,11 @@ void Rolling::Update()
 
 		if(pstate==NONE&&Input::GetController(Input::a,Input::UP))
 		{
-			receptioncnt = 0;
+			m_Receptioncnt = 0;
 		}
 		else if (Input::GetController(Input::a, Input::HELD))
 		{
-			receptioncnt++;
+			m_Receptioncnt++;
 		}
 		player->SetPstate(pstate);
 	}

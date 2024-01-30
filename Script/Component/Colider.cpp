@@ -4,6 +4,7 @@
 #include "../Scene/scene.h"
 #include "../ImGui/imguimanager.h"
 #include "../GameObject/ColiderLooker.h"
+
 using namespace DirectX::SimpleMath;
 
 // 球と球同士の当たり判定
@@ -57,14 +58,13 @@ void Colider::Update()
 	    if (a == 0)//当たり判定可視化のためのオブジェクトを生成
 	    {
 	    	Scale = { fabs(aabb.max.x - aabb.min.x),fabs(aabb.max.y - aabb.min.y),fabs(aabb.max.z - aabb.min.z) };
-			//box = scene->AddGameObject<ColiderLooker>(1);
-	        //box->SetPosition(pos);
-	        //box->SetScale(Scale/2);
-			//box->GetComponent<Colider>()->enable = false;
+			box = scene->AddGameObject<ColiderLooker>(1);
+	        box->SetPosition(pos);
+	        box->SetScale(Scale/2);
 	    	a++;
 	    }
-		//box = m_GameObject->GetComponent<Colider>()->box;
-		//box->SetPosition(pos);
+		box = m_GameObject->GetComponent<Colider>()->box;
+		box->SetPosition(pos);
 	}
 }
 
@@ -86,7 +86,7 @@ void Colider::Draw()
 }
 
 // AABB
-Colider Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
+Colider* Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
 
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -117,10 +117,10 @@ Colider Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
 		return nullptr;
 	}
 
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
 {
 
 	AABB2 p2aabb = p2->GetAABB();
@@ -161,10 +161,10 @@ Colider Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -203,10 +203,10 @@ Colider Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -246,10 +246,10 @@ Colider Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -294,10 +294,10 @@ Colider Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -332,10 +332,10 @@ Colider Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
 	{
 		return nullptr;
 	}
-	return *p2;
+	return p2;
 }
 
-Colider Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
 {
 	AABB2 p2aabb = p2->GetAABB();
 
@@ -358,7 +358,75 @@ Colider Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
 		return nullptr;
 	}
 
-	return *p2;
+	return p2;
+}
+
+
+std::array<std::list<Colider*>, HITDIRMAX> Colider::GetAllHitColiders()
+{
+	Scene* scene = Manager::GetScene();
+	std::vector<GameObject*> objects = scene->GetAllObjects();
+	std::list<Colider*>	colider;
+	std::array<std::list<Colider*>, HITDIRMAX>	coliders;
+	for (auto itr : objects)
+	{
+		if (itr->GetComponent<Colider>())
+		{
+			colider.push_back(itr->GetComponent<Colider>());
+		}
+	}
+
+	for (int i = 0; i < HITDIRMAX; i++)
+	{
+		for(auto j:colider)
+		switch (i)
+		{
+		case TOP:
+			if (CollisionAABBTop(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case BOTTOM:
+			if (CollisionAABBBottom(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case RIGHT:
+			if (CollisionAABBRight(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case LEFT:
+			if (CollisionAABBLeft(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case HEAD:
+			if (CollisionAABBHead(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case HIT:
+			if (CollisionAABB(this->aabb, j) != nullptr)
+			{
+				coliders[i].push_back(j);
+			}
+			break;
+		case HITDIRMAX:
+			break;
+		default:
+			break;
+		}
+	}
+
+
+
+	return coliders;
 }
 
 
