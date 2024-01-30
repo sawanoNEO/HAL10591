@@ -31,6 +31,7 @@
 #include "../Component/StateRolling.h"
 #include "../Component/StateItem.h"
 #include "../Component/StateDamage.h"
+#include "../Component/StateDeath.h"
 #include "../Component/Heal.h"
 
 #include "../ImGui/imguimanager.h"
@@ -69,13 +70,14 @@ void Player::Init()
 	//m_Model->AddBoneChild<AttackObject>("mixamorig:RightHand");
 	//m_Model->AddBoneChild<AttackObject>("mixamorig:Spine");
 
-	//ステートマシンのテスト
+	//ステートマシンのaddcomponent
 	AddComponent<StateNone>();
 	AddComponent<StateMove>();//oldPositionの更新タイミングの関係上Coliderより先にaddcomponentする
 	AddComponent<StateDash>();
 	AddComponent<StateRolling>();
 	AddComponent<StateAttack >();
 	AddComponent<StateDamage >();
+	AddComponent<StateDeath >();
 	AddComponent<StateItem>();
 	GetComponent<StateItem>()->Init(HEAL);
 	AddComponent<StateMachine>();
@@ -439,11 +441,6 @@ void Player::Update()
 		}
 	}
 
-	if (HP <= 0)
-	{
-		SetPstate(DEATH);
-	}
-
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
@@ -519,8 +516,15 @@ void Player::Damage(float _damage)
 {
 	if (m_Invincible == false)
 	{
-	    GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
 		HP -= _damage;
+		if (HP <= 0)
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
+		}
+		else
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
+		}
 	}
 }
 

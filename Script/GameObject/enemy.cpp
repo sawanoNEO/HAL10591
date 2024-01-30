@@ -19,6 +19,7 @@
 #include "../Component/EnemyState/EStateChase.h"
 #include "../Component/EnemyState/EStateAttack.h"
 #include "../Component/EnemyState/EStateWaitAndSee.h"
+#include "../Component/StateDeath.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -40,12 +41,14 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\Death.fbx", "Death");
 
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
 	AddComponent<EStateAttack>();
 	AddComponent<EStateWaitandSee>();
+	AddComponent<StateDeath>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
 
@@ -163,16 +166,17 @@ void Enemy::Draw()
 }
 
 void Enemy::Damage(float damage)
-{
-	
+{	
 	if (!hit)
 	{
-
-		GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		HP -= damage;
-		if (HP < 0)
+		if (HP <= 0)
 		{
-			this->SetDestroy();
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
+		}
+		else
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
 		}
 		hit = true;
 	}

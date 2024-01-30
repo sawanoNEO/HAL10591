@@ -31,14 +31,14 @@ void Boss::Init()
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
 	m_Model = AddComponent<AnimationModel>();
-	m_Model->Load("asset\\model\\Boss.fbx");
-	m_Model->LoadAnimation("asset\\model\\BossIdle.fbx", "Idle");
-	m_Model->LoadAnimation("asset\\model\\Player\\Sword And Shield Walk.fbx", "Walk");
-	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
-	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
+	m_Model->Load("asset\\model\\Boss\\Boss.fbx");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "BossIdle");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "BossRun");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "Impact");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossPuntch.fbx", "BossAttack");
+	//m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
+	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
+	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
 	m_Model->LoadAnimation("asset\\model\\PowerUp.fbx", "BossAppearance");
 
 	AddComponent<EStateNone>();
