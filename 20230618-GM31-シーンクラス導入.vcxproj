@@ -255,6 +255,7 @@
     <ClCompile Include="Script\Component\Sword.cpp" />
     <ClCompile Include="Script\GameObject\AttackObject.cpp" />
     <ClCompile Include="Script\GameObject\battery.cpp" />
+    <ClCompile Include="Script\GameObject\Boss.cpp" />
     <ClCompile Include="Script\GameObject\box.cpp" />
     <ClCompile Include="Script\GameObject\bullet.cpp" />
     <ClCompile Include="Script\GameObject\camera.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="Script\Component\Sword.h" />
     <ClInclude Include="Script\GameObject\AttackObject.h" />
     <ClInclude Include="Script\GameObject\battery.h" />
+    <ClInclude Include="Script\GameObject\Boss.h" />
     <ClInclude Include="Script\GameObject\box.h" />
     <ClInclude Include="Script\GameObject\bullet.h" />
     <ClInclude Include="Script\GameObject\camera.h" />

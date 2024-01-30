@@ -6,6 +6,7 @@
 
 #include "../../GameObject/gameobject.h"
 #include "../../GameObject/player.h"
+#include "../../GameObject/Effect/Slash.h"
 
 #include "../../Scene/scene.h"
 #include "../../System/manager.h"
@@ -41,6 +42,7 @@ void EStateAttack::Enter()
 
 void EStateAttack::Exit()
 {
+	m_GameObject->SetAnimSpeed(1.0);
 }
 
 void EStateAttack::StateUpdate()
@@ -71,6 +73,18 @@ void EStateAttack::StateUpdate()
 	if (m_cnt < m_Startup)
 	{
 	}
+	else if (m_cnt == m_Startup)
+	{
+		slash = scene->AddGameObject<Slash>(1);
+		slash->SetColor(White);
+		Vector3 pos = m_GameObject->GetPosition() + m_GameObject->GetForward() * 4;
+		pos.y += 2.0;
+		//slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
+		slash->SetPosition(pos);
+		Vector3 rot = { 0.0,0.0,0.0 };
+		rot.z += cos(90 * 3.14 / 180);
+		slash->SetRotation(rot);
+	}
 	else if (m_cnt < m_Startup + m_ActiveFrames)/////攻撃判定が出ている時間。持続部分。
 	{
 		
@@ -97,6 +111,7 @@ void EStateAttack::StateUpdate()
 		if (hitobj!=nullptr&&hitobj->GetTug() == PLAYER&&
 			m_hit==false)//一回の攻撃で複数回ヒットするのを防ぐ
 		{
+			slash->SetColor(Red);
 			player->Damage(m_Power);
 			m_hit = true;
 		}
@@ -106,19 +121,20 @@ void EStateAttack::StateUpdate()
 		if (m_DubleAttackRate >= rand() % 100&&m_DoubleAttack==false)
 		{
 			m_GameObject->SetAnimName2("Attack3");
-			m_Startup = 16;
-			m_ActiveFrames = 5;
-			m_Recovery = 21;
+			m_GameObject->SetAnimSpeed(0.5);
+			m_Startup = 32;
+			m_ActiveFrames = 10;
+			m_Recovery = 42;
 			m_cnt = 0;
 			m_hit = false;
 			m_DoubleAttack=true;
 		}
 	}
-	//else if (cnt < Startup + ActiveFrames + Recovery)         //攻撃後の硬直時間。この間の一定のタイミングでもういちど攻撃ボタンを押すと連撃になる
+	//else if (cnt < Startup +m_ActiveFrames + Recovery)         //攻撃後の硬直時間。この間の一定のタイミングでもういちど攻撃ボタンを押すと連撃になる
 	//{
 	//	if (Input::GetController(Input::R1, Input::PRESSED, 15) != -1 &&
 	//		player->GetST() > 0.0f &&
-	//		cnt > Startup + ActiveFrames + (Recovery / 3))     //硬直が始まってすぐは連撃に移行できない
+	//		cnt > Startup +m_ActiveFrames + (Recovery / 3))     //硬直が始まってすぐは連撃に移行できない
 	//	{
 	//		cnt = Startup - 10;
 	//		player->SetFrame1(0);

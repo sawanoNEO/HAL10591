@@ -6,6 +6,7 @@ class EStateAttack : public State
 {
 private:
 	GameObject* m_AttackObj;
+	class Slash* slash;
 	int m_Startup;            //攻撃の前隙のフレーム数
 	int m_ActiveFrames;       //攻撃の持続フレーム数
 	int m_Recovery;           //攻撃の後隙のフレーム数
@@ -15,6 +16,7 @@ private:
 
 	bool m_DoubleAttack = false;//連続攻撃を出したかどうか
 	bool m_hit = false;       //一度の攻撃で複数ヒットした判定になるのを防ぐフラグ
+
 public:
 	using State::State;
 	void Init()override;

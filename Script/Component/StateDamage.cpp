@@ -1,5 +1,7 @@
 #include "StateDamage.h"
 #include "StateNone.h"
+#include "StateRolling.h"
+#include "StateAttack.h"
 
 #include "../GameObject/Player.h"
 
@@ -49,6 +51,14 @@ void StateDamage::StateChange()
 {
 	if (m_Count > m_Recover)
 	{
+	    if (Input::GetController(Input::R1, Input::PRESSED, 5))
+	    {
+	    	m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateAttack>());
+	    }
+	    else if (Input::GetController(Input::a, Input::RELEASED, 5))
+	    {
+	    	m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateRolling>());
+	    }
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateNone>());
 	}
 }

@@ -61,12 +61,12 @@ public:
 		DirectX::SimpleMath::Matrix rot;
 		rot = DirectX::SimpleMath::Matrix::CreateFromYawPitchRoll(m_Rotation.y+89.535f, m_Rotation.x, m_Rotation.z);//89.535はマジックナンバー
 
-		DirectX::SimpleMath::Vector3 forward;
-		forward.x = rot._31;
-		forward.y = rot._32;
-		forward.z = rot._33;
+		DirectX::SimpleMath::Vector3 side;
+		side.x = rot._31;
+		side.y = rot._32;
+		side.z = rot._33;
 
-		return forward;
+		return side;
 	}
 
 	DirectX::SimpleMath::Vector3 GetOldPosition()//前回のフレームのポジションを返す

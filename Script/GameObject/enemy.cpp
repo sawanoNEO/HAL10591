@@ -38,8 +38,8 @@ void Enemy::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Impact.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash.fbx", "Attack");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStarafe");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLefttStarafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
 
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
@@ -55,7 +55,6 @@ void Enemy::Init()
 	AddComponent<Colider>()->Init(ENEMY, Vector3(100.0f,100.0f,100.0f));
 	rb = AddComponent<Rigidbody>();
 	rb->Init(5.0f);
-	state = NORMAL;
 
     m_HP = AddChild<EnemyHP>();
 
@@ -89,35 +88,6 @@ void Enemy::Update()
 
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
-	//state = NONE;
-	switch (state)
-	{
-	case Enemy::NONE:
-		break;
-	case Enemy::NORMAL:
-		//if (SearchPlayer(playerpos,m_Position,30.0f,15.0f) == true)////プレイヤーが視野範囲にいたら状態を遷移する
-		//{
-		//	state = BATTLE;
-		//}
-		//break;
-	case Enemy::BATTLE:
-		/*rb->AddForce(forward*200.0, ForceMode::Force);
-		if (player)
-		{
-			if (GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), Pcol).GetTug() == PLAYER && !Phit&&player->GetInvincible()==false)
-			{
-				player->ASHP(-200);
-				Phit = true;
-			}
-			else if (GetComponent<Colider>()->CollisionAABB(GetComponent<Colider>()->GetAABB(), Pcol).GetTug() != PLAYER && Phit)
-			{
-				Phit = false;
-			}
-		}*/
-		break;
-	default:
-		break;
-	}
 	Vector3 vel = rb->GetVelocity();
 	Vector3 acc = rb->GetAccel();
 	Vector3 force = rb->GetForce();
@@ -188,10 +158,6 @@ void Enemy::Draw()
 	ImGui::Text("m_Frame2=%f", m_Frame2);
 	ImGui::Text("POS...%f,%f,%f\n", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::SliderFloat("HP", &HP, 0, 100);
-	if (ImGui::Button("bom"))
-	{
-		state=BATTLE;
-	}
 	ImGui::Text("HPPos%f%f%f", m_HP->GetPosition().x, m_HP->GetPosition().y, m_HP->GetPosition().z);
 	ImGui::End();
 }
@@ -217,48 +183,6 @@ void Enemy::HitReset()
 	hit = false;
 }
 
-bool Enemy::SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::SimpleMath::Vector3 m_pos, float fov, float length)
-{
-	//プレイヤーと自身を結ぶベクトル
-	Vector3 vecobj;
-	vecobj = playerpos - m_pos;
-
-	//プレイヤーとの距離を求める
-	float objlength = vecobj.Length();
-
-	//許容距離の範囲外かチェック
-	if (objlength > length)
-	{
-		return false;
-	}
-
-	//視線ベクトル
-	Vector3 vecview;
-	vecview = playerpos - m_pos;
-
-	//正規化
-	vecview.Normalize();
-	vecobj.Normalize();
-
-	//内積を計算
-	float dotobj = vecview.Dot(vecobj);
-
-	//回転
-	Matrix mtx;
-	mtx = mtx.CreateRotationZ(fov / 2.0f);
-
-	Vector3 vecrotview;
-	vecrotview = vecview.Transform(vecview, mtx);
-
-	float dotrotview = vecview.Dot(vecrotview);
-
-	if (dotrotview <= dotobj)
-	{
-		return true;
-	}
-
-	return false;
-}
 
 
 void Enemy::SetAnimName2(const char* _Name)
