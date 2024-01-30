@@ -139,10 +139,12 @@ void Sword::Draw()
 	Player* player = scene->GetGameObject<Player>();
 	Colider* Pcol = player->Getcolattack();
 	AABB2 aabb = Pcol->GetAABB();
+#if _DEBUG
 	ImGui::Begin("Sword");
 	ImGui::Text("MaxX=%f\n",ab.max.x);
 	ImGui::Text("MinX=%f\n",ab.min.x);
 	ImGui::Text("MaxZ=%f\n",ab.max.z);
 	ImGui::Text("MinZ=%f\n",ab.min.z);
 	ImGui::End();
+#endif
 }

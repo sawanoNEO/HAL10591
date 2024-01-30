@@ -3,6 +3,7 @@
 #include "StateMove.h"
 #include "StateNone.h"
 #include "Rigidbody.h"
+#include "audio.h"
 
 #include "../System/manager.h"
 #include "../System/input.h"
@@ -21,6 +22,7 @@ void StateDash::Enter()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	player->SetAnimSpeed(1.5f);
+	player->PlaySE("Dash",true);
 }
 
 void StateDash::Exit()
@@ -28,6 +30,7 @@ void StateDash::Exit()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	player->SetAnimSpeed(1.0f);
+	player->StopSE("Dash");
 }
 
 void StateDash::StateUpdate()
@@ -49,6 +52,7 @@ void StateDash::StateUpdate()
 	PLAYERSTATE state = player->GetPstate();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	bool Wait = player->GetWait();
+
 
 	if (Input::GetController(Input::a,Input::HELD))
 	{

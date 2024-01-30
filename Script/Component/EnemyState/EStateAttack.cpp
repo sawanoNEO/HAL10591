@@ -84,6 +84,23 @@ void EStateAttack::StateUpdate()
 		Vector3 rot = { 0.0,0.0,0.0 };
 		rot.z += cos(90 * 3.14 / 180);
 		slash->SetRotation(rot);
+
+		//Œ‚ª‹ó‚ðØ‚é‰¹‚ðÄ¶
+		m_SENumber = rand() % 3;//Ä¶‚·‚é‰¹‚ðŒˆ’è
+		switch (m_SENumber)
+		{
+		case 0:
+			m_GameObject->PlaySE("Swing1",false);
+			break;
+		case 1:
+			m_GameObject->PlaySE("Swing2", false);
+			break;
+		case 2:
+			m_GameObject->PlaySE("Swing3", false);
+			break;
+		default:
+			break;
+		}
 	}
 	else if (m_cnt < m_Startup + m_ActiveFrames)/////UŒ‚”»’è‚ªo‚Ä‚¢‚éŽžŠÔBŽ‘±•”•ªB
 	{
@@ -108,9 +125,27 @@ void EStateAttack::StateUpdate()
 		//UŒ‚‚ª“–‚½‚Á‚Ä‚¢‚é‚©”»’è‚·‚é
 		Colider* hitobj = m_AttackObj->GetComponent<Colider>()->CollisionAABB(m_AttackObj->GetComponent<Colider>()->GetAABB(), col);
 
+		//“–‚½‚Á‚Ä‚¢‚½ê‡‚Ìˆ—
 		if (hitobj!=nullptr&&hitobj->GetTug() == PLAYER&&
 			m_hit==false)//ˆê‰ñ‚ÌUŒ‚‚Å•¡”‰ñƒqƒbƒg‚·‚é‚Ì‚ð–h‚®
 		{
+			switch (m_SENumber)
+			{
+			case 0:
+				m_GameObject->StopSE("Swing1");
+				m_GameObject->PlaySE("Puntch1", false);
+				break;				 
+			case 1:					 
+				m_GameObject->StopSE("Swing2");
+				m_GameObject->PlaySE("Puntch2", false);
+				break;				
+			case 2:					
+				m_GameObject->StopSE("Swing3");
+				m_GameObject->PlaySE("Puntch3", false);
+				break;
+			default:
+				break;
+			}
 			slash->SetColor(Red);
 			player->Damage(m_Power);
 			m_hit = true;
@@ -156,7 +191,9 @@ void EStateAttack::StateChange()
 
 void EStateAttack::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("EnemyAttaState");
 	ImGui::SliderInt("Frame", &m_Recovery, 0, 50);
 	ImGui::End();
+#endif
 }

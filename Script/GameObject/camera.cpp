@@ -137,6 +137,7 @@ void Camera::Update()
 
 void Camera::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Camera");
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Scale.x, m_Scale.y, m_Scale.z);
@@ -144,7 +145,7 @@ void Camera::Draw()
 	ImGui::Text("Yangle=%f", Yangle);
 	ImGui::SliderFloat("TargetY", &TargetY, 5.0, 15.0);
 	ImGui::End();
-
+#endif
 	// ƒrƒ…[•ÏŠ·Œã—ñì¬
 	Vector3 up = Vector3(0.0f, 1.0f, 0.0f);
 	m_ViewMatrix = DirectX::XMMatrixLookAtLH(m_Position, m_Target, up);										// ¶èŒn‚É‚µ‚½@20230511 by suzuki.tomoki

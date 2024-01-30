@@ -27,7 +27,7 @@ public:
 
 	void Load(const char *FileName);
 	void Play(bool Loop = false);
-
+	void Stop();
 
 };
 

@@ -118,10 +118,11 @@ void Slash::Update()
 
 void Slash::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("Slash");
 	ImGui::Text("aaaaa");
 	ImGui::End();
-
+#endif
 
 	Renderer::SetBlendState(BS_ADD);
 

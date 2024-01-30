@@ -104,6 +104,7 @@ void EStateWaitandSee::StateChange()
 
 void EStateWaitandSee::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("WaitAndSee");
 	ImGui::SliderFloat("Distance", &m_Distance, 1.0f, 10.0f);
 	ImGui::SliderInt("UPPER", &m_RandUpperLimit, m_RandLowerLimit, 300);
@@ -113,4 +114,5 @@ void EStateWaitandSee::Draw()
 	ImGui::Text("Direction%i", m_Direction);
 	ImGui::Text("zentaiframe%i", m_HowLong);
 	ImGui::End();
+#endif
 }

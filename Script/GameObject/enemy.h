@@ -2,6 +2,7 @@
 
 #include "../GameObject/gameObject.h"
 #include <string>
+#include <unordered_map>
 
 class Rigidbody;
 
@@ -9,6 +10,7 @@ class Enemy : public GameObject
 {
 protected:
 	class AnimationModel* m_Model;
+	std::unordered_map< const char*, class Audio*> m_SE{};
 	float m_Frame1;//再生中のアニメーションのフレーム数
 	float m_Frame2;//再生中のアニメーションのフレーム数
 	float m_BlendRate;
@@ -27,8 +29,6 @@ protected:
 
 	class EnemyHP* m_HP;
 
-
-
 public:
 	void Init() override;
 	void Update() override;
@@ -40,4 +40,8 @@ public:
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 
 	float GetEyeSight() { return m_EyeSight; }
+
+	void PlaySE(const char* _SEname)override;
+	void PlaySE(const char* _SEname, bool _loop)override;
+	void StopSE(const char* _SEname)override;
 };

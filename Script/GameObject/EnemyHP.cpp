@@ -128,6 +128,7 @@ void EnemyHP::Update()
 
 void EnemyHP::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("EnemyHP");
 	ImGui::Text("pos%f%f%f",m_Position.x,m_Position.y,m_Position.z);
 	ImGui::Text("MaxHP%f",maxHP / 100);
@@ -137,6 +138,7 @@ void EnemyHP::Draw()
 	ImGui::SliderFloat("m_ScaleY", &m_Scale.y, 0.001, 2.0);
 	ImGui::SliderFloat("m_ScaleZ", &m_Scale.z, 0.001, 2.0);
 	ImGui::End();
+#endif
 	Renderer::SetHPGauge(hpgauge);
 
 	GetComponent<Shader>()->Draw();

@@ -171,8 +171,9 @@ void HealEffect::Draw()
 	// ƒ|ƒŠƒSƒ“•`‰æ
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
+#if _DEBUG
 	ImGui::Begin("HEEEEEEEL");
 	ImGui::Text("dskfjahf");
 	ImGui::End();
-
+#endif
 }

@@ -23,12 +23,14 @@ void AnimationManager::Update()
 
 void AnimationManager::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("AnimationManager");
 	for (auto itr = animationlist.begin(); itr != animationlist.end(); ++itr)
 	{
 		ImGui::Text("%s", *itr);
 	}
 	ImGui::End();
+#endif
 }
 
 void AnimationManager::AddAnimation(const char* FileName, const char* Name)

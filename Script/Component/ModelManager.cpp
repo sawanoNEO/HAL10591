@@ -48,9 +48,11 @@ void ModelManager::Update()
 
 void ModelManager::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("MM");
 	ImGui::SliderFloat("Blend", &m_blendRate, 0.0, 1.0);
 	ImGui::End();
+#endif
 }
 
 void ModelManager::AddAnimation(const char* FileName, const char* Name)

@@ -17,6 +17,7 @@ private:
 	bool m_DoubleAttack = false;//連続攻撃を出したかどうか
 	bool m_hit = false;       //一度の攻撃で複数ヒットした判定になるのを防ぐフラグ
 
+	int m_SENumber;           //どの音を再生するか
 public:
 	using State::State;
 	void Init()override;

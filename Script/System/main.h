@@ -20,6 +20,10 @@
 #pragma comment (lib,"winmm.lib")
 
 
-constexpr uint32_t SCREEN_WIDTH = 1280;
-constexpr uint32_t SCREEN_HEIGHT = 720;
+constexpr uint32_t SCREEN_WIDTH = 1920;
+constexpr uint32_t SCREEN_HEIGHT = 1080;
 
+//#if _DEBUG
+//SCREEN_WIDTH = 1280;
+//SCREEN_HEIGHT = 720;
+//#endif

@@ -114,8 +114,26 @@ void Player::Init()
 
 	//AddComponent<Shadow>()->SetSize(1.5f);
 
-	m_SE = AddComponent<Audio>();
-	m_SE->Load("asset\\audio\\wan.wav");
+	m_SE["Puntch1"] = AddComponent<Audio>();
+	m_SE["Puntch1"]->Load("asset\\audio\\SE\\Puntch1.wav");
+	m_SE["Puntch2"] = AddComponent<Audio>();
+	m_SE["Puntch2"]->Load("asset\\audio\\SE\\Puntch2.wav");
+	m_SE["Puntch3"] = AddComponent<Audio>();
+	m_SE["Puntch3"]->Load("asset\\audio\\SE\\Puntch3.wav");
+	m_SE["Swing1"] = AddComponent<Audio>();
+	m_SE["Swing1"]->Load("asset\\audio\\SE\\Swing1.wav");
+	m_SE["Swing2"] = AddComponent<Audio>();
+	m_SE["Swing2"]->Load("asset\\audio\\SE\\Swing2.wav");
+	m_SE["Swing3"] = AddComponent<Audio>();
+	m_SE["Swing3"]->Load("asset\\audio\\SE\\Swing3.wav");
+	m_SE["Walk"] = AddComponent<Audio>();
+	m_SE["Walk"]->Load("asset\\audio\\SE\\çªÇÃè„1.wav");
+	m_SE["Dash"] = AddComponent<Audio>();
+	m_SE["Dash"]->Load("asset\\audio\\SE\\çªÇÃè„2.wav");
+	m_SE["Heal"] = AddComponent<Audio>();
+	m_SE["Heal"]->Load("asset\\audio\\SE\\é°ñ¸Ç∆ëhê∂ÇÃñÇñ@ÅEêπÇ»ÇÈåı.wav");
+	m_SE["Rolling"] = AddComponent<Audio>();
+	m_SE["Rolling"]->Load("asset\\audio\\SE\\âÒî.wav");
 
 	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 	m_Position = Vector3(0.0f, 0.0f, -10.0f);
@@ -389,7 +407,7 @@ void Player::Update()
 		bullet->SetPosition(m_Position + Vector3(0.0f, 1.0f, 0.0f));
 		bullet->SetVelocity(forward * 0.5f);
 
-		m_SE->Play();
+		//m_SE->Play();
 	}
 	Vector3 vel = GetComponent<Rigidbody>()->GetVelocity();
 	Vector3 acc = GetComponent<Rigidbody>()->GetAccel();
@@ -463,7 +481,7 @@ void Player::Draw()
 	//bool down = Input::GetController(Input::LeftDown, DirectX::GamePad::ButtonStateTracker::HELD);
 	//bool left = Input::GetController(Input::LeftLeft, DirectX::GamePad::ButtonStateTracker::HELD);
 	//bool right = Input::GetController(Input::LeftRight, DirectX::GamePad::ButtonStateTracker::HELD);
-
+#if _DEBUG
 	Colider* c = colattack;
 	Colider* co = colme;
 
@@ -509,7 +527,7 @@ void Player::Draw()
 	//ImGui::Checkbox("Padleft", &left);
 	//ImGui::Checkbox("Padright", &right);
 	ImGui::End();
-
+#endif
 }
 
 void Player::Damage(float _damage)
@@ -582,6 +600,21 @@ void Player::SetAnimName2(const char* _Name)
 	m_Frame1 = m_Frame2;
 	m_Frame2 = 0;
 	m_BlendRate = 0.0;
+}
+
+void Player::PlaySE(const char* _SEname)
+{
+	m_SE[_SEname]->Play();
+}
+
+void Player::PlaySE(const char* _SEname, bool _loop)
+{
+	m_SE[_SEname]->Play(_loop);
+}
+
+void Player::StopSE(const char* _SEname)
+{
+	m_SE[_SEname]->Stop();
 }
 
 void Player::PreDraw()
