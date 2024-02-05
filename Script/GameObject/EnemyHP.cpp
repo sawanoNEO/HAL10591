@@ -73,7 +73,6 @@ void EnemyHP::Init()
 	AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\PS_HPguage.cso");
 	m_Position = Vector3{ 0.0f,10.0f,0.0f };
 	m_Scale = Vector3{ 2.0f,0.001f,0.0f };
-	maxHP = 100;
 }
 
 
@@ -118,9 +117,9 @@ void EnemyHP::Update()
 	//	damage = true;
 	//}
 
-	hpgauge.MaxHP = maxHP / 100;
-	hpgauge.currentHP = currentHP / 100;
-	hpgauge.pastHP = pastHP / 100;
+	hpgauge.MaxHP = m_MaxHP / m_MaxHP;
+	hpgauge.currentHP = currentHP / m_MaxHP;
+	hpgauge.pastHP = pastHP / m_MaxHP;
 	//Renderer::SetHPGauge(hpgauge);
 }
 
@@ -131,7 +130,7 @@ void EnemyHP::Draw()
 #if _DEBUG
 	ImGui::Begin("EnemyHP");
 	ImGui::Text("pos%f%f%f",m_Position.x,m_Position.y,m_Position.z);
-	ImGui::Text("MaxHP%f",maxHP / 100);
+	ImGui::Text("MaxHP%f",m_MaxHP / 100);
 	ImGui::Text("currentHP%f",currentHP / 100);
 	ImGui::Text("currentHP%f",pastHP / 100);
 	ImGui::SliderFloat("m_ScaleX", &m_Scale.x, 0.001, 2.0);

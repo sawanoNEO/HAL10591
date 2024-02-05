@@ -22,7 +22,7 @@ void EStateAttack::Init()
 	m_AttackObj->AddComponent<Colider>();
 	m_AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
 	m_AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
-	m_Startup = 22;
+	m_Startup = 17;
 	m_ActiveFrames = 5;
 	m_Recovery = 21;
 	m_cnt = 0;

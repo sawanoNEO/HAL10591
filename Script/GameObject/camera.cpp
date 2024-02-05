@@ -143,7 +143,7 @@ void Camera::Draw()
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Scale.x, m_Scale.y, m_Scale.z);
 	//ImGui::Text("Pos: x=%f,x=%f,y=%f,y=%f", camcol->GetAABB().max.x, camcol->GetAABB().min.x, camcol->GetAABB().max.z, camcol->GetAABB().min.z);
 	ImGui::Text("Yangle=%f", Yangle);
-	ImGui::SliderFloat("TargetY", &TargetY, 5.0, 15.0);
+	ImGui::SliderFloat("TargetY", &Distance, 5.0, 15.0);
 	ImGui::End();
 #endif
 	// ƒrƒ…[•ÏŠ·Œã—ñì¬

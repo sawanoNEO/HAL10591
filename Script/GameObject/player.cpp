@@ -62,6 +62,7 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Dancing.fbx", "Dance");
 	m_Model->LoadAnimation("asset\\model\\Player\\RightStrafe.fbx", "RightStrafe");
 	m_Model->LoadAnimation("asset\\model\\Player\\LeftStrafe.fbx", "LeftStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\Death.fbx", "Death");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	
 	// シーンからボーンのルートノードを取得
@@ -459,6 +460,7 @@ void Player::Update()
 		}
 	}
 
+	//アニメーションフレームを進める
 	if (m_BlendRate < 1.0f)
 	{
 		m_BlendRate += 0.1f;
@@ -471,6 +473,17 @@ void Player::Update()
 	if (m_BlendRate == 1.0f)
 	{
 		m_Frame1 += 1.0f * m_AnimSpeed;
+	}
+
+	//無敵時間が設定されていれば無敵にする
+	if (m_InvincibleFrame > 0)
+	{
+		m_Invincible = true;
+		m_InvincibleFrame--;
+	}
+	else
+	{
+		m_Invincible = false;
 	}
 }
 
@@ -532,7 +545,7 @@ void Player::Draw()
 
 void Player::Damage(float _damage)
 {
-	if (m_Invincible == false)
+	if (m_Invincible == false && HP > 0)//既に死んでると通らない
 	{
 		HP -= _damage;
 		if (HP <= 0)

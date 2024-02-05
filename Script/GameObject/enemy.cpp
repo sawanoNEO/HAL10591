@@ -29,7 +29,7 @@ using namespace DirectX;
 
 void Enemy::Init()
 {
-	MaxHP = 100.0;
+	MaxHP = 240.0;
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
@@ -78,7 +78,7 @@ void Enemy::Init()
 	rb->Init(5.0f);
 
     m_HP = AddChild<EnemyHP>();
-
+	m_HP->deliverMaxHP(MaxHP);
 }
 
 void Enemy::Update()
@@ -129,7 +129,7 @@ void Enemy::Update()
 	{
 		for (auto itr : coliders[i])
 		{
-			if (itr->GetTug() == PLAYER)
+			if (itr->GetTug() == PLAYER/*|| (itr != GetComponent<Colider>() && itr->GetTug() == ENEMY)*/)
 			{
 				switch (i)
 				{

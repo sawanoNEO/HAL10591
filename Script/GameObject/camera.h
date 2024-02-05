@@ -14,7 +14,7 @@ private:
 	float angle;
 	float Yangle;      //Y軸計算用の変数
 	DirectX::SimpleMath::Vector3    camForward;
-	float Distance=15.0f;//カメラとプレイヤー間の距離
+	float Distance=13.0f;//カメラとプレイヤー間の距離
 	bool rock;
 	GameObject* RockEnemy;
 	Colider* camcol;    //カメラの壁回避のために当たり判定を付ける
