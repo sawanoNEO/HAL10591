@@ -14,6 +14,8 @@
 #include "../Scene/game.h"
 #include "../System/input.h"
 #include "../Component/audio.h"
+#include "../Component/shader.h"
+#include "../Component/sprite.h"
 
 #include "../System/manager.h"
 #include "../System/utility.h"
@@ -59,8 +61,12 @@ void Game::Init()
 	AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
-	//AddGameObject<Score>(3);
+	AddGameObject<Score>(3);
 	//AddGameObject<AttackObject>(1);
+
+	GameObject* portion = AddGameObject<GameObject>(3);
+	portion->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	portion->AddComponent<Sprite>()->Init(100.0f, 750.0f, 500 / 2, 500 / 2, "asset\\texture\\É|Å[ÉVÉáÉì.png");
 
 	// ìGí«â¡
 	{

@@ -15,8 +15,6 @@ using namespace DirectX::SimpleMath;
 
 void Heal::Enter()
 {
-	m_MaxInventoryCount = 10;
-	m_InventoryCount = 3;
 	m_StartUpTime = 30;
 	m_ActionTime = 1;
 	m_RecoveryTime = 70;
@@ -32,8 +30,8 @@ void Heal::Exit()
 
 void Heal::Init()
 {
-	m_MaxInventoryCount = 10;
-	m_InventoryCount = 3;
+	m_MaxInventoryCount = 5;
+	m_InventoryCount = m_MaxInventoryCount;
 	m_StartUpTime = 30;
 	m_ActionTime = 1;
 	m_RecoveryTime = 70;
@@ -56,7 +54,14 @@ void Heal::Update()
 	}
 	else if (m_Count == m_StartUpTime)
 	{
-		m_GameObject->PlaySE("Heal");
+		if (m_InventoryCount > 0)
+		{
+			m_GameObject->PlaySE("Heal");
+		}
+		else
+		{
+			m_GameObject->PlaySE("Failed");
+		}
 	}
 	else if (m_Count == m_StartUpTime + m_ActionTime)
 	{

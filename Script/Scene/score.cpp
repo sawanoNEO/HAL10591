@@ -11,7 +11,7 @@ using namespace DirectX::SimpleMath;
 void Score::Init()
 {
 
-	AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\PS_STgauge.cso");
+	AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 
 
 	VERTEX_3D vertex[4];
@@ -106,7 +106,7 @@ void Score::Draw()
 
 	int count = m_Count;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		int number = count % 10;
 		count /= 10;
@@ -122,10 +122,10 @@ void Score::Draw()
 
 		VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
 
-		float x = 100 - i * 30.0f;
-		float y = 30;
-		float height = 50.0f;
-		float width = 50.0f;
+		float x = 300 - i * 30.0f;
+		float y = 750;
+		float height = 200.0f;
+		float width = 200.0f;
 
 		vertex[0].Position = Vector3(x, y, 0.0f);
 		vertex[0].Normal = Vector3(0.0f, 1.0f, 0.0f);
