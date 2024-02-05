@@ -89,7 +89,7 @@ void EStateWaitandSee::StateUpdate()
 		m_WalkVec *= m_Direction;
 	}
 	
-	rb->AddForce(m_WalkVec * 200, ForceMode::Force);
+	rb->AddForce(m_WalkVec * 350, ForceMode::Force);
 	m_Count++;
 }
 

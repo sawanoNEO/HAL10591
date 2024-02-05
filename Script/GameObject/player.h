@@ -46,6 +46,9 @@ private:
 	bool Action=false;  //スタミナを消費する行動をしているか
 	bool Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる。スタミナが回復しきるまでダッシュ出来ないという判定に用いる
 	bool m_Invincible = false; //回避などの無敵中かどうか
+
+	int m_InvincibleFrame = 0;//無敵時間が持続するフレーム
+
 	DirectX::SimpleMath::Vector3 oldPosition;
 	Colider* colme;     //自分の当たり判定
 	Colider* colattack;  //攻撃時の当たり判定
@@ -87,7 +90,8 @@ public:
 	void SetWait(bool wait) { Wait = wait; }
 	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { oldPosition = pos; }
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
-	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }
+	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }//無敵状態にする(1fだけ,繰り返して使う前提)
+	void SetInvincibleFrame(int _frame) { m_InvincibleFrame = _frame; }//無敵時間を設定する(フレーム)
 	void SetAnimName2(const char*);
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 	void SetFrame1(int _frame) { m_Frame1 = _frame; }

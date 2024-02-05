@@ -34,20 +34,22 @@ void Boss::Init()
 	m_Model->Load("asset\\model\\Boss\\Boss.fbx");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "BossIdle");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "BossRun");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "Impact");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "BossImpact");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossPuntch.fbx", "BossAttack");
 	//m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
 	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
 	m_Model->LoadAnimation("asset\\model\\PowerUp.fbx", "BossAppearance");
-
-	AddComponent<EStateNone>();
+	SetAnimName2("BossAppearance");
+	SetAnimName2("BossAppearance");
+	SetAnimSpeed(0.5f);
+	/*AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
 	AddComponent<EStateAttack>();
 	AddComponent<EStateWaitandSee>();
 	AddComponent<StateMachine>();
-	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
+	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());*/
 
 	m_Scale = Vector3(0.04f, 0.04f, 0.04f);
 
@@ -56,8 +58,7 @@ void Boss::Init()
 	rb = AddComponent<Rigidbody>();
 	rb->Init(5.0f);
 
-	m_HP = AddChild<EnemyHP>();
-
+	//m_HP = AddChild<EnemyHP>();
 }
 
 void Boss::Update()
@@ -70,8 +71,9 @@ void Boss::Update()
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
-	m_HP->deliverParamater(HP);
-	m_HP->SetPosition(Vector3(m_Position.x, m_Position.y + 2.0f, m_Position.z));
+	//HPバーの表示位置
+	//m_HP->deliverParamater(HP);
+	//m_HP->SetPosition(Vector3(m_Position.x, m_Position.y + 5.0f, m_Position.z));
 
 
 	if (!player)
@@ -162,6 +164,14 @@ void Boss::HitReset()
 {
 }
 
-void Boss::SetAnimName2(const char*)
+void Boss::SetAnimName2(const char* _Name)
 {
+	assert(m_Model->CheckAnimData(_Name) != false && "指定のアニメーションが見つかりませんでした。引数の名前や、データが入っているか確認してください。");
+
+	//再生アニメーションの変更、各アニメーション関連の変数のリセット
+	m_Animname1 = m_Animname2;
+	m_Animname2 = _Name;
+	m_Frame1 = m_Frame2;
+	m_Frame2 = 0;
+	m_BlendRate = 0.0;
 }

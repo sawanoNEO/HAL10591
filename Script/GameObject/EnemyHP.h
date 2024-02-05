@@ -4,7 +4,7 @@ class EnemyHP : public GameObject
 {
 private:
 
-	float maxHP; //Å‘åHP
+	float m_MaxHP; //Å‘åHP
 	float m_damegePoint;
 	float currentHP;//Œ»İ‚ÌHP
 	float pastHP;//HP‚ÌŒ¸­‚·‚é‘O‚Ì’l
@@ -22,5 +22,6 @@ public:
 	void Draw() override;
 
 	void deliverParamater(float _hp);
+	void deliverMaxHP(float _maxhp) { m_MaxHP = _maxhp; }
 };
 

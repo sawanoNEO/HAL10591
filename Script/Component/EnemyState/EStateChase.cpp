@@ -45,7 +45,7 @@ void EStateChase::StateUpdate()
 	forward = XMVector3Normalize(playerpos - m_GameObject->GetPosition());
 	
 	m_GameObject->SetRotation(rotation);
-	rb->AddForce(forward * 200.0, ForceMode::Force);
+	rb->AddForce(forward * 350.0, ForceMode::Force);
 
 	float distance = (playerpos - m_GameObject->GetPosition()).Length();
 
@@ -78,7 +78,7 @@ void EStateChase::StateChange()
 		return;
 	}
 	Vector3 vec = player->GetPosition() - m_GameObject->GetPosition();
-	if (vec.Length() > 50.0f)
+	if (vec.Length() > 60.0f)
 	{
 		//‘Ò‹@ó‘Ô‚É–ß‚é
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());

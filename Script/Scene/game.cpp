@@ -63,36 +63,55 @@ void Game::Init()
 	//AddGameObject<AttackObject>(1);
 
 	// 敵追加
-	AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-	//AddGameObject<Enemy>(1)->SetPosition(Vector3(5.0f, 0.0f, 5.0f));
-	//AddGameObject<Enemy>(1)->SetPosition(Vector3(10.0f, 0.0f, 5.0f));
-	//AddGameObject<Enemy>(1)->SetPosition(Vector3(0.0f, 0.0f,10.0f));
-
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
+	//AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(5.0f, 0.0f, -25.0f));
+	}
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(10.0f, 0.0f, 15.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-5.0f, 0.0f, -25.0f));
+	}
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-10.0f, 0.0f, 15.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
 
 	AddGameObject<Player>(1);
 	AddGameObject<ST>(3);
 	AddGameObject<HP>(3);
 
-	//// チェック完了
-	//{
-	//	Box* box = AddGameObject<Box>(1);
-	//	box->SetPosition(Vector3(-5.0f, 0.0f, 5.0f));
-	//	box->SetScale(Vector3(3.0f, 1.0f, 3.0f));
-	//}
+	// チェック完了
+	{
+		Box* box = AddGameObject<Box>(1);
+		box->SetPosition(Vector3(-54.0f, 0.0f, 0.0f));
+		box->SetScale(Vector3(5.0f, 5.0f, 50.0f));
+	}
 
-	//// チェック完了
-	//{
-	//	Box* box = AddGameObject<Box>(1);
-	//	box->SetPosition(Vector3(-11.0f, 0.0f, 5.0f));
-	//	box->SetScale(Vector3(3.0f, 2.0f, 3.0f));
-	//}
+	// チェック完了
+	{
+		Box* box = AddGameObject<Box>(1);
+		box->SetPosition(Vector3(0.0f, 0.0f, 54.0f));
+		box->SetScale(Vector3(50.0f, 5.0f, 5.0f));
+	}
 
-	//// チェック完了
-	//{
-	//	Box* box = AddGameObject<Box>(1);
-	//	box->SetPosition(Vector3(-11.0f, 0.0f, 11.0f));
-	//	box->SetScale(Vector3(3.0f, 3.0f, 3.0f));
-	//}
+	// チェック完了
+	{
+		Box* box = AddGameObject<Box>(1);
+		box->SetPosition(Vector3(0.0f, 0.0f, -54.0f));
+		box->SetScale(Vector3(50.0f, 5.0f, 5.0f));
+	}
 	
 	//チェック完了
 	{
@@ -103,8 +122,8 @@ void Game::Init()
 
 	{
 		Box* box = AddGameObject<Box>(1);
-		box->SetPosition(Vector3(-15.0f, 0.0f, 0.0f));
-		box->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+		box->SetPosition(Vector3(54.0f, 0.0f, 0.0f));
+		box->SetScale(Vector3(5.0f, 5.0f, 50.0f));
 	}
 
 	//// チェック完了
@@ -129,11 +148,11 @@ void Game::Init()
 	//}
 
 	// チェック完了
-	{
-		Goal* goal = AddGameObject<Goal>(1);
-		goal->SetPosition(Vector3(0.0f, 10.5f, -10.0f));
-		goal->SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	}
+	//{
+	//	Goal* goal = AddGameObject<Goal>(1);
+	//	goal->SetPosition(Vector3(0.0f, 10.5f, -10.0f));
+	//	goal->SetScale(Vector3(0.5f, 0.5f, 0.5f));
+	//}
 
 
 	GameObject* audioobj = AddGameObject<GameObject>(0);
@@ -166,12 +185,12 @@ void Game::Update()
 	// ゴールしていないのであれば
 	if (m_Goal==false)
 	{
-		Goal* goal = GetGameObject<Goal>();
 		Enemy* enemy = GetGameObject<Enemy>();
 		Player* player = GetGameObject<Player>();
+		Boss* boss = GetGameObject<Boss>();
 
 		// ゴールした際にゴールオブジェクトは削除される
-		if (goal == nullptr || enemy == nullptr || player == nullptr)
+		if ((enemy == nullptr && boss == nullptr) || player == nullptr)
 		{
 			m_Goal = true;
 			//Camera* camera = GetGameObject<Camera>();
