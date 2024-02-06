@@ -32,8 +32,8 @@ void Boss::Init()
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
 	m_Model = AddComponent<AnimationModel>();
 	m_Model->Load("asset\\model\\Boss\\Boss.fbx");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "BossIdle");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "BossRun");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "BossImpact");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossPuntch.fbx", "BossAttack");
 	//m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
