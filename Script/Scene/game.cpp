@@ -69,28 +69,29 @@ void Game::Init()
 	portion->AddComponent<Sprite>()->Init(100.0f, 750.0f, 500 / 2, 500 / 2, "asset\\texture\\É|Å[ÉVÉáÉì.png");
 
 	// ìGí«â¡
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
 	//AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(5.0f, 0.0f, -25.0f));
-	}
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(10.0f, 0.0f, 15.0f));
+		enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
 		enemy->SetRotation({ 0.0f,3.0f,0.0f });
 	}
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-5.0f, 0.0f, -25.0f));
+		enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
 	}
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-10.0f, 0.0f, 15.0f));
+		enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
+	}
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
 		enemy->SetRotation({ 0.0f,3.0f,0.0f });
 	}
 

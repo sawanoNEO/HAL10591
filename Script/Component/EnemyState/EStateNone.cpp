@@ -33,7 +33,7 @@ void EStateNone::StateChange()
 	{
 		Vector3 playerPos = player->GetPosition();
 
-		if (SearchPlayer(playerPos, m_GameObject->GetPosition(), 180.0f, 40.0f))//プレイヤーが視界内に居れば追跡を開始
+		if (SearchPlayer(playerPos, m_GameObject->GetPosition(), m_Fov, m_Length))//プレイヤーが視界内に居れば追跡を開始
 		{
 			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateChase>());
 		}
