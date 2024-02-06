@@ -69,7 +69,7 @@ void Game::Init()
 	portion->AddComponent<Sprite>()->Init(100.0f, 750.0f, 500 / 2, 500 / 2, "asset\\texture\\É|Å[ÉVÉáÉì.png");
 
 	// ìGí«â¡
-	//AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 25.0f));
+	AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 25.0f));
 	
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);

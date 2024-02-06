@@ -9,6 +9,7 @@
 #include "assimp/postprocess.h"
 #include "assimp/matrix4x4.h"
 
+#include "../System/AiSceneSmartPtr.h"
 
 #pragma comment (lib, "assimp-vc142-mtd.lib")
 
@@ -50,7 +51,7 @@ struct CBBoneCombMatrx
 class AnimationModel : public Component
 {
 private:
-	static std::unordered_map<std::string, const aiScene*> loadedScenes;
+	AiSceneSmartPtr m_AiScenePtr;//aiSceneのスマートポインタ(自作クラス)
 	static std::unordered_map<std::string, int> m_sceneNum; //同一のデータがいくつメモリ上にあるかを数える
 	std::string m_sceneID;//解放処理の際に使用する
 	std::list<std::string> m_AnimNames;
