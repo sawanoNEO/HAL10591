@@ -61,7 +61,7 @@ void Enemy::Init()
 	m_SE["Dash"] = AddComponent<Audio>();
 	m_SE["Dash"]->Load("asset\\audio\\SE\\çªÇÃè„2.wav");
 
-	AddComponent<EStateNone>();
+	AddComponent<EStateNone>()->Init(210.0f,20.0f);
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
 	AddComponent<EStateAttack>();

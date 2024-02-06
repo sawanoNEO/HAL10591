@@ -135,6 +135,8 @@ void Player::Init()
 	m_SE["Heal"]->Load("asset\\audio\\SE\\¡–ü‚Æ‘h¶‚Ì–‚–@E¹‚È‚éŒõ.wav");
 	m_SE["Rolling"] = AddComponent<Audio>();
 	m_SE["Rolling"]->Load("asset\\audio\\SE\\‰ñ”ğ.wav");
+	m_SE["Miss"] = AddComponent<Audio>();
+	m_SE["Miss"]->Load("asset\\audio\\SE\\miss.wav");
 
 	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 	m_Position = Vector3(0.0f, 0.0f, -10.0f);
