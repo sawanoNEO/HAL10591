@@ -289,6 +289,7 @@
     <ClCompile Include="Script\Scene\result.cpp" />
     <ClCompile Include="Script\Scene\score.cpp" />
     <ClCompile Include="Script\Scene\title.cpp" />
+    <ClCompile Include="Script\System\AiSceneSmartPtr.cpp" />
     <ClCompile Include="Script\System\Application.cpp" />
     <ClCompile Include="Script\System\input.cpp" />
     <ClCompile Include="Script\System\main.cpp" />
@@ -370,6 +371,7 @@
     <ClInclude Include="Script\Scene\result.h" />
     <ClInclude Include="Script\Scene\scene.h" />
     <ClInclude Include="Script\Scene\title.h" />
+    <ClInclude Include="Script\System\AiSceneSmartPtr.h" />
     <ClInclude Include="Script\System\Application.h" />
     <ClInclude Include="Script\System\fpscontrol.h" />
     <ClInclude Include="Script\System\input.h" />

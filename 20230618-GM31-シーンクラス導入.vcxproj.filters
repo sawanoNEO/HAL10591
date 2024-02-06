@@ -302,6 +302,9 @@
     <ClCompile Include="Script\Component\StateDeath.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Script\System\AiSceneSmartPtr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -542,6 +545,9 @@
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\StateDeath.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\System\AiSceneSmartPtr.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
