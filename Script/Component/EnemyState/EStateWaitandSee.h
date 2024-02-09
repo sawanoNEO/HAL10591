@@ -16,6 +16,7 @@ private:
 	bool m_SideMoveflg = false;//後ろ移動を終え、横移動をするかどうか
 	int m_RandUpperLimit = 90;//様子見をする時間を決定する乱数の上限
 	int m_RandLowerLimit = 40;//様子見をする時間を決定する乱数の下限
+
 public:
 	using State::State;
 	void Enter()override;

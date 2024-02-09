@@ -9,6 +9,8 @@ class Rigidbody;
 class Enemy : public GameObject
 {
 protected:
+	static std::vector<Enemy*> m_Enemyes;
+	int m_Number=0;
 	class AnimationModel* m_Model;
 	std::unordered_map< const char*, class Audio*> m_SE{};
 	float m_Frame1;//再生中のアニメーションのフレーム数
@@ -33,6 +35,7 @@ public:
 	void Init() override;
 	void Update() override;
 	void Draw() override;
+	void Uninit()override;
 	void Damage(float);
 	void HitReset();
 
@@ -40,6 +43,7 @@ public:
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 
 	float GetEyeSight() { return m_EyeSight; }
+	static std::vector<Enemy*> GetEnemys() { return m_Enemyes; }
 
 	void PlaySE(const char* _SEname)override;
 	void PlaySE(const char* _SEname, bool _loop)override;

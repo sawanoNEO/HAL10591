@@ -29,6 +29,16 @@ void EStateAttack::Init()
 	m_Power = 125;
 }
 
+void EStateAttack::Init(int _startup, int _activeframes, int _recovery, int _power, int _doubleattackrate, DirectX::SimpleMath::Vector3 _scale)
+{
+	m_Startup = _startup;
+	m_ActiveFrames = _activeframes;
+	m_Recovery = _recovery;
+	m_Power = _power;
+	m_DoubleAttack = _doubleattackrate;
+	m_AttackObj->SetScale(_scale);
+}
+
 void EStateAttack::Enter()
 {
 	m_GameObject->SetAnimName2("Attack");
@@ -186,7 +196,6 @@ void EStateAttack::StateChange()
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateChase>());
 	}
-
 }
 
 void EStateAttack::Draw()

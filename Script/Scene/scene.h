@@ -18,6 +18,7 @@ public:
 	Scene() {}
 	virtual ~Scene() {}
 
+	virtual void LoadImageDraw() {}
 	virtual void Init() {}
 	virtual void Uninit() {}
 	virtual void Update() {}

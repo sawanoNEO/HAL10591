@@ -27,8 +27,12 @@
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
+std::vector<Enemy*>Enemy::m_Enemyes;
+
 void Enemy::Init()
 {
+	m_Number = m_Enemyes.size();
+	m_Enemyes.push_back(this);
 	MaxHP = 240.0;
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
@@ -184,6 +188,12 @@ void Enemy::Draw()
 	ImGui::End();
 #endif
 }
+
+void Enemy::Uninit()
+{
+	//delete m_Enemyes[m_Number];
+}
+
 
 void Enemy::Damage(float damage)
 {	

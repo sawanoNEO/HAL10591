@@ -29,8 +29,8 @@ public:
 			m_Scene->UninitBase();
 			delete m_Scene;
 		}
-
 		m_Scene = new T();
+		m_Scene->LoadImageDraw();
 		m_Scene->InitBase();
 	}
 };

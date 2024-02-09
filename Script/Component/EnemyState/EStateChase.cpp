@@ -16,6 +16,13 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+void EStateChase::Init(int _attackrate, int _waitandseerate,int _specialAttack)
+{
+	m_AttackRate = _attackrate;
+	m_WaitandSeeRate = _waitandseerate;
+	m_SpecialAttack = _specialAttack;
+}
+
 void EStateChase::Enter()
 {
 	m_GameObject->SetAnimName2("Walk");

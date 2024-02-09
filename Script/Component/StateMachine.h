@@ -3,15 +3,12 @@
 
 class State:public Component
 {
-private:
-    const char* StateName;//状態の名前
 public:
     using Component::Component;
     virtual void Enter() = 0;    //状態に入った時の処理
     virtual void Exit() = 0;     //状態を抜け出す時の処理
-    virtual void StateUpdate() = 0; //状態ごとに毎ループ処理
+    virtual void StateUpdate() = 0; //状態ごとの毎ループ処理
     virtual void StateChange() = 0; //条件判定関数
-    const char* GetStateName() { return StateName; }; 
 };
 
 class StateMachine :public Component
@@ -22,9 +19,7 @@ private:
 
 public:
     using Component::Component;
-    //StateMachine(State* initialState) : m_CurrentState(initialState) {
-    //    m_CurrentState->Enter();
-    //}
+
     void changeState(State* newState) //状態遷移関数
     {
         m_CurrentState->Exit();
@@ -33,7 +28,7 @@ public:
         m_CurrentState->Enter();
     }
 
-    void Init(State* initialState)
+    void Init(State* initialState)//最初に設定する状態
     {
         m_CurrentState=initialState;
         m_CurrentState->Enter();
@@ -48,6 +43,4 @@ public:
     {
         m_CurrentState->Draw();
     }
-
-    const char* GetPastStateName() { return m_PastState->GetStateName(); };
 };
