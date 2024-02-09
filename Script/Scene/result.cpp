@@ -20,8 +20,15 @@ void Result::Init()
 {
 	GameObject* resultLogo = AddGameObject<GameObject>(3);			// 3‚ÍƒŒƒCƒ„”Ô†
 	resultLogo->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-	resultLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\result.jpg");
 
+	if (m_Winflg == true)
+	{
+		resultLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\BackWin.png");
+	}
+	else
+	{
+		resultLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\BackLose.png");
+	}
 	m_Transition = AddGameObject<Transition>(3);					// 3‚ÍƒŒƒCƒ„”Ô†
 	m_Transition->FadeIn();
 }

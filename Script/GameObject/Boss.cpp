@@ -14,7 +14,9 @@
 #include "../Component/EnemyState/EStateChase.h"
 #include "../Component/EnemyState/EStateAttack.h"
 #include "../Component/EnemyState/EStateWaitAndSee.h"
+#include "../Component/StateDeath.h"
 
+#include "../Component/audio.h"
 #include "../Component/shadow.h"
 #include "../Component/Colider.h"
 #include "../Component/Rigidbody.h"
@@ -26,6 +28,8 @@ using namespace DirectX;
 
 void Boss::Init()
 {
+	m_Number = m_Enemyes.size();
+	m_Enemyes.push_back(this);
 	MaxHP = 1000.0;
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
@@ -34,22 +38,41 @@ void Boss::Init()
 	m_Model->Load("asset\\model\\Boss\\Boss.fbx");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "Walk");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "BossImpact");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossPuntch.fbx", "BossAttack");
-	//m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
-	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
-	//m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "Impact");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossSwiping.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
+	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
 	m_Model->LoadAnimation("asset\\model\\PowerUp.fbx", "BossAppearance");
 	SetAnimName2("BossAppearance");
 	SetAnimName2("BossAppearance");
 	SetAnimSpeed(0.5f);
-	/*AddComponent<EStateNone>();
+	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
-	AddComponent<EStateChase>();
-	AddComponent<EStateAttack>();
+	AddComponent<StateDeath>();
+	AddComponent<EStateChase>()->Init(100,0,0);
+	AddComponent<EStateAttack>()->Init(25, 7, 19, 350, 0, Vector3{6.0f,2.0f,4.0f});
 	AddComponent<EStateWaitandSee>();
 	AddComponent<StateMachine>();
-	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());*/
+	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
+
+	m_SE["Puntch1"] = AddComponent<Audio>();
+	m_SE["Puntch1"]->Load("asset\\audio\\SE\\Puntch1.wav");
+	m_SE["Puntch2"] = AddComponent<Audio>();
+	m_SE["Puntch2"]->Load("asset\\audio\\SE\\Puntch2.wav");
+	m_SE["Puntch3"] = AddComponent<Audio>();
+	m_SE["Puntch3"]->Load("asset\\audio\\SE\\Puntch3.wav");
+	m_SE["Swing1"] = AddComponent<Audio>();
+	m_SE["Swing1"]->Load("asset\\audio\\SE\\Swing1.wav");
+	m_SE["Swing2"] = AddComponent<Audio>();
+	m_SE["Swing2"]->Load("asset\\audio\\SE\\Swing2.wav");
+	m_SE["Swing3"] = AddComponent<Audio>();
+	m_SE["Swing3"]->Load("asset\\audio\\SE\\Swing3.wav");
+	m_SE["Walk"] = AddComponent<Audio>();
+	m_SE["Walk"]->Load("asset\\audio\\SE\\çªÇÃè„1.wav");
+	m_SE["Dash"] = AddComponent<Audio>();
+	m_SE["Dash"]->Load("asset\\audio\\SE\\çªÇÃè„2.wav");
+
 
 	m_Scale = Vector3(0.04f, 0.04f, 0.04f);
 
@@ -78,7 +101,7 @@ void Boss::Update()
 
 	if (!player)
 	{
-		GetComponent<StateMachine>()->changeState(GetComponent<EStateNone>());
+		//GetComponent<StateMachine>()->changeState(GetComponent<EStateNone>());
 	}
 
 	//if (player)
@@ -156,12 +179,26 @@ void Boss::Draw()
 {
 }
 
-void Boss::Damage(float)
+void Boss::Damage(float damage)
 {
+	if (!hit)
+	{
+		HP -= damage;
+		if (HP <= 0)
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
+		}
+		else
+		{
+			GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
+		}
+		hit = true;
+	}
 }
 
 void Boss::HitReset()
 {
+	hit = false;
 }
 
 void Boss::SetAnimName2(const char* _Name)

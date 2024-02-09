@@ -45,9 +45,10 @@ void Title::Update()
 
 	if (m_Transition->GetState() == Transition::State::Stop)
 	{
-		if (Input::GetController(Input::b,Input::PRESSED))
+		if (Input::GetController(Input::b,Input::PRESSED)||Input::GetKeyTrigger(VK_RETURN))
 		{
 			m_Transition->FadeOut();
+
 		}
 	}
 
@@ -61,6 +62,7 @@ void Title::Update()
 	// ‰æ–Ê‘JˆÚ‚ªI—¹‚µ‚Ä‚é‚©H
 	if (m_Transition->GetState() == Transition::State::Finish)
 	{
+
 		Manager::SetScene<Game>();
 	}
 }

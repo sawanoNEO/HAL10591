@@ -21,6 +21,7 @@ private:
 public:
 	using State::State;
 	void Init()override;
+	void Init(int _startup,int _activeframes,int _recovery,int _power,int _doubleattackrate,DirectX::SimpleMath::Vector3 _scale);
 	void Enter()override;
 	void Exit()override;
 	void StateUpdate()override;

@@ -11,6 +11,7 @@
 #include "../GameObject/gameObject.h"
 #include "../GameObject/player.h"
 #include "../GameObject/enemy.h"
+#include "../GameObject/Boss.h"
 #include "../GameObject/camera.h"
 #include "../GameObject/Effect/Slash.h"
 
@@ -69,11 +70,22 @@ void StateAttack::StateUpdate()
 
 	AttackObj->SetPosition(player->GetPosition()+forward*3);
 
+	////敵のコライダーを取得
+	enemys = Enemy::GetEnemys();
 	col.resize(enemys.size());
-	for (int i = 0; i < enemys.size(); i++)
+	for (int i=0;i<enemys.size();i++)
 	{
 		col[i] = enemys[i]->GetComponent<Colider>();
 	}
+	//col.resize(enemys.size()+Bosses.size());
+	//for (int i = 0; i < enemys.size(); i++)
+	//{
+	//	col[i] = enemys[i]->GetComponent<Colider>();
+	//}
+	//for (int i = 0; i < Bosses.size(); i++)
+	//{
+	//	col[i + enemys.size()] = Bosses[i]->GetComponent<Colider>();
+	//}
 
 	if (m_Count < m_Startup)//攻撃の予備動作
 	{
@@ -85,6 +97,7 @@ void StateAttack::StateUpdate()
 		{
 			enemy->HitReset();
 		}
+
 	}
 	else if (m_Count < m_Startup +m_ActiveFrames)/////攻撃判定が出ている時間。持続部分。
 	{

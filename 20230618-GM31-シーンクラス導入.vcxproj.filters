@@ -290,20 +290,20 @@
     <ClCompile Include="Script\Component\EnemyState\EStateWaitandSee.cpp">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="Script\GameObject\Effect\HealEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Script\Component\StateDamage.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
     <ClCompile Include="Script\GameObject\Boss.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Script\Component\StateDeath.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Script\GameObject\Effect\HealEffect.cpp">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Script\System\AiSceneSmartPtr.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Component\StateDeath.cpp">
+      <Filter>ソース ファイル\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -535,20 +535,20 @@
     <ClInclude Include="Script\Component\EnemyState\EStateWaitandSee.h">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
-    <ClInclude Include="Script\GameObject\Effect\HealEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Script\Component\StateDamage.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\GameObject\Boss.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Component\StateDeath.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Script\GameObject\Effect\HealEffect.h">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Script\System\AiSceneSmartPtr.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Component\StateDeath.h">
+      <Filter>ソース ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

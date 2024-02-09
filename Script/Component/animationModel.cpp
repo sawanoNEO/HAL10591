@@ -322,6 +322,7 @@ void AnimationModel::Load(const char* FileName)
 	const std::string modelPath(FileName);
 
 	std::ofstream outputFile("asset\\editer\\ModelData.csv");
+	//std::shared_ptr<const aiScene*> scenePtr = std::make_shared<const aiScene*>(aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded));
 	m_AiScene = m_AiScenePtr.AddScene(FileName,TypeModel);
 	//if (loadedScenes.find(FileName) != loadedScenes.end()) //ä˘Ç…ì«Ç›çûÇ‹ÇÍÇΩÇ±Ç∆ÇÃÇ†ÇÈÉfÅ[É^Ç©Ç«Ç§Ç©
 	//{
