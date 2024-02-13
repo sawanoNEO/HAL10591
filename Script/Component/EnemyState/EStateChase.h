@@ -19,6 +19,7 @@ private:
 public:
 	State::State;
 	void Init(int _attackrate, int _waitandseerate,int _specialAttack);
+	void Init(const char* FilePath);
 	void Enter()override;
 	void Exit()override;
 	void StateUpdate()override;

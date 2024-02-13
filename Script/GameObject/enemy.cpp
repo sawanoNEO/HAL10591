@@ -31,6 +31,8 @@ std::vector<Enemy*>Enemy::m_Enemyes;
 
 void Enemy::Init()
 {
+	m_FileDataPath = "asset\\editer\\EnemyData1.csv";
+
 	m_Number = m_Enemyes.size();
 	m_Enemyes.push_back(this);
 	MaxHP = 240.0;
@@ -65,10 +67,10 @@ void Enemy::Init()
 	m_SE["Dash"] = AddComponent<Audio>();
 	m_SE["Dash"]->Load("asset\\audio\\SE\\çªÇÃè„2.wav");
 
-	AddComponent<EStateNone>()->Init(210.0f,20.0f);
+	AddComponent<EStateNone>()->Init(m_FileDataPath);
 	AddComponent<EStateDamage>();
 	AddComponent<EStateChase>();
-	AddComponent<EStateAttack>();
+	AddComponent<EStateAttack>()->Init(m_FileDataPath);
 	AddComponent<EStateWaitandSee>();
 	AddComponent<StateDeath>();
 	AddComponent<StateMachine>();
@@ -191,7 +193,14 @@ void Enemy::Draw()
 
 void Enemy::Uninit()
 {
-	//delete m_Enemyes[m_Number];
+	auto itr = --m_Enemyes.end();
+	for (int i = m_Enemyes.size(); i > m_Number+1; i--)
+	{
+		Enemy* enemy = *itr;
+		enemy->m_Number--;
+		itr--;
+	}
+	m_Enemyes.erase(itr);
 }
 
 
@@ -199,6 +208,10 @@ void Enemy::Damage(float damage)
 {	
 	if (!hit)
 	{
+		if (HP <= 0) // ä˘Ç…éÄÇÒÇ≈Ç¢ÇÈèÍçáÇÕèàóùÇèIóπ
+		{
+			return;
+		}
 		HP -= damage;
 		if (HP <= 0)
 		{
@@ -229,6 +242,11 @@ void Enemy::SetAnimName2(const char* _Name)
 	m_Frame1 = m_Frame2;
 	m_Frame2 = 0;
 	m_BlendRate = 0.0;
+}
+
+std::vector<Enemy*> Enemy::GetEnemys()
+{	
+	return m_Enemyes;
 }
 
 void Enemy::PlaySE(const char* _SEname)

@@ -13,14 +13,57 @@
 
 #include "../../ImGui/imguimanager.h"
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+using namespace std;
 
 void EStateChase::Init(int _attackrate, int _waitandseerate,int _specialAttack)
 {
 	m_AttackRate = _attackrate;
 	m_WaitandSeeRate = _waitandseerate;
 	m_SpecialAttack = _specialAttack;
+}
+
+void EStateChase::Init(const char* FilePath)
+{
+	ifstream file(FilePath);
+	assert(file.is_open() && "File‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
+	string line;
+
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string, int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	getline(file, line);
+	string cell;
+	stringstream ss(line);
+	vector<int> row;
+	while (getline(ss, cell, ','))
+	{
+		if (cell.size() != 0)
+		{
+			row.push_back(stoi(cell));
+		}
+		else
+		{
+			row.push_back(0);
+		}
+	}
+	m_AttackRate = row[id["AttackChangeRate"]];
+	m_WaitandSeeRate = row[id["WaitandSeeRate"]];
+	m_SpecialAttack = row[id["SpecialAttack"]];
+
+	file.close();
 }
 
 void EStateChase::Enter()

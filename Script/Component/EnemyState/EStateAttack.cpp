@@ -13,38 +13,44 @@
 
 #include "../../ImGui/imguimanager.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 using namespace DirectX::SimpleMath;
+using namespace std;
 
 void EStateAttack::Init()
 {
-	Scene* scene = Manager::GetScene();
-	m_AttackObj = scene->AddGameObject<GameObject>(1);
-	m_AttackObj->AddComponent<Colider>();
-	m_AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
-	m_AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
-	m_Startup = 17;
-	m_ActiveFrames = 5;
-	m_Recovery = 21;
-	m_cnt = 0;
-	m_Power = 125;
+	//Scene* scene = Manager::GetScene();
+	//m_AttackObj = scene->AddGameObject<GameObject>(1);
+	//m_AttackObj->AddComponent<Colider>();
+	//m_AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
+	//m_AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
+	//m_Startup[0] = 17;
+	//m_ActiveFrames[0] = 5;
+	//m_Recovery[0] = 21;
+	//m_cnt = 0;
+	//m_Power[0] = 125;
+	//m_DubleAttackRate[0] = 10;
 }
 
 void EStateAttack::Init(int _startup, int _activeframes, int _recovery, int _power, int _doubleattackrate, DirectX::SimpleMath::Vector3 _scale)
 {
-	m_Startup = _startup;
-	m_ActiveFrames = _activeframes;
-	m_Recovery = _recovery;
-	m_Power = _power;
-	m_DoubleAttack = _doubleattackrate;
+	m_Startup.push_back(_startup);
+	m_ActiveFrames.push_back(_activeframes);
+	m_Recovery.push_back(_recovery);
+	m_Power.push_back(_power);
+	m_DubleAttackRate.push_back(_doubleattackrate);
 	m_AttackObj->SetScale(_scale);
 }
 
 void EStateAttack::Enter()
 {
 	m_GameObject->SetAnimName2("Attack");
-	m_Startup = 22;
-	m_ActiveFrames = 5;
-	m_Recovery = 21;
+	//m_Startup = 22;
+	//m_ActiveFrames = 5;
+	//m_Recovery = 21;
 	m_cnt = 0;
 	m_hit = false;
 	m_DoubleAttack = false;
@@ -52,7 +58,56 @@ void EStateAttack::Enter()
 
 void EStateAttack::Exit()
 {
+	m_AttackNum = 0;
 	m_GameObject->SetAnimSpeed(1.0);
+}
+
+void EStateAttack::Init(const char* FilePath)
+{
+	Scene* scene = Manager::GetScene();
+    m_AttackObj = scene->AddGameObject<GameObject>(1);
+    m_AttackObj->AddComponent<Colider>();
+    m_AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
+    m_AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
+
+	////csvファイルを読み込んで各パラメータを代入
+	ifstream file(FilePath);
+	assert(file.is_open()&&"Fileが見つかりませんでした");
+	string line;
+
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string,int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	while (getline(file, line))
+	{
+        string cell;
+		stringstream ss(line);
+		vector<int> row;
+		while (getline(ss, cell, ',')) 
+		{
+			if (cell.size() != 0)
+			{
+			   row.push_back(stoi(cell));
+			}
+			else
+			{
+				row.push_back(0);
+			}
+		}
+		m_Startup.push_back(row[id["StartUp"]]);
+		m_ActiveFrames.push_back(row[id["ActiveFrames"]]);
+		m_Recovery.push_back(row[id["Recovery"]]);
+		m_Power.push_back(row[id["Power"]]);
+		m_DubleAttackRate.push_back(row[id["DoubleAttackRate"]]);
+	}
+	file.close();
 }
 
 void EStateAttack::StateUpdate()
@@ -80,10 +135,10 @@ void EStateAttack::StateUpdate()
 
 	///////↓↓↓各カウント毎の処理
 
-	if (m_cnt < m_Startup)
+	if (m_cnt < m_Startup[m_AttackNum])
 	{
 	}
-	else if (m_cnt == m_Startup)
+	else if (m_cnt == m_Startup[m_AttackNum])
 	{
 		slash = scene->AddGameObject<Slash>(1);
 		slash->SetColor(White);
@@ -112,7 +167,7 @@ void EStateAttack::StateUpdate()
 			break;
 		}
 	}
-	else if (m_cnt < m_Startup + m_ActiveFrames)/////攻撃判定が出ている時間。持続部分。
+	else if (m_cnt < m_Startup[m_AttackNum] + m_ActiveFrames[m_AttackNum])/////攻撃判定が出ている時間。持続部分。
 	{
 		
 		//角度調整
@@ -126,7 +181,7 @@ void EStateAttack::StateUpdate()
 			rotation.y -= 0.3;
 		}
 		m_GameObject->SetRotation(rotation);
-		if (m_cnt == m_Startup)
+		if (m_cnt == m_Startup[m_AttackNum])
 		{
 			Vector3 vec = forward * 100;
 			rb->AddForce(vec, ForceMode::Impulse);
@@ -157,19 +212,20 @@ void EStateAttack::StateUpdate()
 				break;
 			}
 			slash->SetColor(Red);
-			player->Damage(m_Power);
+			player->Damage(m_Power[m_AttackNum]);
 			m_hit = true;
 		}
 	}
-	else if (m_cnt == m_Startup + m_ActiveFrames)
+	else if (m_cnt == m_Startup[m_AttackNum] + m_ActiveFrames[m_AttackNum])
 	{
-		if (m_DubleAttackRate >= rand() % 100&&m_DoubleAttack==false)
+		if (m_DubleAttackRate[m_AttackNum] >= rand() % 100 && m_DoubleAttack == false)
 		{
 			m_GameObject->SetAnimName2("Attack3");
 			m_GameObject->SetAnimSpeed(0.5);
-			m_Startup = 32;
-			m_ActiveFrames = 10;
-			m_Recovery = 42;
+			m_AttackNum++;
+			//m_Startup = 32;
+			//m_ActiveFrames = 10;
+			//m_Recovery = 42;
 			m_cnt = 0;
 			m_hit = false;
 			m_DoubleAttack=true;
@@ -192,7 +248,7 @@ void EStateAttack::StateUpdate()
 
 void EStateAttack::StateChange()
 {
-	if (m_cnt > m_Startup + m_ActiveFrames + m_Recovery)
+	if (m_cnt > m_Startup[m_AttackNum] + m_ActiveFrames[m_AttackNum] + m_Recovery[m_AttackNum])
 	{
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateChase>());
 	}
@@ -202,7 +258,7 @@ void EStateAttack::Draw()
 {
 #if _DEBUG
 	ImGui::Begin("EnemyAttaState");
-	ImGui::SliderInt("Frame", &m_Recovery, 0, 50);
+	ImGui::SliderInt("Frame", &m_Recovery[m_AttackNum], 0, 50);
 	ImGui::End();
 #endif
 }

@@ -21,15 +21,28 @@
 #include "../Component/Colider.h"
 #include "../Component/Rigidbody.h"
 
+#include <fstream>
 #include <SimpleMath.h>
+#include <iostream>
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
+using namespace std;
 
 void Boss::Init()
 {
+	m_FileDataPath = "asset\\editer\\BossData.csv";
 	m_Number = m_Enemyes.size();
 	m_Enemyes.push_back(this);
+
+	//////ifstream BossData("asset\\editer\\BossData.csv");
+	//////string test;
+
+	//////assert(BossData.is_open()&&"ファイルを開けませんでした");
+
+	//////getline(BossData, test);
+	//////getline(BossData, test);
+	//////BossData.close();
 	MaxHP = 1000.0;
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
@@ -46,12 +59,13 @@ void Boss::Init()
 	m_Model->LoadAnimation("asset\\model\\PowerUp.fbx", "BossAppearance");
 	SetAnimName2("BossAppearance");
 	SetAnimName2("BossAppearance");
-	SetAnimSpeed(0.5f);
+	//SetAnimSpeed(0.5f);
 	AddComponent<EStateNone>();
 	AddComponent<EStateDamage>();
 	AddComponent<StateDeath>();
-	AddComponent<EStateChase>()->Init(100,0,0);
-	AddComponent<EStateAttack>()->Init(25, 7, 19, 350, 0, Vector3{6.0f,2.0f,4.0f});
+	AddComponent<EStateChase>()->Init(m_FileDataPath);
+	//AddComponent<EStateAttack>()->Init(25, 7, 19, 350, 0, Vector3{6.0f,2.0f,4.0f});
+	AddComponent<EStateAttack>()->Init("asset\\editer\\BossData.csv");
 	AddComponent<EStateWaitandSee>();
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<EStateNone>());
