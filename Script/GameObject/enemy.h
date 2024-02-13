@@ -10,6 +10,7 @@ class Enemy : public GameObject
 {
 protected:
 	static std::vector<Enemy*> m_Enemyes;
+	const char* m_FileDataPath;
 	int m_Number=0;
 	class AnimationModel* m_Model;
 	std::unordered_map< const char*, class Audio*> m_SE{};
@@ -43,7 +44,7 @@ public:
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定
 
 	float GetEyeSight() { return m_EyeSight; }
-	static std::vector<Enemy*> GetEnemys() { return m_Enemyes; }
+	static std::vector<Enemy*> GetEnemys();
 
 	void PlaySE(const char* _SEname)override;
 	void PlaySE(const char* _SEname, bool _loop)override;

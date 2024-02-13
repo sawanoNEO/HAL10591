@@ -85,6 +85,7 @@ public:
 		{
 			UninitBase();
 			delete this;
+
 			return true;
 		}
 		else

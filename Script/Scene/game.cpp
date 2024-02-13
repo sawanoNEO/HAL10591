@@ -55,16 +55,16 @@ void Game::ChangeLoadImage()
 	switch (m_LoadCount%4)
 	{
 	case 0:
-		m_LoadImage->GetComponent<Sprite>()->Init(1200.0f, 900.0f, 566, 115, "asset\\texture\\Now Loading.png");
+		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 566, 115, "asset\\texture\\Now Loading.png");
 		break;
 	case 1:
-		m_LoadImage->GetComponent<Sprite>()->Init(1200.0f, 900.0f, 587, 115, "asset\\texture\\Now Loading1.png");
+		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 587, 115, "asset\\texture\\Now Loading1.png");
 		break;
 	case 2:
-		m_LoadImage->GetComponent<Sprite>()->Init(1200.0f, 900.0f, 612, 115, "asset\\texture\\Now Loading2.png");
+		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 612, 115, "asset\\texture\\Now Loading2.png");
 		break;
 	case 3:
-		m_LoadImage->GetComponent<Sprite>()->Init(1200.0f, 900.0f, 637, 115, "asset\\texture\\Now Loading3.png");
+		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 637, 115, "asset\\texture\\Now Loading3.png");
 		break;
 		
 	default:

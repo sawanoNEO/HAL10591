@@ -8,7 +8,49 @@
 
 #include "../../Scene/scene.h"
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 using namespace DirectX::SimpleMath;
+using namespace std;
+
+void EStateNone::Init(const char* FilePath)
+{
+	ifstream file(FilePath);
+	assert(file.is_open() && "Fileが見つかりませんでした");
+	string line;
+
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string, int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	getline(file, line);
+	string cell;
+	stringstream ss(line);
+	vector<int> row;
+	while (getline(ss, cell, ','))
+	{
+		if (cell.size() != 0)
+		{
+			row.push_back(stoi(cell));
+		}
+		else
+		{
+			row.push_back(0);
+		}
+	}
+	m_Fov = row[id["FOV"]];
+	m_Sight = row[id["Sight"]];
+	
+	file.close();
+}
 
 void EStateNone::Enter()
 {
@@ -33,7 +75,7 @@ void EStateNone::StateChange()
 	{
 		Vector3 playerPos = player->GetPosition();
 
-		if (SearchPlayer(playerPos, m_GameObject->GetPosition(), m_Fov, m_Length))//プレイヤーが視界内に居れば追跡を開始
+		if (SearchPlayer(playerPos, m_GameObject->GetPosition(), m_Fov, m_Sight))//プレイヤーが視界内に居れば追跡を開始
 		{
 			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateChase>());
 		}
