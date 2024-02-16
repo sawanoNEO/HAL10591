@@ -9,9 +9,9 @@ class Rigidbody;
 class Enemy : public GameObject
 {
 protected:
-	static std::vector<Enemy*> m_Enemyes;
-	const char* m_FileDataPath;
-	int m_Number=0;
+	static std::vector<Enemy*> m_Enemyes;//現在のシーンで何体の敵が存在しているか
+	const char* m_FileDataPath;//パラメータ情報が入っているcsvのパス
+	int m_Number=0;//インスタンス毎に振り分けられているIDのようなもの、解放処理で利用する
 	class AnimationModel* m_Model;
 	std::unordered_map< const char*, class Audio*> m_SE{};
 	float m_Frame1;//再生中のアニメーションのフレーム数

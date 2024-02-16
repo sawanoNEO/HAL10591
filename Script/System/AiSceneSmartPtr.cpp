@@ -10,6 +10,7 @@ using namespace DirectX::SimpleMath;
 
 std::unordered_map<std::string, const aiScene*>AiSceneSmartPtr::m_LoadedScene;
 std::unordered_map<std::string, int>AiSceneSmartPtr::m_UseCount;
+int AiSceneSmartPtr::m_DataNum = 0;
 
 const aiScene* AiSceneSmartPtr::AddScene(const char* FileName, SceneType _type)
 {
@@ -24,9 +25,11 @@ const aiScene* AiSceneSmartPtr::AddScene(const char* FileName, SceneType _type)
 		{
 		case TypeModel:
 			m_LoadedScene[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
+			m_DataNum++;
 			break;
 		case TypeAnimation:
 			m_LoadedScene[FileName] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
+			m_DataNum++;
 			break;
 		default:
 			break;
@@ -46,6 +49,11 @@ void AiSceneSmartPtr::UnInit()
 		if (m_UseCount[itr] == 1)
 		{
 			aiReleaseImport(m_LoadedScene[itr]);
+			m_DataNum--;
+			if (m_DataNum == 0)
+			{
+				m_LoadedScene.clear();
+			}
 		}
 		m_UseCount[itr]--;
 	}
