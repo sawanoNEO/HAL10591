@@ -25,6 +25,7 @@ private:
 	static std::unordered_map<std::string, const aiScene*> m_LoadedScene;//ロード済のaiSceneとそのモデルの名前(ファイルパス)
 	static std::unordered_map<std::string, int> m_UseCount;//同じ名前のモデルが何度ロードされたか
 	std::list<std::string> m_UseSceneName;//使用しているaiScene集(FileName)
+	static int m_DataNum;//格納されたデータの数
 public:
 	const aiScene* AddScene(const char* FileName,SceneType _type);
 	void UnInit();

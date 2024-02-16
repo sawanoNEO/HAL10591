@@ -26,7 +26,7 @@ public:
 
 	enum Button  //ボタンの種類。引数に使用。LeftUp等は左スティックの傾きの状態を取得する
 	{
-		a,b,x,y,L1,R1,L2,R2,LeftStick,RightStick,Start,Back,LeftUP,LeftDown,LeftLeft,LeftRight
+		a,b,x,y,L1,R1,L2,R2,LeftStick,RightStick,Start,Back,LeftUP,LeftDown,LeftLeft,LeftRight,CROSSUP,CROSSDOWN,CROSSLEFT,CROSSRIGHT
 	};
 	enum DIR   //各スティックの傾きを取得するための値。
 	{

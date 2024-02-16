@@ -22,6 +22,7 @@
 #include "../Component/Rigidbody.h"
 
 #include <fstream>
+#include <sstream>
 #include <SimpleMath.h>
 #include <iostream>
 
@@ -35,15 +36,37 @@ void Boss::Init()
 	m_Number = m_Enemyes.size();
 	m_Enemyes.push_back(this);
 
-	//////ifstream BossData("asset\\editer\\BossData.csv");
-	//////string test;
+	ifstream file(m_FileDataPath);
+	assert(file.is_open() && "Fileが見つかりませんでした");
+	string line;
 
-	//////assert(BossData.is_open()&&"ファイルを開けませんでした");
-
-	//////getline(BossData, test);
-	//////getline(BossData, test);
-	//////BossData.close();
-	MaxHP = 1000.0;
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string, int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	getline(file, line);
+	string cell;
+	stringstream ss(line);
+	vector<int> row;
+	while (getline(ss, cell, ','))
+	{
+		if (cell.size() != 0)
+		{
+			row.push_back(stoi(cell));
+		}
+		else
+		{
+			row.push_back(0);
+		}
+	}
+	file.close();
+	MaxHP = row[id["MaxHP"]];
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");
@@ -53,6 +76,7 @@ void Boss::Init()
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "Walk");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossSwiping.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossDying.fbx", "Death");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
 	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
@@ -96,6 +120,9 @@ void Boss::Init()
 	rb->Init(5.0f);
 
 	//m_HP = AddChild<EnemyHP>();
+
+	m_HP = AddChild<EnemyHP>();
+	m_HP->deliverMaxHP(MaxHP);
 }
 
 void Boss::Update()
@@ -107,6 +134,9 @@ void Boss::Update()
 	Vector3 playerpos;
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
+
+	m_HP->deliverParamater(HP);
+	m_HP->SetPosition(Vector3(m_Position.x, m_Position.y + 5.0f, m_Position.z));
 
 	//HPバーの表示位置
 	//m_HP->deliverParamater(HP);

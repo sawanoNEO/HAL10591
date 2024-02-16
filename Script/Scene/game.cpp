@@ -119,35 +119,35 @@ void Game::Init()
 	portion->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 	portion->AddComponent<Sprite>()->Init(100.0f, 750.0f, 500 / 2, 500 / 2, "asset\\texture\\É|Å[ÉVÉáÉì.png");
 	// ìGí«â¡
-	AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 25.0f));
+	//AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 25.0f));
 	ChangeLoadImage();
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
 		enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
 		enemy->SetRotation({ 0.0f,3.0f,0.0f });
 	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
+	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
+	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	//}
 	ChangeLoadImage();
 	AddGameObject<Player>(1);
 	ChangeLoadImage();
@@ -220,6 +220,8 @@ void Game::Init()
 	GameObject* audioobj = AddGameObject<GameObject>(0);
 	audioobj->AddComponent<Audio>()->InitMaster();
 	audioobj->GetComponent<Audio>()->Load("asset\\audio\\BGM\\Battle.wav");
+	audioobj->GetComponent<Audio>()->FadeIn();
+	audioobj->GetComponent<Audio>()->SetVolume(0.0f);
 	audioobj->GetComponent<Audio>()->Play(true);
 	//AddGameObject<Battery>(1)->SetPosition(Vector3(20.0f, 0.0f, 5.0f));
 

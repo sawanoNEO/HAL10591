@@ -24,15 +24,50 @@
 
 #include "../ImGui/imguimanager.h"
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
-
+using namespace std;
 std::vector<Enemy*>Enemy::m_Enemyes;
 
 void Enemy::Init()
 {
 	m_FileDataPath = "asset\\editer\\EnemyData1.csv";
+	ifstream file(m_FileDataPath);
+	assert(file.is_open() && "File‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
+	string line;
 
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string, int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	getline(file, line);
+	string cell;
+	stringstream ss(line);
+	vector<int> row;
+	while (getline(ss, cell, ','))
+	{
+		if (cell.size() != 0)
+		{
+			row.push_back(stoi(cell));
+		}
+		else
+		{
+			row.push_back(0);
+		}
+	}
+	MaxHP = row[id["MaxHP"]];
+
+	file.close();
 	m_Number = m_Enemyes.size();
 	m_Enemyes.push_back(this);
 	MaxHP = 240.0;
@@ -69,7 +104,7 @@ void Enemy::Init()
 
 	AddComponent<EStateNone>()->Init(m_FileDataPath);
 	AddComponent<EStateDamage>();
-	AddComponent<EStateChase>();
+	AddComponent<EStateChase>()->Init(m_FileDataPath);
 	AddComponent<EStateAttack>()->Init(m_FileDataPath);
 	AddComponent<EStateWaitandSee>();
 	AddComponent<StateDeath>();

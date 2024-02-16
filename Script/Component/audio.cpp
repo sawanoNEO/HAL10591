@@ -105,8 +105,34 @@ void Audio::Uninit()
 {
 	m_SourceVoice->Stop();
 	m_SourceVoice->DestroyVoice();
-
 	delete[] m_SoundData;
+}
+
+void Audio::Update()
+{
+	/*if (m_Fadeflg == true)
+	{
+		m_SourceVoice->SetVolume(m_Volume);
+		m_Volume -= 0.025f;
+	}*/
+	if (m_State == AUDIOFADEOUT)
+	{
+		m_SourceVoice->SetVolume(m_Volume);
+		m_Volume -= 0.005f;
+		if (m_Volume <= 0)
+		{
+			m_State = AUDIOFADEFINISH;
+		}
+	}
+	if (m_State == AUDIOFADEIN)
+	{
+		m_SourceVoice->SetVolume(m_Volume);
+		m_Volume += 0.005f;
+		if (m_Volume >= 1.0f)
+		{
+			m_State = AUDIOFADEFINISH;
+		}
+	}
 }
 
 

@@ -155,10 +155,23 @@ bool Input::GetController(Button button,ButtonState State)
 	case Input::LeftRight:
 		if (m_GamePadButtons.leftStickRight == State)
 			return true;
+	case Input::CROSSUP:
+		if (m_GamePadButtons.dpadUp == State)
+			return true;
+	case Input::CROSSDOWN:
+		if (m_GamePadButtons.dpadDown == State)
+			return true;
+	case Input::CROSSLEFT:
+		if (m_GamePadButtons.dpadLeft == State)
+			return true;
+	case Input::CROSSRIGHT:
+		if (m_GamePadButtons.dpadRight == State)
+			return true;
 	default:
 		return false;
 		break;
 	}
+
 	return false;
 }
 

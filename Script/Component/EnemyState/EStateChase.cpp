@@ -62,6 +62,7 @@ void EStateChase::Init(const char* FilePath)
 	m_AttackRate = row[id["AttackChangeRate"]];
 	m_WaitandSeeRate = row[id["WaitandSeeRate"]];
 	m_SpecialAttack = row[id["SpecialAttack"]];
+	m_RecognitionLength = row[id["RecognitionLength"]];
 
 	file.close();
 }
@@ -128,7 +129,7 @@ void EStateChase::StateChange()
 		return;
 	}
 	Vector3 vec = player->GetPosition() - m_GameObject->GetPosition();
-	if (vec.Length() > 60.0f)
+	if (vec.Length() > m_RecognitionLength)
 	{
 		//‘Ò‹@ó‘Ô‚É–ß‚é
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<EStateNone>());

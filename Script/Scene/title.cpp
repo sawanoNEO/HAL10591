@@ -9,6 +9,7 @@
 
 #include "../Component/shader.h"
 #include "../Component/../Component/sprite.h"
+#include "../Component/audio.h"
 
 #include "../GameObject/transition.h"
 #include "../GameObject/Particle.h"
@@ -24,45 +25,93 @@ void Title::Init()
 {
 	m_gameobject = AddGameObject<GameObject>(3);			// 3はレイヤ番号
 	m_gameobject->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-	m_gameobject->AddComponent<Sprite>()->Init(500.0f, 1080.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\TitleBack.jpg");
+	m_gameobject->AddComponent<Sprite>()->Init(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT, "asset\\texture\\BlackBack.png");
 	m_gameobject->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 	GameObject* titleLogo = AddGameObject<GameObject>(3);			// 3はレイヤ番号
 	titleLogo->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-	titleLogo->AddComponent<Sprite>()->Init(0.0f, 0.0f, 510*2,112*2, "asset\\texture\\Title.png");
+	titleLogo->AddComponent<Sprite>()->Init(200.0f, -100.0f, 998*1.5,494*1.5, "asset\\texture\\タイトルなし.png");
 
-	for (int i = 0; i < 100; i++)
-	{
-		AddGameObject<Particle>(3);
-	}
+	GameObject* stratText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
+	stratText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	stratText->AddComponent<Sprite>()->Init(450.0f, 500.0f, 256,111, "asset\\texture\\Start.png");
+	
+	GameObject* endlessText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
+	endlessText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	endlessText->AddComponent<Sprite>()->Init(450.0f, 700.0f, 395, 111, "asset\\texture\\Endless.png");
+	
+	GameObject* exitText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
+	exitText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	exitText->AddComponent<Sprite>()->Init(450.0f, 900.0f, 217, 109, "asset\\texture\\Exit.png");
+
+	m_Arrow = AddGameObject<GameObject>(3);			// 3はレイヤ番号
+	m_Arrow->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	m_Arrow->AddComponent<Sprite>()->Init(350.0f, 500.0f, 494/6, 790/6, "asset\\texture\\Arrow.png");
+
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	AddGameObject<Particle>(3);
+	//}
 
 	m_Transition = AddGameObject<Transition>(3);					// 3はレイヤ番号
 	m_Transition->FadeIn();
+
+	//BGM再生
+	GameObject* audioobj = AddGameObject<GameObject>(0);
+	m_BGM = audioobj->AddComponent<Audio>();
+	m_BGM->InitMaster();
+	m_BGM->Load("asset\\audio\\BGM\\TitleBGM1.wav");
+	m_BGM->Play(true);
 }
 
 
 void Title::Update()
 {
+	m_Arrow->GetComponent<Sprite>()->Init(350.0f, 500.0f+(200.0f *m_Cursle), 494 / 6, 790 / 6, "asset\\texture\\Arrow.png");//カーソル位置更新
+
+	if (Input::GetController(Input::CROSSDOWN, Input::PRESSED))
+	{
+		if (m_Cursle == m_CursleMAX)
+		{
+			m_Cursle = 0;
+		}
+		else
+		{
+			m_Cursle++;
+		}
+	}
+	else if (Input::GetController(Input::CROSSUP, Input::PRESSED))
+	{
+		if (m_Cursle == 0)
+		{
+			m_Cursle = m_CursleMAX;
+		}
+		else
+		{
+			m_Cursle--;
+		}
+	}
+	
 
 	if (m_Transition->GetState() == Transition::State::Stop)
 	{
 		if (Input::GetController(Input::b,Input::PRESSED)||Input::GetKeyTrigger(VK_RETURN))
 		{
 			m_Transition->FadeOut();
-
+			m_BGM->FadeOut();
 		}
 	}
 
-	if (Particle::GetNum() < 100)
-	{
-		GameObject* object = AddGameObject<Particle>(3);
-	}
+	//if (Particle::GetNum() < 100)
+	//{
+	//	GameObject* object = AddGameObject<Particle>(3);
+	//}
 
 	m_gameobject->GetComponent<Sprite>()->SetVertex(x, x, SCREEN_WIDTH, SCREEN_HEIGHT);
 	//x += 1;
 	// 画面遷移が終了してるか？
-	if (m_Transition->GetState() == Transition::State::Finish)
+	if (m_Transition->GetState() == Transition::State::Finish&&
+		m_BGM->GetState()==AudioState::AUDIOFADEFINISH)
 	{
-
 		Manager::SetScene<Game>();
 	}
 }
