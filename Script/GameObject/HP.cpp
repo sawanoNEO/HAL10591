@@ -85,7 +85,7 @@ void HP::Update()
 void HP::Draw()
 {
 #if _DEBUG
-	ImGui::Begin("HP");
+	ImGui::Begin(u8"‰pŒê");
 	ImGui::Text("pastHP=%f", &pastHP);
 	ImGui::Text("currentHP=%f", &currentHP);
 	if (ImGui::Button("SwitchON!!"))

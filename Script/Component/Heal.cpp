@@ -54,6 +54,8 @@ void Heal::Update()
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	Score* score = scene->GetGameObject<Score>();
 	
+	player->STRecover();//スタミナの自動回復を行う
+
 	if (m_Count < m_StartUpTime)
 	{
 	}

@@ -16,7 +16,9 @@ private:
 	int m_Count;                //現在どれだけ攻撃のモーションが進んでいるか
 	int m_Power;              //攻撃力
 	float m_Staminaconsumption;    //消費するスタミナの量
-	int m_SENumber;           //どの打撃音を再生sするか
+	int m_SENumber;           //どの打撃音を再生するか
+	int m_HitNum=0;           //何体の敵に攻撃がヒットしているか
+	int m_HitNumLimit = 2;    //何体の敵に同時に攻撃がヒットするか
 public:
 	using State::State;
 	void Init()override;

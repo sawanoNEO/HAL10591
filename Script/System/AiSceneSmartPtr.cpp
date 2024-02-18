@@ -58,3 +58,12 @@ void AiSceneSmartPtr::UnInit()
 		m_UseCount[itr]--;
 	}
 }
+
+void AiSceneSmartPtr::UnInitAll()
+{
+	for (auto itr : m_LoadedScene)
+	{
+		aiReleaseImport(itr.second);
+	}
+	m_LoadedScene.clear();
+}

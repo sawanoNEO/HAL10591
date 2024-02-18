@@ -51,6 +51,7 @@ void StateAttack::Exit()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	player->SetAnimSpeed(1.0f);
+	m_HitNum = 0;
 }
 
 void StateAttack::StateUpdate()
@@ -77,15 +78,6 @@ void StateAttack::StateUpdate()
 	{
 		col[i] = enemys[i]->GetComponent<Colider>();
 	}
-	//col.resize(enemys.size()+Bosses.size());
-	//for (int i = 0; i < enemys.size(); i++)
-	//{
-	//	col[i] = enemys[i]->GetComponent<Colider>();
-	//}
-	//for (int i = 0; i < Bosses.size(); i++)
-	//{
-	//	col[i + enemys.size()] = Bosses[i]->GetComponent<Colider>();
-	//}
 
 	if (m_Count < m_Startup)//UŒ‚‚Ì—\”õ“®ì
 	{
@@ -114,7 +106,7 @@ void StateAttack::StateUpdate()
 			//slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
 			slash->SetPosition(pos);
 			Vector3 rot = { 0.0,0.0,0.0 };
-			rot.z += cos(90 * 3.14 / 180);
+			rot.z += cos(90 * 3.14 / 180);	
 			slash->SetRotation(rot);
 
 			player->STUse(m_Staminaconsumption);
@@ -148,12 +140,12 @@ void StateAttack::StateUpdate()
 			return;
 		}
 
-		//“G‚ÆUŒ‚”»’è‚ªÚG‚µ‚Ä‚¢‚é‚©”»’è‚·‚é
 		for (int i = 0; i < enemys.size(); i++)
 		{
+		    //“G‚ÆUŒ‚”»’è‚ªÚG‚µ‚Ä‚¢‚é‚©”»’è‚·‚é
 			Colider* hitobj = col[i]->CollisionAABB(AttackObj->GetComponent<Colider>()->GetAABB(), col[i]);
 
-			if (hitobj != nullptr && hitobj->GetTug() == ENEMY)
+			if (hitobj != nullptr && hitobj->GetTug() == ENEMY&&m_HitNum<m_HitNumLimit)
 			{
 			    //UŒ‚‚ªƒqƒbƒg‚µ‚½‚Ìˆ—
 				if (enemys[i] && !hit)
@@ -176,9 +168,11 @@ void StateAttack::StateUpdate()
 						break;
 					}
 					Vector3 enemypos = enemys[i]->GetPosition();
-					enemypos.y += 1.0f;
+					enemypos.y += 2.0f;
 					enemys[i]->Damage(m_Power);
 					slash->SetColor(Red);
+					slash->SetPosition(enemypos);
+					m_HitNum++;
 					//slash->SetPosition(enemypos);
 				}
 			}
@@ -188,9 +182,11 @@ void StateAttack::StateUpdate()
 	{
 		if (Input::GetController(Input::R1, Input::PRESSED,15)!=-1 &&
 			player->GetST() > 0.0f &&
-			m_Count > m_Startup +m_ActiveFrames + (m_Recovery / 3))     //d’¼‚ªn‚Ü‚Á‚Ä‚·‚®‚Í˜AŒ‚‚ÉˆÚs‚Å‚«‚È‚¢
+			m_Count > m_Startup +m_ActiveFrames + (m_Recovery / 2))     //d’¼‚ªn‚Ü‚Á‚Ä‚·‚®‚Í˜AŒ‚‚ÉˆÚs‚Å‚«‚È‚¢
 		{
-			m_Count = m_Startup - 10;
+			//Še•Ï”‚ğƒŠƒZƒbƒg
+			m_HitNum = 0;
+			m_Count = m_Startup - 15;
 			player->SetFrame1(0);
 			//player->STUse(17.0f);
 		}

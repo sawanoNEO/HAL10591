@@ -4,12 +4,14 @@
 #include	"../Component/audio.h"
 #include	"../System/input.h"
 #include	"../Scene/scene.h"
-#include	"../Scene/game.h"
 #include	"../Scene/title.h"
+#include	"../Scene/game.h"
+#include	"../Scene/result.h"
 #include    "../ImGui/imguimanager.h"
 
 // シーンマネージャ内メンバ変数の実体
 Scene* Manager::m_Scene{};					// 現在シーン
+bool Manager::m_Exit = false;
 
 void Manager::Init(Application* ap)
 {
@@ -31,6 +33,7 @@ void Manager::Init(Application* ap)
 	// Titleを初期シーンに登録
 	SetScene<Title>();
 	//SetScene<Game>();
+	//SetScene<Result>();
 
 }
 

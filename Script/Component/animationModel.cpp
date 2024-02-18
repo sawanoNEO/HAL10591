@@ -484,7 +484,7 @@ void AnimationModel::Uninit()
 
 	//loadedScenes.clear();
 
-	m_AiScenePtr.UnInit();//Ž©“®“I‚É
+	////m_AiScenePtr.UnInit();
 
 	//2024/01/17
 	//for (auto animName : m_AnimNames)

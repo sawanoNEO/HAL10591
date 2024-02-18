@@ -60,6 +60,7 @@ void Title::Init()
 	m_BGM = audioobj->AddComponent<Audio>();
 	m_BGM->InitMaster();
 	m_BGM->Load("asset\\audio\\BGM\\TitleBGM1.wav");
+	m_BGM->FadeIn();
 	m_BGM->Play(true);
 }
 
@@ -68,30 +69,34 @@ void Title::Update()
 {
 	m_Arrow->GetComponent<Sprite>()->Init(350.0f, 500.0f+(200.0f *m_Cursle), 494 / 6, 790 / 6, "asset\\texture\\Arrow.png");//カーソル位置更新
 
-	if (Input::GetController(Input::CROSSDOWN, Input::PRESSED))
+	//カーソル移動
+	if (m_BGM->GetState() == AUDIOFADEFINISH)
 	{
-		if (m_Cursle == m_CursleMAX)
+		if (Input::GetController(Input::CROSSDOWN, Input::PRESSED))
 		{
-			m_Cursle = 0;
+			if (m_Cursle == EXIT)
+			{
+				m_Cursle = 0;
+			}
+			else
+			{
+				m_Cursle++;
+			}
 		}
-		else
+		else if (Input::GetController(Input::CROSSUP, Input::PRESSED))
 		{
-			m_Cursle++;
-		}
-	}
-	else if (Input::GetController(Input::CROSSUP, Input::PRESSED))
-	{
-		if (m_Cursle == 0)
-		{
-			m_Cursle = m_CursleMAX;
-		}
-		else
-		{
-			m_Cursle--;
+			if (m_Cursle == 0)
+			{
+				m_Cursle = EXIT;
+			}
+			else
+			{
+				m_Cursle--;
+			}
 		}
 	}
 	
-
+	//フェードインが終了後、決定ボタンが押された
 	if (m_Transition->GetState() == Transition::State::Stop)
 	{
 		if (Input::GetController(Input::b,Input::PRESSED)||Input::GetKeyTrigger(VK_RETURN))
@@ -109,10 +114,22 @@ void Title::Update()
 	m_gameobject->GetComponent<Sprite>()->SetVertex(x, x, SCREEN_WIDTH, SCREEN_HEIGHT);
 	//x += 1;
 	// 画面遷移が終了してるか？
+	//フェードアウト終了後、遷移する画面を決定する
 	if (m_Transition->GetState() == Transition::State::Finish&&
 		m_BGM->GetState()==AudioState::AUDIOFADEFINISH)
 	{
-		Manager::SetScene<Game>();
+		switch (m_Cursle)
+		{
+		case START:
+			Manager::SetScene<Game>();
+			break;
+		case ENDLESS:
+		case EXIT:
+			Manager::GameExit();
+			break;
+		default:
+			break;
+		}
 	}
 }
 

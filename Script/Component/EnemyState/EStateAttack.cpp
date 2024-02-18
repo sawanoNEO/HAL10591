@@ -194,25 +194,27 @@ void EStateAttack::StateUpdate()
 		if (hitobj!=nullptr&&hitobj->GetTug() == PLAYER&&
 			m_hit==false)//ˆê‰ñ‚ÌUŒ‚‚Å•¡”‰ñƒqƒbƒg‚·‚é‚Ì‚ð–h‚®
 		{
-			switch (m_SENumber)
+			if (player->Damage(m_Power[m_AttackNum]) == true)
 			{
-			case 0:
-				m_GameObject->StopSE("Swing1");
-				m_GameObject->PlaySE("Puntch1", false);
-				break;				 
-			case 1:					 
-				m_GameObject->StopSE("Swing2");
-				m_GameObject->PlaySE("Puntch2", false);
-				break;				
-			case 2:					
-				m_GameObject->StopSE("Swing3");
-				m_GameObject->PlaySE("Puntch3", false);
-				break;
-			default:
-				break;
+				switch (m_SENumber)
+				{
+				case 0:
+					m_GameObject->StopSE("Swing1");
+					m_GameObject->PlaySE("Puntch1", false);
+					break;
+				case 1:
+					m_GameObject->StopSE("Swing2");
+					m_GameObject->PlaySE("Puntch2", false);
+					break;
+				case 2:
+					m_GameObject->StopSE("Swing3");
+					m_GameObject->PlaySE("Puntch3", false);
+					break;
+				default:
+					break;
+				}
+				slash->SetColor(Red);
 			}
-			slash->SetColor(Red);
-			player->Damage(m_Power[m_AttackNum]);
 			m_hit = true;
 		}
 	}

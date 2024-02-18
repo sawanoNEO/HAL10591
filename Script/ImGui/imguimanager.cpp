@@ -11,6 +11,7 @@ void ImGuiManager::ImguiInit(Application* ap)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF("asset\\font\\meiryo.ttc", 16.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
 	ImGui_ImplWin32_Init(m_Application->GetWindow());
 	ImGui_ImplDX11_Init(Renderer::GetDevice(),Renderer::GetDeviceContext());
 	ImGui::StyleColorsLight();

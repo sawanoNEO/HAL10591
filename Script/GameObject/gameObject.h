@@ -39,7 +39,7 @@ public:
 	virtual void SetAnimSpeed(float) {};//アニメーションの機能があるオブジェクトは、この関数を使うことで再生するアニメーションの再生速度を切り替える事が出来る
 	virtual void SetFrame1(int) {};//アニメーションフレーム1をセット
 	virtual void SetFrame2(int) {};//アニメーションフレーム2をセット
-	virtual void Damage(float _damage) {};//ダメージを受ける時の処理
+	virtual bool Damage(float _damage) { return false; };//ダメージを受ける時の処理
 	virtual void PlaySE(const char* _SEname) {};
 	virtual void PlaySE(const char* _SEname,bool _Loop) {};
 	virtual void StopSE(const char* _SEname) {};

@@ -29,5 +29,6 @@ private:
 public:
 	const aiScene* AddScene(const char* FileName,SceneType _type);
 	void UnInit();
+	static void UnInitAll();
 };
 

@@ -545,7 +545,7 @@ void Player::Draw()
 #endif
 }
 
-void Player::Damage(float _damage)
+bool Player::Damage(float _damage)
 {
 	if (m_Invincible == false && HP > 0)//Šù‚ÉŽ€‚ñ‚Å‚é‚Æ’Ê‚ç‚È‚¢
 	{
@@ -558,7 +558,9 @@ void Player::Damage(float _damage)
 		{
 			GetComponent<StateMachine>()->changeState(GetComponent<StateDamage>());
 		}
+		return true;
 	}
+	return false;
 }
 
 void Player::STRecover()
@@ -597,6 +599,15 @@ void Player::ASHP(float hp)
 	else if (HP <= 0)
 	{
 		SetPstate(DEATH);
+	}
+}
+
+void Player::SetInvincible(bool _invincible)
+{
+	m_Invincible = _invincible; 
+	if (m_Invincible == true)
+	{
+		m_InvincibleFrame = 1;
 	}
 }
 

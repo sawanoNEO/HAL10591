@@ -127,7 +127,7 @@ void Audio::Update()
 	if (m_State == AUDIOFADEIN)
 	{
 		m_SourceVoice->SetVolume(m_Volume);
-		m_Volume += 0.005f;
+		m_Volume += 0.01f;
 		if (m_Volume >= 1.0f)
 		{
 			m_State = AUDIOFADEFINISH;

@@ -40,7 +40,7 @@ void StateDamage::Exit()
 	{
 		m_Hitting = false;
 	}
-	player->SetInvincibleFrame(60);
+	player->SetInvincibleFrame(10);
 }
 
 void StateDamage::StateUpdate()
