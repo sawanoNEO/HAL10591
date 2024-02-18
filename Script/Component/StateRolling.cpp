@@ -80,6 +80,7 @@ void StateRolling::StateUpdate()
 		if (Input::GetController(Input::a, Input::RELEASED, 10) != -1&&      //10f前までの中で、Aボタンが離された瞬間がなければ-1を返す
 			m_KeepABurron==false&&Sutamina>5.0)
 		{
+			player->SetFrame1(0.0f);
 			this->Enter();
 		}
 	}
