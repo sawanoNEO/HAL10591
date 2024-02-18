@@ -66,7 +66,7 @@ public:
 	void Draw() override;
 	void PreDraw() override;
 
-	void Damage(float _damage)override;
+	bool Damage(float _damage)override;
 	void STRecover();       //スタミナを回復する関数
 	void STUse(float);           //スタミナを消費する関数
 	void ASHP(float hp);//HPを増減させる関数
@@ -90,7 +90,7 @@ public:
 	void SetWait(bool wait) { Wait = wait; }
 	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { oldPosition = pos; }
 	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
-	void SetInvincible(bool _invincible) { m_Invincible = _invincible; }//無敵状態にする(1fだけ,繰り返して使う前提)
+	void SetInvincible(bool _invincible);//無敵状態にする(1fだけ,繰り返して使う前提)
 	void SetInvincibleFrame(int _frame) { m_InvincibleFrame = _frame; }//無敵時間を設定する(フレーム)
 	void SetAnimName2(const char*);
 	void SetAnimSpeed(float _speed)override { m_AnimSpeed = _speed; }//アニメーションの再生速度の設定

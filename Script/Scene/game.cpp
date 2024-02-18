@@ -12,10 +12,12 @@
 
 
 #include "../Scene/game.h"
+#include "../Scene/result.h"
 #include "../System/input.h"
 #include "../Component/audio.h"
 #include "../Component/shader.h"
 #include "../Component/sprite.h"
+#include "../System/AiSceneSmartPtr.h"
 
 #include "../System/manager.h"
 #include "../System/utility.h"
@@ -109,7 +111,7 @@ void Game::Init()
 	Puntch::Load();
 	HealEffect::Load();
 	AddGameObject<Camera>(0);
-	AddGameObject<WallDodgeCamera>(1);
+	//AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
 	AddGameObject<Score>(3);
@@ -118,8 +120,10 @@ void Game::Init()
 	GameObject* portion = AddGameObject<GameObject>(3);
 	portion->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 	portion->AddComponent<Sprite>()->Init(100.0f, 750.0f, 500 / 2, 500 / 2, "asset\\texture\\ポーション.png");
-	// 敵追加
-	//AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 25.0f));
+	// 敵追加	
+	//ロードのために一度生成してすぐに削除する
+	GameObject* boss = AddGameObject<Boss>(1);
+	boss->SetDestroy();
 	ChangeLoadImage();
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
@@ -239,6 +243,7 @@ void Game::Init()
 // ゲーム終了処理
 void Game::Uninit()
 {
+	AiSceneSmartPtr::UnInitAll();
 }
 
 // ゲーム更新処理
@@ -257,21 +262,38 @@ void Game::Update()
 	{
 		Enemy* enemy = GetGameObject<Enemy>();
 		Player* player = GetGameObject<Player>();
-		Boss* boss = GetGameObject<Boss>();
 
+		if (enemy == nullptr&&m_BossApearance == false)///雑魚が全滅したらボス登場
+		{
+			AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
+			m_BossApearance = true;
+		}
+		
+		Boss* boss = GetGameObject<Boss>();
 		// ゴールした際にゴールオブジェクトは削除される
-		if ((enemy == nullptr && boss == nullptr) || player == nullptr)
+		if (enemy == nullptr && boss == nullptr)
 		{
 			m_Goal = true;
-			//Camera* camera = GetGameObject<Camera>();
-			//Player* player = GetGameObject<Player>();
-			//Vector3 rot = player->GetRotation();
-			//rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
-			//player->SetRotation(rot);
-			//player->SetAnimName2("Dance");
+			Camera* camera = GetGameObject<Camera>();
+			Player* player = GetGameObject<Player>();
+			Vector3 rot = player->GetRotation();
+			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+			player->SetRotation(rot);
+			player->SetAnimName2("Dance");
+			player->SetAnimSpeed(2.0f);
+			Result::SetResult(true);
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}
+		else if (player == nullptr)
+		{
+			Result::SetResult(false);
+			m_Goal = true;
+			// ２秒後にスレッドを生成してフェードアウト開始
+			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
+		}
+	
 	}
 	else if (m_Goal == true)
 	{
@@ -309,19 +331,19 @@ void Game::Update()
 void Game::Draw()
 {
 #if _DEBUG
-	//ImGui::Begin("GameScene");
-	//if (ImGui::Button("SpawnEnemy"))
-	//{
-	//	Enemy* enemy=AddGameObject<Enemy>(1);
-	//	enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
-	//}
-	//if (ImGui::Button("SpawnBoss"))
-	//{
-	//	Boss* enemy=AddGameObject<Boss>(1);
-	//	enemy->SetPosition(Vector3{ 0.0f,0.0f,5.0f });
-	//	enemy->SetRotation(Vector3{ 0.0f,3.0f,0.0f });
-	//	enemy->SetAnimName2("BossAppearance");
-	//}
-	//ImGui::End();
+	ImGui::Begin("GameScene");
+	if (ImGui::Button("SpawnEnemy"))
+	{
+		Enemy* enemy=AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
+	}
+	if (ImGui::Button("SpawnBoss"))
+	{
+		Boss* enemy=AddGameObject<Boss>(1);
+		enemy->SetPosition(Vector3{ 0.0f,0.0f,5.0f });
+		enemy->SetRotation(Vector3{ 0.0f,3.0f,0.0f });
+		enemy->SetAnimName2("BossAppearance");
+	}
+	ImGui::End();
 #endif
 }

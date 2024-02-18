@@ -74,7 +74,7 @@ void Boss::Init()
 	m_Model->Load("asset\\model\\Boss\\Boss.fbx");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossIdle.fbx", "Idle");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossRun.fbx", "Walk");
-	m_Model->LoadAnimation("asset\\model\\Boss\\BossDamage.fbx", "Impact");
+	m_Model->LoadAnimation("asset\\model\\Boss\\Dying.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossSwiping.fbx", "Attack");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossDying.fbx", "Death");
 	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
@@ -85,7 +85,7 @@ void Boss::Init()
 	SetAnimName2("BossAppearance");
 	//SetAnimSpeed(0.5f);
 	AddComponent<EStateNone>();
-	AddComponent<EStateDamage>();
+	AddComponent<EStateDamage>()->Init(m_FileDataPath);
 	AddComponent<StateDeath>();
 	AddComponent<EStateChase>()->Init(m_FileDataPath);
 	//AddComponent<EStateAttack>()->Init(25, 7, 19, 350, 0, Vector3{6.0f,2.0f,4.0f});
@@ -223,7 +223,7 @@ void Boss::Draw()
 {
 }
 
-void Boss::Damage(float damage)
+bool Boss::Damage(float damage)
 {
 	if (!hit)
 	{
@@ -234,10 +234,16 @@ void Boss::Damage(float damage)
 		}
 		else
 		{
-			GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
+			m_DamageCount++;
+			if (m_DamageCount == m_ReactionCount)
+			{
+				m_DamageCount = 0;
+				GetComponent<StateMachine>()->changeState(GetComponent<EStateDamage>());
+			}
 		}
 		hit = true;
 	}
+	return false;
 }
 
 void Boss::HitReset()

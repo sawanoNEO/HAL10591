@@ -239,13 +239,13 @@ void Enemy::Uninit()
 }
 
 
-void Enemy::Damage(float damage)
+bool Enemy::Damage(float damage)
 {	
 	if (!hit)
 	{
-		if (HP <= 0) // Šù‚ÉŽ€‚ñ‚Å‚¢‚éê‡‚Íˆ—‚ðI—¹
+		if (HP <= 0) // Šù‚É“|‚³‚ê‚Ä‚¢‚éê‡‚Íˆ—‚ðI—¹
 		{
-			return;
+			return false;
 		}
 		HP -= damage;
 		if (HP <= 0)
@@ -258,6 +258,7 @@ void Enemy::Damage(float damage)
 		}
 		hit = true;
 	}
+	return false;
 }
 
 void Enemy::HitReset()

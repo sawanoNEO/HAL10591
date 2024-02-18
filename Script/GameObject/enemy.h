@@ -37,7 +37,7 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Uninit()override;
-	void Damage(float);
+	bool Damage(float);
 	void HitReset();
 
 	void SetAnimName2(const char*) override;//アニメーション切り替え

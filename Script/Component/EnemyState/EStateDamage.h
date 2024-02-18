@@ -8,6 +8,7 @@ private:
 	bool m_Hitting = false;
 public:
 	State::State;
+	void Init(const char* FilePath);
 	void Enter()override;
 	void Exit()override;
 	void StateUpdate()override;

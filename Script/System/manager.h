@@ -9,6 +9,7 @@ class Manager
 {
 private:
 	static class Scene* m_Scene;
+	static bool m_Exit;
 
 public:
 	static void Init(Application* ap);
@@ -33,4 +34,7 @@ public:
 		m_Scene->LoadImageDraw();
 		m_Scene->InitBase();
 	}
+
+	static void GameExit() { m_Exit = true; }
+	static bool GetExit() { return m_Exit; }
 };

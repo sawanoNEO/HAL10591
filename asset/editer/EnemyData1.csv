@@ -1,3 +1,3 @@
 EnemyData,MaxHP,StartUp,ActiveFrames,Recovery,Power,DoubleAttackRate,FOV,Sight,AttackChangeRate,WaitandSeeRate,SpecialAttack ,RecognitionLength
-0,240,17,5,21,125,10,210,25,70,30,0,60
+0,120,17,5,21,125,10,210,25,70,30,0,60
 0,0,32,10,42,125,0,,,,,,

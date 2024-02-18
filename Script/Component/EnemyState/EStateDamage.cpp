@@ -10,7 +10,50 @@
 
 #include "../../ImGui/imguimanager.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
 using namespace DirectX::SimpleMath;
+using namespace std;
+
+void EStateDamage::Init(const char* FilePath)
+{
+	////csvファイルを読み込んで各パラメータを代入
+	ifstream file(FilePath);
+	assert(file.is_open() && "Fileが見つかりませんでした");
+	string line;
+
+	getline(file, line);
+	stringstream term(line);
+	string temp;
+	unordered_map<string, int> id;
+	int i = 0;
+	while (getline(term, temp, ','))
+	{
+		id[temp] = i;
+		i++;
+	}
+	
+	getline(file, line);
+	string cell;
+	stringstream ss(line);
+	vector<int> row;
+	while (getline(ss, cell, ','))
+	{
+		if (cell.size() != 0)
+		{
+			row.push_back(stoi(cell));
+		}
+		else
+		{
+			row.push_back(0);
+		}
+	}
+	m_Recover = row[id["DamageRecover"]];
+	file.close();
+}
 
 void EStateDamage::Enter()
 {
