@@ -7,23 +7,14 @@
 #include "../GameObject/player.h"
 #include "../GameObject/goal.h""
 #include "../GameObject/camera.h"
-#include "../GameObject/cylinder.h"
 #include "../GameObject/box.h"
-#include "../GameObject/bullet.h"
-#include "../GameObject/AttackObject.h"
 
 #include "../Component/audio.h"
 #include "../Component/shader.h"
 #include "../Component/shadow.h"
-#include "../Component/Jump.h"
-#include "../Component/Move.h"
-#include "../Component/Sword.h"
 #include "../Component/Colider.h"
-#include "../Component/collision.h"
 #include "../Component/Rigidbody.h"
-//#include "../Component/Est.h"
 #include "../Component/animationModel.h"
-#include "../Component/ModelManager.h"
 #include "../Component/StateAttack.h"
 #include "../Component/StateMove.h"
 #include "../Component/StateNone.h"
@@ -42,7 +33,6 @@ using namespace DirectX::SimpleMath;
 void Player::Init()
 {
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
-	//AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\PS_Player.cso");
 
 	m_Model = AddComponent<AnimationModel>();
 	m_Model->Load("asset\\model\\Player\\Paladin J Nordstrom.fbx");
@@ -65,11 +55,6 @@ void Player::Init()
 	m_Model->LoadAnimation("asset\\model\\Player\\Death.fbx", "Death");
 	BONE* bone = m_Model->GetBONE("mixamorig:RightHand");
 	
-	// シーンからボーンのルートノードを取得
-	//aiNode* boneRootNode = m_Model->Getscene()->mRootNode->FindNode("mixamorig:RightHand");
-	//m_Model->AddBoneChild<AttackObject>("RootNode");
-	//m_Model->AddBoneChild<AttackObject>("mixamorig:RightHand");
-	//m_Model->AddBoneChild<AttackObject>("mixamorig:Spine");
 
 	//ステートマシンのaddcomponent
 	AddComponent<StateNone>();
@@ -84,36 +69,7 @@ void Player::Init()
 	AddComponent<StateMachine>();
 	GetComponent<StateMachine>()->Init(GetComponent<StateNone>());
 
-	//AddComponent<ModelManager>();
-	{
-		//m_Model->Load("asset\\model\\Standing Taunt Battlecry.fbx");				// animation ok
-		////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Idle");
-		////m_Model->LoadAnimation("asset\\model\\Standing Taunt Battlecry.fbx", "Run");
-		//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield idle.fbx","Idle");
-		//m_Model->LoadAnimation("asset\\model\\Player\\sword and shield kick.fbx","Run");
-
-
-
-		//	m_Model->Load("asset\\model\\Akai2.fbx");									// animation ok
-		//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Idle");
-		//	m_Model->LoadAnimation("asset\\model\\Akai_Walk.fbx", "Run");
-
-		//	m_Model->Load("data\\model\\Walking\\Walking2.fbx");						// animation ok
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Idle");
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking2.fbx", "Run");
-
-		//	m_Model->Load("data\\model\\Walking\\Walking.fbx");							// animation ok
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Idle");
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.fbx", "Run");
-
-		//	m_Model->Load("data\\model\\Walking\\Walking.dae");							// animation ok
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Idle");		// animation ok
-		//	m_Model->LoadAnimation("data\\model\\Walking\\Walking.dae", "Run");			// animation ok
-
-	}
-	//AddComponent<ModelRenderer>()->Load("asset\\model\\player.obj");
-
-	//AddComponent<Shadow>()->SetSize(1.5f);
+	
 
 	m_SE["Puntch1"] = AddComponent<Audio>();
 	m_SE["Puntch1"]->Load("asset\\audio\\SE\\Puntch1.wav");
@@ -141,8 +97,7 @@ void Player::Init()
 	m_Scale = Vector3(0.02f, 0.02f, 0.02f);
 	m_Position = Vector3(0.0f, 0.0f, -10.0f);
 
-	groundHeight = 0.0f;
-	AddComponent<Jump>();
+	m_GroundHeight = 0.0f;
 	//AddComponent<Move>();
 	AddComponent<Rigidbody>();
 	GetComponent<Rigidbody>()->Init(5.0);
@@ -153,21 +108,12 @@ void Player::Init()
 	scale.x = fabsf(max.x) + fabsf(min.x);
 	scale.y = fabsf(max.y) + fabsf(min.y);
 	scale.z = fabsf(max.z) + fabsf(min.z);
-	colme = AddComponent<Colider>();
-	colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
+	m_Colme = AddComponent<Colider>();
+	m_Colme->Init(PLAYER, Vector3(100.0f, 100.0f, 100.0f));
 
-	colattack=AddComponent<Colider>();
-	colattack->Init(PLAYER, Vector3(1.0f,1.0f,1.0f));
-	//AddComponent<Est>();
-	HP = 1000;
-	//AddComponent<Rolling>();
+	m_HP = 1000;
 	alpha = 1.0f;
 
-	//m_Child = AddChild<AttackObject>();
-	//m_Child = AddChild<GameObject>();
-	//m_Child->AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\unlitTexturePS.cso");
-	//m_Child->AddComponent<ModelRenderer>()->Load("asset\\model\\Player\\Sword.obj");
-	//m_Child->SetPosition(Vector3{ 30.0f, 40.0f, 0.0f });
 }
 
 void Player::Update()
@@ -214,225 +160,35 @@ void Player::Update()
 	//アニメーションの再生
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 
-	/*if (Input::GetController(Input::LeftUP, Input::PRESSED))
-	{
-		SetAnimName2("Walk");
-	}*/
 
 	//回転処理
-	if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.97 &&
-		(fNormalR.x * promissDirection.x + fNormalR.z * promissDirection.z)>0) //右ベクトルとの内積
+	if (m_PromissDirection.x * forward.x + m_PromissDirection.y * forward.y + m_PromissDirection.z * forward.z < 0.97 &&
+		(fNormalR.x * m_PromissDirection.x + fNormalR.z * m_PromissDirection.z)>0) //右ベクトルとの内積
 	{
 		m_Rotation.y += 0.2;
 	}
-	else if (promissDirection.x * forward.x + promissDirection.y * forward.y + promissDirection.z * forward.z < 0.97&&
-		(fNormalL.x * promissDirection.x + fNormalL.z * promissDirection.z)>0)//左ベクトルとの内積
+	else if (m_PromissDirection.x * forward.x + m_PromissDirection.y * forward.y + m_PromissDirection.z * forward.z < 0.97&&
+		(fNormalL.x * m_PromissDirection.x + fNormalL.z * m_PromissDirection.z)>0)//左ベクトルとの内積
 	{
 		m_Rotation.y -= 0.2;
 	}
 
-	
-
-	switch (Pstate)
-	{
-	case NONE:
-		//STRecover(0.75);
-		break;
-	case DASH:
-		break;
-	case ATTACK:
-		break;
-	case ROLLING:
-		break;
-	case JUMP:
-		break;
-	case DEATH:
-		alpha -= 0.005;
-		if (alpha <= 0.0)
-		{
-			SetDestroy();
-		}
-		break;
-	default:
-		break;
-	}
-
-	////重力
-	//m_Velocity.y -= 0.015f;
-
-	////抵抗
-	//m_Velocity.y -= m_Velocity.y * 0.01f;
-
-	////移動
-	//m_Position += m_Velocity;
-
-	//接地
-	
-
-
-	//// 位置が０以下なら地面位置にセットする
-	//if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
-	//{
-	//	m_Position.y = groundHeight;
-	//	m_Velocity.y = 0.0f;
-	//}
-
-	// 現在シーンを取得
-	Scene* scene = Manager::GetScene();
-	Camera* camera = scene->GetGameObject<Camera>();
-	// ゴールとの当たり判定
-	{
-		Goal* goal = scene->GetGameObject<Goal>();
-
-		if (goal)
-		{
-			Vector3 position = goal->GetPosition();
-			Vector3 scale = goal->GetScale();
-
-			// ゴールのAABB作成
-			AABB aabbGoal;
-			Vector3 GoalSize(2.0f, 2.0f, 2.0f);
-			aabbGoal = SetAABB(
-				position,
-				fabs(GoalSize.x * scale.x),
-				fabs(GoalSize.y * scale.y),
-				fabs(GoalSize.z * scale.z));
-
-			// プレイヤのAABB作成
-			AABB aabbPlayer;
-			Vector3 PlayerSize(1.0f, 2.0f, 1.0f);
-			aabbPlayer = SetAABB(
-				Vector3(m_Position.x, m_Position.y + 1.0f, m_Position.z),
-				fabs(PlayerSize.x * m_Scale.x),
-				fabs(PlayerSize.y * m_Scale.y),
-				fabs(PlayerSize.z * m_Scale.z));
-
-			// AABB当たり判定
-			bool sts = CollisionAABB(aabbPlayer, aabbGoal);
-
-			if (sts)
-			{
-				goal->SetDestroy();
-			}
-		}
-
-	}
-
-	//boxとの当たり判定(すり抜けをなくす)
-
-	//	std::vector<Box*>box = scene->GetGameObjects<Box>();
-
-	//	std::vector<float>Onthegap;
-	//	if (box.size() != 0)
-	//	{
-	//		Onthegap.resize(box.size());
-	//		if (box[0])
-	//		{
-	//			for (int i = 0; i < box.size(); i++)
-	//			{
-	//				Vector3 position = box[i]->GetPosition();
-	//				Vector3 scale = box[i]->GetScale();
-	//				Onthegap[i] = 0.0f;
-
-	//				float a = scale.y / 3;
-	//				if (a < 1)
-	//				{
-	//					a = 0;
-	//				}
-
-	//				// boxのAABB作成
-	//				AABB aabbBox;
-	//				Vector3 BoxSize(2.0f, 5.0f, 2.0f);
-	//				aabbBox = SetAABB(
-	//					position,
-	//					fabs(BoxSize.x * scale.x),
-	//					fabs(BoxSize.y * scale.y - (a * 0.1)),
-	//					fabs(BoxSize.z * scale.z));
-
-	//				// プレイヤのAABB作成
-	//				AABB aabbPlayer;
-	//				Vector3 PlayerSize(1.0f, 1.0f, 1.0f);
-	//				aabbPlayer = SetAABB(
-	//					Vector3(m_Position.x, m_Position.y + 1.0f, m_Position.z),
-	//					fabs(PlayerSize.x * m_Scale.x),
-	//					fabs(PlayerSize.y * m_Scale.y),
-	//					fabs(PlayerSize.z * m_Scale.z));
-
-	//				// AABB当たり判定
-	//				bool stsr = CollisionAABBRight(aabbPlayer, aabbBox);
-	//				bool stsl = CollisionAABBLeft(aabbPlayer, aabbBox);
-	//				bool stst = CollisionAABBTop(aabbPlayer, aabbBox);
-	//				bool stsb = CollisionAABBBottom(aabbPlayer, aabbBox);
-	//				bool stsh = CollisionAABBHead(aabbPlayer, aabbBox);
-	//				if (stsh)
-	//				{
-	//					//Onthegap[i] = 1.5;
-	//					Onthegap[i] = scale.y * 2.0f - 0.1f;
-	//					if (scale.y >= 3.0f)
-	//					{
-	//						Onthegap[i] = scale.y * 2.05f - 0.1f + position.y;
-	//					}
-	//				}
-	//				/*		else if (stsr)
-	//						{
-	//							m_Position.x += 0.1f;
-	//						}
-	//						else if (stsl)
-	//						{
-	//							m_Position.x -= 0.1f;
-	//						}
-	//						else if (stst)
-	//						{
-	//							m_Position.z += 0.1f;
-	//						}
-	//						else if (stsb)
-	//						{
-	//							m_Position.z -= 0.1f;
-	//						}*/
-	//			}
-
-	//		}
-	//	}
-	//float found = 0.0f;
-	//for (int i = 0; i < Onthegap.size(); i++)
-	//{
-	//	if (Onthegap[i] > found)
-	//	{
-	//		found = Onthegap[i];
-	//	}
-	//}
-	//groundHeight = found;
-	//弾発射
-	if (Input::GetKeyTrigger('K'))
-	{
-		Scene* scene = Manager::GetScene();
-		Bullet* bullet = scene->AddGameObject<Bullet>(2);
-		bullet->SetPosition(m_Position + Vector3(0.0f, 1.0f, 0.0f));
-		bullet->SetVelocity(forward * 0.5f);
-
-		//m_SE->Play();
-	}
 	Vector3 vel = GetComponent<Rigidbody>()->GetVelocity();
 	Vector3 acc = GetComponent<Rigidbody>()->GetAccel();
 	Vector3 force = GetComponent<Rigidbody>()->GetForce();
 	float mass = GetComponent<Rigidbody>()->GetMass();
 	 //位置が０以下なら地面位置にセットする
-	if (m_Position.y < groundHeight && vel.y < 0.0f)
+	if (m_Position.y < m_GroundHeight && vel.y < 0.0f)
 	{
-		m_Position.y = groundHeight;       //床の高さで止まる
+		m_Position.y = m_GroundHeight;       //床の高さで止まる
 		vel.y = 0.0f;                      //落ちる速度をリセット
 		acc = force / mass;                //加速度を摩擦で減少させる
 		GetComponent<Rigidbody>()->SetAccel(acc);
 		GetComponent<Rigidbody>()->SetVelocity(vel);
-
-		if (Pstate == JUMP)                //ジャンプしていればその状態をリセットする
-		{
-			Pstate = NONE;
-		}
 	}
 
 	//敵と接触していた場合に移動度を0にする処理
-	std::array<std::list<Colider*>,HITDIRMAX> coliders = colme->GetAllHitColiders();
+	std::array<std::list<Colider*>,HITDIRMAX> coliders = m_Colme->GetAllHitColiders();
 	for (int i=0;i<HITDIRMAX;i++)
 	{
 		for (auto itr : coliders[i])
@@ -497,12 +253,10 @@ void Player::Draw()
 	//bool left = Input::GetController(Input::LeftLeft, DirectX::GamePad::ButtonStateTracker::HELD);
 	//bool right = Input::GetController(Input::LeftRight, DirectX::GamePad::ButtonStateTracker::HELD);
 #if _DEBUG
-	Colider* c = colattack;
-	Colider* co = colme;
 
 	ImGui::Begin("player");
-	ImGui::SliderFloat("ST", &ST, 0, 100);
-	ImGui::SliderFloat("HP", &HP, 0, 1000);
+	ImGui::SliderFloat("ST", &m_ST, 0, 100);
+	ImGui::SliderFloat("HP", &m_HP, 0, 1000);
 	ImGui::SliderFloat("Alpha", &alpha, 0, 1.0);
 	ImGui::SliderFloat("posy", &m_Position.y, 0, 100.0);
 	ImGui::SliderFloat("BlendRate", &m_BlendRate, 0, 1.0);
@@ -510,7 +264,6 @@ void Player::Draw()
 	ImGui::SliderFloat("m_Frame2", &m_Frame2, -10, 10);
 	ImGui::Text("Forward=x=%f,y=%f,z=%f", GetForward().x, GetForward().y, GetForward().z);
 	ImGui::Text("Position=x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
-	ImGui::Text("State%i", Pstate);
 	ImGui::Text("Blend%f", m_BlendRate);
 	ImGui::Text("%c", m_Animname1);
 	ImGui::Text("Matrix11%f,%f,%f,%f", GetMatrix()._11,GetMatrix()._12,GetMatrix()._13,GetMatrix()._14);
@@ -547,10 +300,10 @@ void Player::Draw()
 
 bool Player::Damage(float _damage)
 {
-	if (m_Invincible == false && HP > 0)//既に死んでると通らない
+	if (m_Invincible == false && m_HP > 0)//既に死んでると通らない
 	{
-		HP -= _damage;
-		if (HP <= 0)
+		m_HP -= _damage;
+		if (m_HP <= 0)
 		{
 			GetComponent<StateMachine>()->changeState(GetComponent<StateDeath>());
 		}
@@ -565,21 +318,21 @@ bool Player::Damage(float _damage)
 
 void Player::STRecover()
 {
-	ST += m_RecoverST;
-	if (ST >= MaxST)
+	m_ST += m_RecoverST;
+	if (m_ST >= m_MaxST)
 	{
-		ST = MaxST;
-		Wait = false;
+		m_ST = m_MaxST;
+		m_Wait = false;
 	}
 }
 
 void Player::STUse(float c)
 {
-	ST -= c;
-	if (ST < 0)
+	m_ST -= c;
+	if (m_ST < 0)
 	{
-		ST = 0;
-		Wait = true;
+		m_ST = 0;
+		m_Wait = true;
 	}
 }
 
@@ -591,14 +344,10 @@ void Player::SetVerocity(float v)
 
 void Player::ASHP(float hp)
 {
-	HP += hp;
-	if (HP > MaxHP)
+	m_HP += hp;
+	if (m_HP > m_MaxHP)
 	{
-		HP = MaxHP;
-	}
-	else if (HP <= 0)
-	{
-		SetPstate(DEATH);
+		m_HP = m_MaxHP;
 	}
 }
 
@@ -641,9 +390,4 @@ void Player::PlaySE(const char* _SEname, bool _loop)
 void Player::StopSE(const char* _SEname)
 {
 	m_SE[_SEname]->Stop();
-}
-
-void Player::PreDraw()
-{
-	//m_Model->Update("Run", m_Frame, "Idle", m_Frame, m_BlendRate);
 }

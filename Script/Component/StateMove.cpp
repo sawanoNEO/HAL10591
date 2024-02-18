@@ -19,18 +19,15 @@ using namespace DirectX;
 
 void StateMove::Enter()
 {
-	//if (m_GameObject->GetComponent<StateMachine>()->GetPastStateName() != "Dash")
-	//{
-	//}
-		m_GameObject->SetAnimName2("Run");
-	Accel = 70.0;//加速の値を初期値に戻す
-	DAccel = 150.0;
+	m_GameObject->SetAnimName2("Run");
+	m_Accel = 70.0;//加速の値を初期値に戻す
+	m_DAccel = 150.0;
 	m_GameObject->PlaySE("Walk", true);
 }
 
 void StateMove::Exit()
 {
-	receptionCount = 0;
+	m_receptionCount = 0;
 	m_GameObject->StopSE("Walk");
 }
 
@@ -50,7 +47,6 @@ void StateMove::StateUpdate()
 	Vector3 s = player->GetSide();
 	Vector3 pos = player->GetPosition();
 	Vector3 currentRot = player->GetRotation();//回転取得
-	PLAYERSTATE state = player->GetPstate();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	float ST = player->GetST();
 	bool Wait = player->GetWait();
@@ -66,25 +62,23 @@ void StateMove::StateUpdate()
 		//pos += (XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * Accel);
 
 		//変数名はvecだが実際はどの方向にどのぐらいの力を加えるかを計算し、格納している
-		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * Accel;
+		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * m_Accel;
 		rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
 		player->SetPosition(pos);
 
 		//プレイヤーが向く方向を設定する
 		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX))));
 
-		Accel += Accel * 0.1;//加速度の加算
-		DAccel = 150.0;
-
-		state = NONE;
+		m_Accel += m_Accel * 0.1;//加速度の加算
+		m_DAccel = 150.0;
 	}
-	if (Accel >= 150)  //基底の量を超えないようにする
+	if (m_Accel >= 150)  //基底の量を超えないようにする
 	{
-		Accel = 150;
+		m_Accel = 150;
 	}
-	if (DAccel >= 250)
+	if (m_DAccel >= 250)
 	{
-		DAccel = 250;
+		m_DAccel = 250;
 	}
 
 	if (Input::GetController(Input::R1, Input::PRESSED))
@@ -104,9 +98,6 @@ void StateMove::StateUpdate()
 		currentRot.y = afo;
 		player->SetRotation(currentRot);
 		player->SetpromissDirection(f);
-		/*Vector3 rockPos = camera->GetRockEnemy()->GetPosition();
-		forward = XMVector3Normalize(rockPos - m_Position);
-		SetRotation(forward);*/
 	}
 }
 
@@ -129,8 +120,8 @@ void StateMove::StateChange()
 	else if (Input::GetController(Input::a, Input::HELD) &&
 		Input::GetStickState() && ST > 0 && !Wait)        //スティックによる操作が行われていないと加速度をリセットする
 	{
-		receptionCount++;
-		if (receptionCount > reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
+		m_receptionCount++;
+		if (m_receptionCount > m_reception)//猶予以上Aボタンが押されていればダッシュ状態に移行
 		{
 			//状態をダッシュに変更
 			m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateDash>());

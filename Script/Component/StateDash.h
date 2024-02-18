@@ -5,10 +5,7 @@
 class StateDash : public State
 {
 private:
-	float DAccel;       //ダッシュ時の加速度
-	float MaxSpeed;     //最大移動速度
-	float rotationThreshold = 0.5;//回転するかどうかのズレの許容度
-	DirectX::SimpleMath::Vector3 OldPos;
+	float m_DAccel;       //ダッシュ時の加速度
 public:
 	using State::State;
 	void Enter()override;

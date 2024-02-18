@@ -12,7 +12,6 @@
 #include "../Component/audio.h"
 
 #include "../GameObject/transition.h"
-#include "../GameObject/Particle.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -47,10 +46,7 @@ void Title::Init()
 	m_Arrow->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 	m_Arrow->AddComponent<Sprite>()->Init(350.0f, 500.0f, 494/6, 790/6, "asset\\texture\\Arrow.png");
 
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	AddGameObject<Particle>(3);
-	//}
+
 
 	m_Transition = AddGameObject<Transition>(3);					// 3はレイヤ番号
 	m_Transition->FadeIn();
@@ -106,13 +102,8 @@ void Title::Update()
 		}
 	}
 
-	//if (Particle::GetNum() < 100)
-	//{
-	//	GameObject* object = AddGameObject<Particle>(3);
-	//}
 
 	m_gameobject->GetComponent<Sprite>()->SetVertex(x, x, SCREEN_WIDTH, SCREEN_HEIGHT);
-	//x += 1;
 	// 画面遷移が終了してるか？
 	//フェードアウト終了後、遷移する画面を決定する
 	if (m_Transition->GetState() == Transition::State::Finish&&
@@ -136,7 +127,7 @@ void Title::Update()
 void Title::Draw()
 {
 #if _DEBUG
-	ImGui::Begin("www");
+	ImGui::Begin("title");
 	ImGui::Text("%f%f%f", m_gameobject->GetPosition().x, m_gameobject->GetPosition().y, m_gameobject->GetPosition().z);
 	ImGui::Text("%i", x);
 	ImGui::End();

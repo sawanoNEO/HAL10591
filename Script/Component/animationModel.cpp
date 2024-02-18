@@ -57,88 +57,6 @@ void AnimationModel::Draw()
 		Renderer::GetDeviceContext()->DrawIndexed(
 			mesh->mNumFaces * 3, 0, 0);
 	}
-
-	////for (auto& pair : m_BoneChild)
-	////{
-	////	BONE bone = m_Bone[pair.first.c_str()];
-	////	Matrix mat = ChangeMatrix(bone.Matrix);
-	////	aiMatrix4x4 aaaa = bone.Matrix;
-	////	for (auto itr = m_Nods[pair.first]; itr->mParent != nullptr; itr = itr->mParent)
-	////	{
-	////		aaaa *= m_Bone[itr->mParent->mName.C_Str()].Matrix;
-	////		mat *= ChangeMatrix(m_Bone[itr->mParent->mName.C_Str()].Matrix);
-	////	}
-	////	Matrix result;
-	////	result._11 = aaaa.a1; result._21 = aaaa.a2; result._31 = aaaa.a3; result._41 = aaaa.a4;
-	////	result._12 = aaaa.b1; result._22 = aaaa.b2; result._32 = aaaa.b3; result._42 = aaaa.b4;
-	////	result._13 = aaaa.c1; result._23 = aaaa.c2; result._33 = aaaa.c3; result._43 = aaaa.c4;
-	////	result._14 = aaaa.d1; result._24 = aaaa.d2; result._34 = aaaa.d3; result._44 = aaaa.d4;
-	////	result *= m_GameObject->GetMatrix();
-	////	//mat._41 = bone.Matrix.a4;
-	////	//mat._42 = bone.Matrix.b4;
-	////	//mat._43 = bone.Matrix.c4;
-#if _DEBUG
-	////	ImGui::Begin("model");
-	////	ImGui::Text("Matrix11=%f,%f,%f,%f",mat._11, mat._21, mat._31, mat._41);
-	////	ImGui::Text("Matrix21=%f,%f,%f,%f", mat._12, mat._22, mat._32, mat._42);
-	////	ImGui::Text("Matrix31=%f,%f,%f,%f", mat._13, mat._23, mat._33, mat._43);
-	////	ImGui::Text("Matrix41=%f,%f,%f,%f\n\n", mat._14, mat._24, mat._34, mat._44);
-	////	ImGui::End();
-#endif
-	////	pair.second->DrawBase(result);
-	////	int a = 0;
-	////}
-
-	//一旦コメント
-	//for (auto& pair : m_BoneChild)
-	//{
-	//	for (auto itr = m_Bone.find(pair.first.c_str()); itr != m_Bone.find("RootNode"); itr--)
-	//	{
-	//		BONE bone = itr->second;
-	//		int a = 0;
-	//	}
-	//	
-	//	Matrix mat = pair.second->GetMatrix();
-
-
-	//	aiMatrix4x4 maat = m_Bone[m_BoneChild.begin()->first.c_str()].Matrix;
-	//	mat = ChangeMatrix(maat);
-
-	//	mat *= m_GameObject->GetMatrix();
-	//	m_BoneChild.begin()->second->SetPosition(Vector3(maat.a1, maat.b1, maat.c1));
-	//	//aiNode* node = m_Nods[pair.first.c_str()];
-	//	//BONE bone = m_Bone[node->mName.C_Str()];
-	//	//aiMatrix4x4 mat=bone.OffsetMatrix;
-	//	//Matrix mat=-ChangeMatrix(node->mTransformation);
-
-	//	//Matrix mat=ChangeMatrix(m_Bone[node->mName.C_Str()].Matrix);
-
-	//	//mat *= m_GameObject->GetMatrix();
-
-	//	//aiMatrix4x4 mat = m_Bone[pair.first.c_str()].AnimationMatrix;
-	//	//Matrix result;
-	//	//aiVector3D pos = aiVector3D(mat.d1,mat.d2,mat.d3);
-	//    //ImGui::Text("Posx%fY%fZ%f", pos.z, pos.y, pos.z);
-	//	//ImGui::Text("AnimationMatrix11=%f,%f,%f,%f", m_Bone[pair.first.c_str()].AnimationMatrix.a1, m_Bone[pair.first.c_str()].AnimationMatrix.a2, m_Bone[pair.first.c_str()].AnimationMatrix.a3, m_Bone[pair.first.c_str()].AnimationMatrix.a4);
-	//	//ImGui::Text("AnimationMatrix21=%f,%f,%f,%f", m_Bone[pair.first.c_str()].AnimationMatrix.b1, m_Bone[pair.first.c_str()].AnimationMatrix.b2, m_Bone[pair.first.c_str()].AnimationMatrix.b3, m_Bone[pair.first.c_str()].AnimationMatrix.b4);
-	//	//ImGui::Text("AnimationMatrix31=%f,%f,%f,%f", m_Bone[pair.first.c_str()].AnimationMatrix.c1, m_Bone[pair.first.c_str()].AnimationMatrix.c2, m_Bone[pair.first.c_str()].AnimationMatrix.c3, m_Bone[pair.first.c_str()].AnimationMatrix.c4);
-	//	//ImGui::Text("AnimationMatrix41=%f,%f,%f,%f\n\n", m_Bone[pair.first.c_str()].AnimationMatrix.d1, m_Bone[pair.first.c_str()].AnimationMatrix.d2, m_Bone[pair.first.c_str()].AnimationMatrix.d3, m_Bone[pair.first.c_str()].AnimationMatrix.d4);
-	// //   ImGui::Text("OffsetMatrix11=%f,%f,%f,%f", m_Bone[pair.first.c_str()].OffsetMatrix.a1, m_Bone[pair.first.c_str()].OffsetMatrix.a2, m_Bone[pair.first.c_str()].OffsetMatrix.a3, m_Bone[pair.first.c_str()].OffsetMatrix.a4);
-	//	//ImGui::Text("OffsetMatrix21=%f,%f,%f,%f", m_Bone[pair.first.c_str()].OffsetMatrix.b1, m_Bone[pair.first.c_str()].OffsetMatrix.b2, m_Bone[pair.first.c_str()].OffsetMatrix.b3, m_Bone[pair.first.c_str()].OffsetMatrix.b4);
-	//	//ImGui::Text("OffsetMatrix31=%f,%f,%f,%f", m_Bone[pair.first.c_str()].OffsetMatrix.c1, m_Bone[pair.first.c_str()].OffsetMatrix.c2, m_Bone[pair.first.c_str()].OffsetMatrix.c3, m_Bone[pair.first.c_str()].OffsetMatrix.c4);
-	//	//ImGui::Text("OffsetMatrix41=%f,%f,%f,%f", m_Bone[pair.first.c_str()].OffsetMatrix.d1, m_Bone[pair.first.c_str()].OffsetMatrix.d2, m_Bone[pair.first.c_str()].OffsetMatrix.d3, m_Bone[pair.first.c_str()].OffsetMatrix.d4);
-	//    ImGui::End();
-
-	//	//result._11 = mat.a1; result._21 = mat.a2; result._31 = mat.a3; result._41 = mat.a4;
-	//	//result._12 = mat.b1; result._22 = mat.b2; result._32 = mat.b3; result._42 = mat.b4;
-	//	//result._13 = mat.c1; result._23 = mat.c2; result._33 = mat.c3; result._43 = mat.c4;
-	//	//result._14 = mat.d1; result._24 = mat.d2; result._34 = mat.d3; result._44 = mat.d4;
-
-	//	//result *= m_GameObject->GetMatrix();
-
-	//	pair.second->DrawBase(mat);
-	//}
-	
 }
 
 BONE* AnimationModel::GetBONE(const char* _bonename)
@@ -324,34 +242,11 @@ void AnimationModel::Load(const char* FileName)
 	std::ofstream outputFile("asset\\editer\\ModelData.csv");
 	//std::shared_ptr<const aiScene*> scenePtr = std::make_shared<const aiScene*>(aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded));
 	m_AiScene = m_AiScenePtr.AddScene(FileName,TypeModel);
-	//if (loadedScenes.find(FileName) != loadedScenes.end()) //既に読み込まれたことのあるデータかどうか
-	//{
-	//	// 既にロードされている場合は保存された情報を返す
-	//	m_AiScene = loadedScenes[FileName];
-	//	m_sceneNum[FileName]++;
-	//}
-	//else
-	//{
-	//	loadedScenes[FileName] = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
-	//	m_AiScene = loadedScenes[FileName];
-	//	m_sceneNum[FileName] = 1;
-	//	//m_AiScene = loadedScenes[FileName];
-	//}
+
 	m_sceneID = FileName;//ID割り振り
 	
 
-	//if (outputFile.is_open()) 
-	//{
-	//	outputFile << FileName << std::endl;
-	//	for (unsigned int i = 0; i < m_AiScene->mNumMeshes; ++i)
-	//	{
-	//	}
-	//	outputFile.close();
-	//}
-
-	//m_AiScene = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
 	
-	//outputFile.close();
 	assert(m_AiScene);
 
 	m_VertexBuffer = new ID3D11Buffer * [m_AiScene->mNumMeshes];
@@ -418,21 +313,7 @@ void AnimationModel::Load(const char* FileName)
 void AnimationModel::LoadAnimation(const char* FileName, const char* Name)
 {
 	m_Animation[Name] = m_AiScenePtr.AddScene(FileName,TypeAnimation);
-	//if (loadedScenes.find(FileName) != loadedScenes.end())
-	//{
-	//	// 既にロードされている場合は保存された情報を返す
-	//	m_Animation[Name] = loadedScenes[FileName];
-	//}
-	//else
-	//{
-	//	loadedScenes[FileName] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
-	//	m_Animation[Name] = loadedScenes[FileName];
-	//}
-	//m_AnimNames.push_back(Name);
-	//m_sceneNum[Name]++;
-
-	//loadedScenes[FileName]= aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
-	//m_Animation[Name] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
+	
 	assert(m_Animation[Name]);
 }
 
@@ -479,35 +360,6 @@ void AnimationModel::Uninit()
 	}
 
 	m_BoneCombMtxCBuffer->Release();						// 20230909-02
-
-
-
-	//loadedScenes.clear();
-
-	////m_AiScenePtr.UnInit();
-
-	//2024/01/17
-	//for (auto animName : m_AnimNames)
-	//{
-	//	if (m_sceneNum[animName] <= 1)
-	//	{
-	//		aiReleaseImport(m_Animation[animName]);
-	//	}
-	//	m_sceneNum[animName]--;
-	//}
-
-	//for (std::pair<const std::string, const aiScene*> pair : m_Animation)
-	//{
-	//	aiReleaseImport(pair.second);
-	//}
-
-	//if (m_sceneNum[m_sceneID] > 1)// 同一のデータが一つしかないならスキップ
-	//{
-	//	m_sceneNum[m_sceneID]--;
-	//	return;
-	//}
-	//aiReleaseImport(m_AiScene);
-
 }
 
 void AnimationModel::Update(const char* AnimationName1, int Frame1, const char* AnimationName2, int Frame2, float BlendRate)
@@ -601,24 +453,6 @@ void AnimationModel::Update(const char* AnimationName1, int Frame1, const char* 
 	for (auto data : m_Bone) {										// 20230909
 		bonecombmtxcontainer[data.second.idx] = data.second.Matrix;	// 20230909
 	}																// 20230909
-
-
-
-	//for (auto& pair : m_BoneChild)
-	//{
-	//	aiMatrix4x4 mat = m_Bone[pair.first.c_str()].Matrix;
-	//	aiVector3D pos = aiVector3D(mat.d1, mat.d2, mat.d3);
-
-	//	ChildMatrix._11 = mat.a1; ChildMatrix._21 = mat.a2; ChildMatrix._31 = mat.a3; ChildMatrix._41 = mat.a4;
-	//	ChildMatrix._12 = mat.b1; ChildMatrix._22 = mat.b2; ChildMatrix._32 = mat.b3; ChildMatrix._42 = mat.b4;
-	//	ChildMatrix._13 = mat.c1; ChildMatrix._23 = mat.c2; ChildMatrix._33 = mat.c3; ChildMatrix._43 = mat.c4;
-	//	ChildMatrix._14 = mat.d1; ChildMatrix._24 = mat.d2; ChildMatrix._34 = mat.d3; ChildMatrix._44 = mat.d4;
-
-	//	ChildMatrix *= m_GameObject->GetMatrix();
-
-	//}
-
-
 
 	// 20230909 転置
 	for (auto& bcmtx : bonecombmtxcontainer)

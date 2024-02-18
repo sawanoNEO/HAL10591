@@ -13,7 +13,7 @@ private:
 	static DirectX::GamePad::ButtonStateTracker m_GamePadButtons;
 	static std::vector<DirectX::GamePad::State> m_stackState;
 	static std::vector<DirectX::GamePad::ButtonStateTracker> m_stackButtons;
-	static const int precedingInputBufferFramesLimit = 60;  //先行入力を受け付ける猶予フレームの上限(この値の分だけパッド入力をスタックする)
+	static const int m_PrecedingInputBufferFramesLimit = 60;  //先行入力を受け付ける猶予フレームの上限(この値の分だけパッド入力をスタックする)
 
 public:
 	static void Init();

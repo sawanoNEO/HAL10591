@@ -8,7 +8,7 @@
 using namespace DirectX::SimpleMath;
 
 // 球と球同士の当たり判定
-bool Colider:: CollisionSphere(BoundingSphere2 p1, BoundingSphere2 p2)
+bool Colider:: CollisionSphere(BoundingSphere p1, BoundingSphere p2)
 {
 
 	float length = (p1.center - p2.center).Length();
@@ -92,9 +92,9 @@ void Colider::Draw()
 }
 
 // AABB
-Colider* Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
+Colider* Colider:: CollisionAABB(AABB p1, Colider* p2) {
 
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -126,10 +126,10 @@ Colider* Colider:: CollisionAABB(AABB2 p1, Colider* p2) {
 	return p2;
 }
 
-Colider* Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBRight(AABB p1, Colider* p2)
 {
 
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -170,9 +170,9 @@ Colider* Colider::CollisionAABBRight(AABB2 p1, Colider* p2)
 	return p2;
 }
 
-Colider* Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBLeft(AABB p1, Colider* p2)
 {
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -212,9 +212,9 @@ Colider* Colider::CollisionAABBLeft(AABB2 p1, Colider* p2)
 	return p2;
 }
 
-Colider* Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBTop(AABB p1, Colider* p2)
 {
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -255,9 +255,9 @@ Colider* Colider::CollisionAABBTop(AABB2 p1, Colider* p2)
 	return p2;
 }
 
-Colider* Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBBottom(AABB p1, Colider* p2)
 {
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -303,9 +303,9 @@ Colider* Colider::CollisionAABBBottom(AABB2 p1, Colider* p2)
 	return p2;
 }
 
-Colider* Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABBHead(AABB p1, Colider* p2)
 {
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -341,9 +341,9 @@ Colider* Colider::CollisionAABBHead(AABB2 p1, Colider* p2)
 	return p2;
 }
 
-Colider* Colider::CollisionAABB2D(AABB2 p1, Colider* p2)
+Colider* Colider::CollisionAABB2D(AABB p1, Colider* p2)
 {
-	AABB2 p2aabb = p2->GetAABB();
+	AABB p2aabb = p2->GetAABB();
 
 	// X座標
 	if (p1.max.x < p2aabb.min.x) {
@@ -436,11 +436,11 @@ std::array<std::list<Colider*>, HITDIRMAX> Colider::GetAllHitColiders()
 }
 
 
-AABB2 Colider::SetAABB(Vector3 centerposition, float width, int height, int depth) 
+AABB Colider::SetAABB(Vector3 centerposition, float width, int height, int depth) 
 {
 	if (type == BOX)
 	{
-		AABB2 aabb2{};
+		AABB aabb2{};
 
 		width = width;
 		height = height;

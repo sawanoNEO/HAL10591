@@ -8,7 +8,6 @@ private:
 	static ID3D11ShaderResourceView* m_Texture;
 
 	int m_Count;
-	float m_PlaySpeed;
 public:
 	static void Load();
 	static void Unload();

@@ -7,6 +7,7 @@
 void StateItem::Init(ITEMID _id)
 {
 	Item* item;
+	///指定されたアイテムを初期のアイテムとして登録
 	switch (_id)
 	{
 	case HEAL:
