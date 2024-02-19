@@ -86,19 +86,19 @@ void StateMove::StateUpdate()
 		m_GameObject->GetComponent<StateMachine>()->changeState(m_GameObject->GetComponent<StateAttack>());
 	}
 
-	if (camera->GetRock())//ターゲットカメラ状態の時の処理
-	{
-		Vector3 currentRot = player->GetRotation();
-		Vector3 enemypos = camera->GetRockEnemy()->GetPosition();
-		float fx = enemypos.x - pos.x;
-		float fz = enemypos.z - pos.z;
-		Vector3 nom = { fx,0.0,fz };
-		nom.Normalize();
-		float afo = atan2(nom.x, nom.z);
-		currentRot.y = afo;
-		player->SetRotation(currentRot);
-		player->SetpromissDirection(f);
-	}
+	//if (camera->GetRock())//ターゲットカメラ状態の時の処理
+	//{
+	//	Vector3 currentRot = player->GetRotation();
+	//	Vector3 enemypos = camera->GetRockEnemy()->GetPosition();
+	//	float fx = enemypos.x - pos.x;
+	//	float fz = enemypos.z - pos.z;
+	//	Vector3 nom = { fx,0.0,fz };
+	//	nom.Normalize();
+	//	float afo = atan2(nom.x, nom.z);
+	//	currentRot.y = afo;
+	//	player->SetRotation(currentRot);
+	//	player->SetpromissDirection(f);
+	//}
 }
 
 void StateMove::Draw()

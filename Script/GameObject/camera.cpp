@@ -87,13 +87,13 @@ void Camera::Update()
 	}
 	else// ターゲットカメラ
 	{
-		m_Position = playerpos +- forward * 15;
-		m_Position.y += TargetY;
-		m_Target =RockEnemy->GetPosition();
-		if (abs((playerpos - m_Target).Length()) > 70)
-		{
-			rock=false;
-		}
+		//m_Position = playerpos +- forward * 15;
+		//m_Position.y += TargetY;
+		//m_Target =RockEnemy->GetPosition();
+		//if (abs((playerpos - m_Target).Length()) > 70)
+		//{
+		//	rock=false;
+		//}
 	}
 
 	/*この式だとズームになる。謎
@@ -104,21 +104,21 @@ void Camera::Update()
 
 	
 	//右スティック押し込みで視点リセット
-	if (Input::GetController(Input::RightStick, Input::HELD))
+	if (Input::GetController(Input::RightStick, Input::PRESSED))
 	{
 		float kakudo = atan2(-forward.z, -forward.x);
 		kakudo = kakudo * 180 / 3.14;
 		angle = kakudo;
 		Yangle =75.0f;
 	}
-	if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
-	{
-		RockEnemy = enemy[0];
-		if (rock)
-			rock = false;
-		else
-			rock = true;
-	}
+	//if (Input::GetController(Input::RightStick, Input::PRESSED))////////////ロックオンカメラに切り替え
+	//{
+	//	RockEnemy = enemy[0];
+	//	if (rock)
+	//		rock = false;
+	//	else
+	//		rock = true;
+	//}
 
 	////壁回避の処理
 	//Colider* wall;
