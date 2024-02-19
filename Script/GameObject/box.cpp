@@ -1,16 +1,12 @@
 #include "../System/main.h"
 #include "../System/manager.h"
 #include "../System/renderer.h"
-//#include "../System/input.h"
-//#include "../Scene/scene.h"
 #include "../System/modelRenderer.h"
 #include "../GameObject/box.h"
-//#include "shadow.h"
 #include "../Component/shader.h"
 #include "../Component/Colider.h"
 #include <SimpleMath.h>
 #include "../Component/Rigidbody.h"
-#include "../Component/Move.h"
 
 #include "../GameObject/player.h"
 #include "../ImGui/imguimanager.h"
@@ -22,7 +18,6 @@ void Box::Init()
 	AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\vertexLightingPS.cso");
 	AddComponent<ModelRenderer>()->Load("asset\\model\\box.obj");
 
-//	AddComponent<Shadow>()->SetSize(8.0f);
 	AddComponent<Colider>();
 	float a = GetScale().y / 3;     //当たり判定のサイズ調整に使用する
 	if (a < 1)
@@ -36,7 +31,6 @@ void Box::Init()
 	scale.y = fabsf(max.y) + fabsf(min.y);
 	scale.z = fabsf(max.z) + fabsf(min.z);
 	float YSize = 5.0f * -(a * 0.1);
-	//GetComponent<Colider>()->Init(WALL, Vector3{ 2.0f, YSize , 2.0f});
 	GetComponent<Colider>()->Init(WALL, scale);
 	GetComponent<Colider>()->SetAABB(m_Position,fabs(m_Scale.x),
 		fabs(YSize * m_Scale.y ),
@@ -127,7 +121,7 @@ void Box::Update()
 
 void Box::Draw()
 {
-	AABB2 c=GetComponent<Colider>()->GetAABB();
+	AABB c=GetComponent<Colider>()->GetAABB();
 #if _DEBUG
 	ImGui::Begin("Box");
 	//ImGui::Text("%i", d);

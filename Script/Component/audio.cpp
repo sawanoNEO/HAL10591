@@ -110,11 +110,7 @@ void Audio::Uninit()
 
 void Audio::Update()
 {
-	/*if (m_Fadeflg == true)
-	{
-		m_SourceVoice->SetVolume(m_Volume);
-		m_Volume -= 0.025f;
-	}*/
+	//ó‘Ô‚É‰ž‚¶‚Ä‰¹—Ê‚ð‘Œ¸‚³‚¹‚é
 	if (m_State == AUDIOFADEOUT)
 	{
 		m_SourceVoice->SetVolume(m_Volume);

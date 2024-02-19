@@ -19,7 +19,7 @@ void Heal::Enter()
 	m_StartUpTime = 30;
 	m_ActionTime = 1;
 	m_RecoveryTime = 70;
-	AnimName = "Drink";
+	m_AnimName = "Drink";
 	m_Count = 0;
 	m_ChangeStateFlg = false;
 }
@@ -36,7 +36,7 @@ void Heal::Init()
 	m_StartUpTime = 30;
 	m_ActionTime = 1;
 	m_RecoveryTime = 70;
-	AnimName = "Drink";
+	m_AnimName = "Drink";
 	Scene* scene = Manager::GetScene();
 	Score* score = scene->GetGameObject<Score>();
 	score->AddCount(m_MaxInventoryCount);
@@ -80,6 +80,8 @@ void Heal::Update()
 			m_InventoryCount--;
 			score->AddCount(-1);
 			player->ASHP(650);
+
+			//パーティクルによるエフェクト表示
 			for (int i = 0; i < m_ParticleNum; i++)
 			{
 				HealEffect* effect = scene->AddGameObject<HealEffect>(1);
@@ -95,11 +97,13 @@ void Heal::Update()
 	{
 		if (m_InventoryCount > 0)
 		{
-			if (Input::GetController(Input::x, Input::PRESSED))
+			if (Input::GetController(Input::x, Input::PRESSED,10)!=-1)//回復の連続使用
 			{
 				m_Count = 15;
 				m_GameObject->SetFrame1(15);
 			}
+
+			//パーティクルによるエフェクト表示
 			for (int i = 0; i < m_ParticleNum; i++)
 			{
 				HealEffect* effect = scene->AddGameObject<HealEffect>(1);

@@ -3,11 +3,9 @@
 #include "../System/renderer.h"
 
 #include "../GameObject/camera.h"
-#include "../GameObject/WallDodgeCamera.h"
 #include "../GameObject/field.h"
 #include "../GameObject/player.h"
 #include "../GameObject/box.h"
-#include "../GameObject/cylinder.h"
 #include "../GameObject/Polygon2D.h"
 
 
@@ -25,11 +23,8 @@
 
 #include "../Scene/result.h"
 
-#include "../GameObject/AttackObject.h"
 #include "../GameObject/goal.h"
-#include "../GameObject/bullet.h"
 #include "../GameObject/enemy.h"
-#include "../GameObject/battery.h"
 #include "../GameObject/sky.h"
 #include "../GameObject/score.h"
 #include "../GameObject/ST.h"
@@ -43,9 +38,6 @@
 #include"../GameObject/Effect/HealEffect.h"
 
 #include "../ImGui/imguimanager.h"
-
-//すぐ消す
-#include "../Component/Obb.h"
 
 #include <fstream>
 using namespace DirectX::SimpleMath;
@@ -105,17 +97,14 @@ void Game::LoadImageDraw()
 void Game::Init()
 {
 	//LoadImageDraw();
-	Bullet::Load();
 	Explosion::Load();
 	Slash::Load();
 	Puntch::Load();
 	HealEffect::Load();
 	AddGameObject<Camera>(0);
-	//AddGameObject<WallDodgeCamera>(1);
 	AddGameObject<Sky>(1);
 	AddGameObject<Field>(1);
 	AddGameObject<Score>(3);
-	//AddGameObject<AttackObject>(1);
 
 	GameObject* portion = AddGameObject<GameObject>(3);
 	portion->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
@@ -130,28 +119,28 @@ void Game::Init()
 		enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
 		enemy->SetRotation({ 0.0f,3.0f,0.0f });
 	}
-	//ChangeLoadImage();
-	//{
-	//	GameObject* enemy = AddGameObject<Enemy>(1);
-	//	enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
-	//}
-	//ChangeLoadImage();
-	//{
-	//	GameObject* enemy = AddGameObject<Enemy>(1);
-	//	enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
-	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	//}
-	//ChangeLoadImage();
-	//{
-	//	GameObject* enemy = AddGameObject<Enemy>(1);
-	//	enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
-	//}
-	//ChangeLoadImage();
-	//{
-	//	GameObject* enemy = AddGameObject<Enemy>(1);
-	//	enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
-	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	//}
+	ChangeLoadImage();
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
+	}
+	ChangeLoadImage();
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
+	ChangeLoadImage();
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
+	}
+	ChangeLoadImage();
+	{
+		GameObject* enemy = AddGameObject<Enemy>(1);
+		enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
+		enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	}
 	ChangeLoadImage();
 	AddGameObject<Player>(1);
 	ChangeLoadImage();
@@ -213,12 +202,7 @@ void Game::Init()
 	//	cylinder->SetScale(Vector3(3.0f, 6.0f, 3.0f));
 	//}
 
-	// チェック完了
-	//{
-	//	Goal* goal = AddGameObject<Goal>(1);
-	//	goal->SetPosition(Vector3(0.0f, 10.5f, -10.0f));
-	//	goal->SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	//}
+
 
 
 	GameObject* audioobj = AddGameObject<GameObject>(0);

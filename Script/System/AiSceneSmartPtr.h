@@ -29,6 +29,6 @@ private:
 public:
 	const aiScene* AddScene(const char* FileName,SceneType _type);
 	void UnInit();
-	static void UnInitAll();
+	static void UnInitAll();//シーンの解放処理の際に呼び出す。m_LoadedSceneを解放する
 };
 

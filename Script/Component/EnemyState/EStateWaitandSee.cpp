@@ -24,9 +24,6 @@ void EStateWaitandSee::Enter()
 	{
 		return;
 	}
-	//Vector3 vec = m_GameObject->GetPosition() - player->GetPosition();//自身とプレイヤーとのベクトル
-	//vec.Normalize();
-
 
 	m_HowLong = m_RandLowerLimit + rand() % (m_RandUpperLimit - m_RandLowerLimit);
 	m_GameObject->SetAnimSpeed(-1.0f);
@@ -61,8 +58,6 @@ void EStateWaitandSee::StateUpdate()
 	if (m_Count < m_HowLong && m_SideMoveflg == false)
 	{
 		//自分から目標位置までのベクトルを計算
-		/*m_WalkVec = m_BackPoint - position;
-		m_WalkVec.Normalize();*/
 		m_WalkVec = -m_GameObject->GetForward();
 	}
 	else if (m_Count >= m_HowLong && m_SideMoveflg == false)

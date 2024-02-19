@@ -95,25 +95,7 @@
     <ClCompile Include="Script\Component\Colider.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
-    <ClCompile Include="Script\Component\collision.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\Component\Est.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\Component\Jump.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\Component\ModelManager.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\Component\Move.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
     <ClCompile Include="Script\Component\Rigidbody.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\Component\Rolling.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
     <ClCompile Include="Script\Component\shader.cpp">
@@ -125,22 +107,10 @@
     <ClCompile Include="Script\Component\sprite.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
-    <ClCompile Include="Script\Component\Sword.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\GameObject\battery.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Script\GameObject\box.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Script\GameObject\bullet.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Script\GameObject\camera.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\GameObject\cylinder.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Script\GameObject\enemy.cpp">
@@ -171,9 +141,6 @@
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Script\GameObject\transition.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\GameObject\WallDodgeCamera.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Script\ImGui\imgui.cpp">
@@ -248,9 +215,6 @@
     <ClCompile Include="Script\Component\StateAttack.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
-    <ClCompile Include="Script\GameObject\AttackObject.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Script\Component\EnemyState\EStateNone.cpp">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClCompile>
@@ -266,20 +230,11 @@
     <ClCompile Include="Script\Component\EnemyState\EStateAttack.cpp">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="Script\Component\Obb.cpp">
-      <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
     <ClCompile Include="Script\Component\StateItem.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
     <ClCompile Include="Script\Component\Heal.cpp">
       <Filter>ソース ファイル\component</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\GameObject\Effect\Slash.cpp">
-      <Filter>ソース ファイル\GameObject\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Script\GameObject\Particle.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Script\GameObject\EnemyHP.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
@@ -305,6 +260,9 @@
     <ClCompile Include="Script\Component\StateDeath.cpp">
       <Filter>ソース ファイル\component</Filter>
     </ClCompile>
+    <ClCompile Include="Script\GameObject\Effect\Slash.cpp">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -316,28 +274,10 @@
     <ClInclude Include="Script\Component\Colider.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Component\collision.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
     <ClInclude Include="Script\Component\component.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Component\Est.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\Component\Jump.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\Component\ModelManager.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\Component\Move.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
     <ClInclude Include="Script\Component\Rigidbody.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\Component\Rolling.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
     <ClInclude Include="Script\Component\shader.h">
@@ -349,22 +289,10 @@
     <ClInclude Include="Script\Component\sprite.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Component\Sword.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\GameObject\battery.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Script\GameObject\box.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Script\GameObject\bullet.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Script\GameObject\camera.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\GameObject\cylinder.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Script\GameObject\enemy.h">
@@ -401,9 +329,6 @@
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Script\GameObject\transition.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\GameObject\WallDodgeCamera.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Script\ImGui\imconfig.h">
@@ -493,9 +418,6 @@
     <ClInclude Include="Script\Component\StateAttack.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
-    <ClInclude Include="Script\GameObject\AttackObject.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Script\Component\EnemyState\EStateNone.h">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
@@ -508,9 +430,6 @@
     <ClInclude Include="Script\Component\EnemyState\EStateAttack.h">
       <Filter>ソース ファイル\component\EnemyState</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Component\Obb.h">
-      <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
     <ClInclude Include="Script\Component\StateItem.h">
       <Filter>ソース ファイル\component</Filter>
     </ClInclude>
@@ -519,12 +438,6 @@
     </ClInclude>
     <ClInclude Include="Script\Component\Heal.h">
       <Filter>ソース ファイル\component</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\GameObject\Effect\Slash.h">
-      <Filter>ソース ファイル\GameObject\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\GameObject\Particle.h">
-      <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Script\GameObject\EnemyHP.h">
       <Filter>ソース ファイル\GameObject</Filter>
@@ -549,6 +462,9 @@
     </ClInclude>
     <ClInclude Include="Script\Component\StateDeath.h">
       <Filter>ソース ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\GameObject\Effect\Slash.h">
+      <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

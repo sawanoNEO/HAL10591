@@ -3,24 +3,11 @@
 #include <iostream>
 #include <unordered_map>
 
-enum PLAYERSTATE
-{
-	NONE,
-	DASH,
-	ATTACK,
-	ROLLING,
-	JUMP,
-	ITEM,
-	BACKSTEP,
-	DEATH,
-	};
-
 	class Colider;
 
 class Player : public GameObject
 {
 private:
-	PLAYERSTATE Pstate = NONE;
 	DirectX::SimpleMath::Vector3		m_Velocity{};
 	std::unordered_map< const char*,class Audio*> m_SE{};
 
@@ -30,29 +17,26 @@ private:
 	float m_Frame2;//再生中のアニメーションのフレーム数
 	float m_BlendRate;
 
-	float MaxHP=1000;     //最大体力
-	float HP=1000;             //現在体力
-	float groundHeight; //床の高さ
-	float ST=100;           //スタミナ
-	float MaxST = 100;        //スタミナ最大値
-	float Speed;        //基本の移動速度
-	float Accel;        //通常の加速度
-	float DAccel;       //ダッシュ時の加速度
-	float MaxSpeed;     //最大移動速度
-	float cnt;          //各動作のカウント
+	float m_MaxHP=1000;     //最大体力
+	float m_HP=1000;             //現在体力
+	float m_GroundHeight; //床の高さ
+	float m_ST=100;           //スタミナ
+	float m_MaxST = 100;        //スタミナ最大値
+	float m_Speed;        //基本の移動速度
+	float m_Accel;        //通常の加速度
+	float m_DAccel;       //ダッシュ時の加速度
+	float m_MaxSpeed;     //最大移動速度
 	float m_AnimSpeed = 1.0f;//アニメーションの再生速度(倍率)
 	float m_RecoverST = 0.75f;//スタミナの回復速度(1fごとの回復量)
 
-	bool Action=false;  //スタミナを消費する行動をしているか
-	bool Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる。スタミナが回復しきるまでダッシュ出来ないという判定に用いる
+	bool m_Wait = false;  //ダッシュでスタミナを使い切った時にtrueになる。スタミナが回復しきるまでダッシュ出来ないという判定に用いる
 	bool m_Invincible = false; //回避などの無敵中かどうか
 
 	int m_InvincibleFrame = 0;//無敵時間が持続するフレーム
 
-	DirectX::SimpleMath::Vector3 oldPosition;
-	Colider* colme;     //自分の当たり判定
-	Colider* colattack;  //攻撃時の当たり判定
-	DirectX::SimpleMath::Vector3 promissDirection{ 0.0f,0.0f,1.0f };//プレイヤーが振り向く際の最終的に振り向く方向
+	DirectX::SimpleMath::Vector3 m_OldPosition;
+	Colider* m_Colme;     //自分の当たり判定
+	DirectX::SimpleMath::Vector3 m_PromissDirection{ 0.0f,0.0f,1.0f };//プレイヤーが振り向く際の最終的に振り向く方向
 	std::string m_Animname1="Idle"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(1)
 	std::string m_Animname2="Walk"; //アニメーションの再生時のアニメーション指定を動的に行うための変数(2)
 
@@ -64,7 +48,6 @@ public:
 	void Init() override;
 	void Update() override;
 	void Draw() override;
-	void PreDraw() override;
 
 	bool Damage(float _damage)override;
 	void STRecover();       //スタミナを回復する関数
@@ -74,22 +57,19 @@ public:
 	//以下は各変数ごとのセッター&ゲッター
 	 
 	//現在のプレイヤーの状態を返す
-	PLAYERSTATE GetPstate() { return Pstate;}
-	float GetST() { return ST; }
-	bool GetWait() { return Wait; }
-	Colider* Getcolattack() { return colattack; }
-	float GetMaxST() { return MaxST; }
-	float GetMaxHP() { return MaxHP; }
-	float GetHP() { return HP; }
+	float GetST() { return m_ST; }
+	bool GetWait() { return m_Wait; }
+	float GetMaxST() { return m_MaxST; }
+	float GetMaxHP() { return m_MaxHP; }
+	float GetHP() { return m_HP; }
 	bool GetInvincible() { return m_Invincible; }
-	DirectX::SimpleMath::Vector3 GetpromissDirection() { return promissDirection; }
-	DirectX::SimpleMath::Vector3 GetoldPosition() { return oldPosition; }
+	DirectX::SimpleMath::Vector3 GetpromissDirection() { return m_PromissDirection; }
+	DirectX::SimpleMath::Vector3 GetoldPosition() { return m_OldPosition; }
 
-	void SetPstate(PLAYERSTATE s) { Pstate = s; }	//プレイヤーの状態を変える。引数には変えたい状態を入れる
 	void SetVerocity(float);
-	void SetWait(bool wait) { Wait = wait; }
-	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { oldPosition = pos; }
-	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { promissDirection = _dir; }
+	void SetWait(bool wait) { m_Wait = wait; }
+	void SetoldPosition(DirectX::SimpleMath::Vector3 pos) { m_OldPosition = pos; }
+	void SetpromissDirection(DirectX::SimpleMath::Vector3 _dir) { m_PromissDirection = _dir; }
 	void SetInvincible(bool _invincible);//無敵状態にする(1fだけ,繰り返して使う前提)
 	void SetInvincibleFrame(int _frame) { m_InvincibleFrame = _frame; }//無敵時間を設定する(フレーム)
 	void SetAnimName2(const char*);

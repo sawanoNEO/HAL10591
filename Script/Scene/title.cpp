@@ -12,7 +12,6 @@
 #include "../Component/audio.h"
 
 #include "../GameObject/transition.h"
-#include "../GameObject/Particle.h"
 
 #include "../ImGui/imguimanager.h"
 
@@ -35,9 +34,9 @@ void Title::Init()
 	stratText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 	stratText->AddComponent<Sprite>()->Init(450.0f, 500.0f, 256,111, "asset\\texture\\Start.png");
 	
-	GameObject* endlessText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
-	endlessText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
-	endlessText->AddComponent<Sprite>()->Init(450.0f, 700.0f, 395, 111, "asset\\texture\\Endless.png");
+	//GameObject* endlessText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
+	//endlessText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
+	//endlessText->AddComponent<Sprite>()->Init(450.0f, 700.0f, 395, 111, "asset\\texture\\Endless.png");
 	
 	GameObject* exitText = AddGameObject<GameObject>(3);			// 3はレイヤ番号
 	exitText->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
@@ -47,10 +46,7 @@ void Title::Init()
 	m_Arrow->AddComponent<Shader>()->Load("shader\\unlitTextureVS.cso", "shader\\unlitTexturePS.cso");
 	m_Arrow->AddComponent<Sprite>()->Init(350.0f, 500.0f, 494/6, 790/6, "asset\\texture\\Arrow.png");
 
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	AddGameObject<Particle>(3);
-	//}
+
 
 	m_Transition = AddGameObject<Transition>(3);					// 3はレイヤ番号
 	m_Transition->FadeIn();
@@ -67,7 +63,7 @@ void Title::Init()
 
 void Title::Update()
 {
-	m_Arrow->GetComponent<Sprite>()->Init(350.0f, 500.0f+(200.0f *m_Cursle), 494 / 6, 790 / 6, "asset\\texture\\Arrow.png");//カーソル位置更新
+	m_Arrow->GetComponent<Sprite>()->Init(350.0f, 500.0f+(400.0f *m_Cursle), 494 / 6, 790 / 6, "asset\\texture\\Arrow.png");//カーソル位置更新
 
 	//カーソル移動
 	if (m_BGM->GetState() == AUDIOFADEFINISH)
@@ -106,13 +102,8 @@ void Title::Update()
 		}
 	}
 
-	//if (Particle::GetNum() < 100)
-	//{
-	//	GameObject* object = AddGameObject<Particle>(3);
-	//}
 
 	m_gameobject->GetComponent<Sprite>()->SetVertex(x, x, SCREEN_WIDTH, SCREEN_HEIGHT);
-	//x += 1;
 	// 画面遷移が終了してるか？
 	//フェードアウト終了後、遷移する画面を決定する
 	if (m_Transition->GetState() == Transition::State::Finish&&
@@ -123,7 +114,7 @@ void Title::Update()
 		case START:
 			Manager::SetScene<Game>();
 			break;
-		case ENDLESS:
+		//case ENDLESS:
 		case EXIT:
 			Manager::GameExit();
 			break;
@@ -136,7 +127,7 @@ void Title::Update()
 void Title::Draw()
 {
 #if _DEBUG
-	ImGui::Begin("www");
+	ImGui::Begin("title");
 	ImGui::Text("%f%f%f", m_gameobject->GetPosition().x, m_gameobject->GetPosition().y, m_gameobject->GetPosition().z);
 	ImGui::Text("%i", x);
 	ImGui::End();

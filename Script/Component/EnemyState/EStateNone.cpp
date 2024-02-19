@@ -86,6 +86,7 @@ void EStateNone::Draw()
 {
 }
 
+//視野範囲に対象が入っているか
 bool EStateNone::SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::SimpleMath::Vector3 m_pos, float fov, float length)
 {
 	//プレイヤーと自身を結ぶベクトル
@@ -113,16 +114,6 @@ bool EStateNone::SearchPlayer(DirectX::SimpleMath::Vector3 playerpos, DirectX::S
 	//内積を計算
 	float dotobj = vecview.Dot(vecobj);//視線ベクトルとプレイヤーへのベクトルの内積
 
-	////回転//これでは動かない判断をしたが恐らく合っているので記念に
-	//Matrix mtx;
-	//mtx = mtx.CreateRotationZ(fov / 2.0f);
-
-	//Vector3 vecrotview=m_GameObject->GetForward();//視野範囲
-	//vecrotview.y=
-
-	//vecrotview = vecview.Transform(vecview, mtx);
-
-	//float dotrotview = vecview.Dot(vecrotview);
 	float dotrotview = cos(fov / 2 * 3.14 / 180.0f);
 
 	if (dotrotview <= dotobj)

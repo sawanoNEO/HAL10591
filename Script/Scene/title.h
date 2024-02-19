@@ -7,7 +7,7 @@ class Title : public Scene
 private:
 	enum Cursle
 	{
-		START,ENDLESS,EXIT,
+		START,EXIT,
 	};
 	class Transition* m_Transition{};
 	class GameObject* m_gameobject;

@@ -7,7 +7,7 @@ private:
 	static ID3D11ShaderResourceView* m_Texture;
 
 	int m_Count;
-	float m_RisingSpeed;
+	float m_RisingSpeed;//パーティクルが上昇していく速度
 
 public:
 	static void Load();

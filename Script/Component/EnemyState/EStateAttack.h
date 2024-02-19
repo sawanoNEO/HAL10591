@@ -7,7 +7,7 @@ class EStateAttack : public State
 {
 private:
 	GameObject* m_AttackObj;
-	class Slash* slash;
+	class Slash* m_Slash;
 	std::vector<int> m_Startup;            //攻撃の前隙のフレーム数
 	std::vector<int> m_ActiveFrames;       //攻撃の持続フレーム数
 	std::vector<int> m_Recovery;           //攻撃の後隙のフレーム数

@@ -57,6 +57,7 @@ void StateRolling::StateUpdate()
 
 	if (m_Count < m_Startup)
 	{
+		//ローリングの方向を決定する
 		if (Input::GetStickState())
 		{
 			m_Rolvec = XMVector3Normalize(camera->VecYRemove(camside) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(camforward) * Input::GetStick(Input::LeftY)));//ローリングの方向を決定
@@ -76,7 +77,7 @@ void StateRolling::StateUpdate()
 	}
 	else if (m_Count <= m_Startup + m_Invincible + m_Recovery)
 	{
-		player->SetInvincible(false);
+		player->SetInvincible(false);//攻撃を喰らわない状態
 		if (Input::GetController(Input::a, Input::RELEASED, 10) != -1&&      //10f前までの中で、Aボタンが離された瞬間がなければ-1を返す
 			m_KeepABurron==false&&Sutamina>5.0)
 		{

@@ -22,17 +22,7 @@ using namespace std;
 
 void EStateAttack::Init()
 {
-	//Scene* scene = Manager::GetScene();
-	//m_AttackObj = scene->AddGameObject<GameObject>(1);
-	//m_AttackObj->AddComponent<Colider>();
-	//m_AttackObj->GetComponent<Colider>()->Init(DEFAULT, Vector3{ 1.0f,1.0f,1.0f });
-	//m_AttackObj->SetScale(Vector3{ 4.0f,2.0f,4.0f });
-	//m_Startup[0] = 17;
-	//m_ActiveFrames[0] = 5;
-	//m_Recovery[0] = 21;
-	//m_cnt = 0;
-	//m_Power[0] = 125;
-	//m_DubleAttackRate[0] = 10;
+
 }
 
 void EStateAttack::Init(int _startup, int _activeframes, int _recovery, int _power, int _doubleattackrate, DirectX::SimpleMath::Vector3 _scale)
@@ -48,9 +38,6 @@ void EStateAttack::Init(int _startup, int _activeframes, int _recovery, int _pow
 void EStateAttack::Enter()
 {
 	m_GameObject->SetAnimName2("Attack");
-	//m_Startup = 22;
-	//m_ActiveFrames = 5;
-	//m_Recovery = 21;
 	m_cnt = 0;
 	m_hit = false;
 	m_DoubleAttack = false;
@@ -140,15 +127,15 @@ void EStateAttack::StateUpdate()
 	}
 	else if (m_cnt == m_Startup[m_AttackNum])
 	{
-		slash = scene->AddGameObject<Slash>(1);
-		slash->SetColor(White);
+		m_Slash = scene->AddGameObject<Slash>(1);
+		m_Slash->SetColor(White);
 		Vector3 pos = m_GameObject->GetPosition() + m_GameObject->GetForward() * 4;
 		pos.y += 2.0;
 		//slash->SetPosition(player->GetPosition() + player->GetForward() * 5);
-		slash->SetPosition(pos);
+		m_Slash->SetPosition(pos);
 		Vector3 rot = { 0.0,0.0,0.0 };
 		rot.z += cos(90 * 3.14 / 180);
-		slash->SetRotation(rot);
+		m_Slash->SetRotation(rot);
 
 		//拳が空を切る音を再生
 		m_SENumber = rand() % 3;//再生する音を決定
@@ -213,7 +200,7 @@ void EStateAttack::StateUpdate()
 				default:
 					break;
 				}
-				slash->SetColor(Red);
+				m_Slash->SetColor(Red);
 			}
 			m_hit = true;
 		}
@@ -233,17 +220,7 @@ void EStateAttack::StateUpdate()
 			m_DoubleAttack=true;
 		}
 	}
-	//else if (cnt < Startup +m_ActiveFrames + Recovery)         //攻撃後の硬直時間。この間の一定のタイミングでもういちど攻撃ボタンを押すと連撃になる
-	//{
-	//	if (Input::GetController(Input::R1, Input::PRESSED, 15) != -1 &&
-	//		player->GetST() > 0.0f &&
-	//		cnt > Startup +m_ActiveFrames + (Recovery / 3))     //硬直が始まってすぐは連撃に移行できない
-	//	{
-	//		cnt = Startup - 10;
-	//		player->SetFrame1(0);
-	//		//player->STUse(17.0f);
-	//	}
-	//}
+
 	
 	m_cnt++;
 }

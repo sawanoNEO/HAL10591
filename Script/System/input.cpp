@@ -39,7 +39,7 @@ void Input::Update()
 	m_stackState.push_back(m_State);
 	m_stackButtons.push_back(m_GamePadButtons);
 
-	if (m_stackButtons.size() >= precedingInputBufferFramesLimit)
+	if (m_stackButtons.size() >= m_PrecedingInputBufferFramesLimit)
 	{
 		m_stackState.erase(m_stackState.begin());
 		m_stackButtons.erase(m_stackButtons.begin());
@@ -177,9 +177,9 @@ bool Input::GetController(Button button,ButtonState State)
 
 int Input::GetController(Button button,ButtonState State,int _bufferframe)
 {
-	if (_bufferframe > precedingInputBufferFramesLimit)
+	if (_bufferframe > m_PrecedingInputBufferFramesLimit)
 	{
-		_bufferframe = precedingInputBufferFramesLimit;
+		_bufferframe = m_PrecedingInputBufferFramesLimit;
 	}
 	auto itr = m_stackButtons.end();
 	for (int i = 0; i < _bufferframe; i++)

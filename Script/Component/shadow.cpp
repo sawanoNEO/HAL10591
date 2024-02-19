@@ -5,7 +5,6 @@
 #include "../Scene/scene.h"
 #include "shadow.h"
 #include "../GameObject/box.h"
-#include "../GameObject/cylinder.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -75,29 +74,6 @@ void Shadow::Update()
 
 	Scene* scene = Manager::GetScene();
 
-	{
-		std::vector<Cylinder*> cylinderList = scene->GetGameObjects<Cylinder>();
-
-		for (Cylinder* cylinder : cylinderList)
-		{
-			if (cylinder == m_GameObject)
-				continue;
-
-			Vector3 position = cylinder->GetPosition();
-			Vector3 scale = cylinder->GetScale();
-
-			Vector3 direction = m_Position - position;
-			direction.y = 0.0f;
-			float length = direction.Length();
-
-			if (length < scale.x)
-			{
-				groundHeight = position.y + scale.y;
-
-				break;
-			}
-		}
-	}
 
 	{
 		std::vector<Box*> boxList = scene->GetGameObjects<Box>();

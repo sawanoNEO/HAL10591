@@ -15,7 +15,6 @@ class StateMachine :public Component
 {
 private:
     State* m_CurrentState;//Œ»İ‚Ìó‘Ô
-    State* m_PastState;//‘O‰ñ‚Ìó‘Ô
 
 public:
     using Component::Component;
@@ -23,7 +22,6 @@ public:
     void changeState(State* newState) //ó‘Ô‘JˆÚŠÖ”
     {
         m_CurrentState->Exit();
-        m_PastState = m_CurrentState;
         m_CurrentState = newState;
         m_CurrentState->Enter();
     }

@@ -18,7 +18,7 @@ using namespace DirectX;
 
 void StateDash::Enter()
 {
-	DAccel = 150.0;
+	m_DAccel = 150.0;
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 	player->SetAnimSpeed(1.5f);
@@ -49,22 +49,21 @@ void StateDash::StateUpdate()
 	Vector3 s = player->GetSide();
 	Vector3 pos = player->GetPosition();
 	Vector3 currentRot = player->GetRotation();//回転取得
-	PLAYERSTATE state = player->GetPstate();
 	Rigidbody* rb = player->GetComponent<Rigidbody>();
 	bool Wait = player->GetWait();
 
 
 	if (Input::GetController(Input::a,Input::HELD))
 	{
-		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * DAccel;
+		Vector3 vec = XMVector3Normalize(camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX) + (camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY))) * m_DAccel;
 		rb->AddForce(vec, ForceMode::Acceleration);              ///加速度を元にプレイヤーに移動の力を与える
 		//プレイヤーが向く方向を設定する
 		player->SetpromissDirection(XMVector3Normalize(camera->VecYRemove(cameraf) * Input::GetStick(Input::LeftY) + (camera->VecYRemove(cameras) * Input::GetStick(Input::LeftX))));
 		player->STUse(0.2);//スタミナ消費
-		DAccel += DAccel * 0.1;//加速度の加算
-		if (DAccel >= 250)
+		m_DAccel += m_DAccel * 0.1;//加速度の加算
+		if (m_DAccel >= 250)
 		{
-			DAccel = 250;
+			m_DAccel = 250;
 		}
 	}
 }

@@ -173,7 +173,6 @@ void StateAttack::StateUpdate()
 					slash->SetColor(Red);
 					slash->SetPosition(enemypos);
 					m_HitNum++;
-					//slash->SetPosition(enemypos);
 				}
 			}
 		}
@@ -188,7 +187,6 @@ void StateAttack::StateUpdate()
 			m_HitNum = 0;
 			m_Count = m_Startup - 15;
 			player->SetFrame1(0);
-			//player->STUse(17.0f);
 		}
 	}
 	
