@@ -271,6 +271,7 @@
     <ClCompile Include="Script\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Script\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Script\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Script\Scene\endless.cpp" />
     <ClCompile Include="Script\Scene\game.cpp" />
     <ClCompile Include="Script\Scene\result.cpp" />
     <ClCompile Include="Script\Scene\score.cpp" />
@@ -339,6 +340,7 @@
     <ClInclude Include="Script\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Script\ImGui\imstb_textedit.h" />
     <ClInclude Include="Script\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Script\Scene\endless.h" />
     <ClInclude Include="Script\Scene\game.h" />
     <ClInclude Include="Script\Scene\result.h" />
     <ClInclude Include="Script\Scene\scene.h" />

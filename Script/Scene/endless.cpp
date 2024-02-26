@@ -1,3 +1,5 @@
+#include "endless.h"
+
 #include "../System/main.h"
 #include "../System/manager.h"
 #include "../System/renderer.h"
@@ -8,8 +10,6 @@
 #include "../GameObject/box.h"
 #include "../GameObject/Polygon2D.h"
 
-
-#include "../Scene/game.h"
 #include "../Scene/result.h"
 #include "../System/input.h"
 #include "../Component/audio.h"
@@ -40,13 +40,15 @@
 #include "../ImGui/imguimanager.h"
 
 #include <fstream>
+
+using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void Game::ChangeLoadImage()
+void Endless::ChangeLoadImage()
 {
 	m_LoadCount++;
 	Renderer::Begin();
-	switch (m_LoadCount%4)
+	switch (m_LoadCount % 4)
 	{
 	case 0:
 		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 566, 115, "asset\\texture\\Now Loading.png");
@@ -60,7 +62,7 @@ void Game::ChangeLoadImage()
 	case 3:
 		m_LoadImage->GetComponent<Sprite>()->Init(1200, 900, 637, 115, "asset\\texture\\Now Loading3.png");
 		break;
-		
+
 	default:
 		break;
 	}
@@ -70,7 +72,7 @@ void Game::ChangeLoadImage()
 	Renderer::End();
 }
 
-void Game::LoadImageDraw()
+void Endless::LoadImageDraw()
 {
 	Renderer::Begin();
 
@@ -93,10 +95,8 @@ void Game::LoadImageDraw()
 	Renderer::End();
 }
 
-// ゲーム初期処理
-void Game::Init()
+void Endless::Init()
 {
-	//LoadImageDraw();
 	Explosion::Load();
 	Slash::Load();
 	Puntch::Load();
@@ -119,28 +119,7 @@ void Game::Init()
 		enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
 		enemy->SetRotation({ 0.0f,3.0f,0.0f });
 	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
+
 	ChangeLoadImage();
 	AddGameObject<Player>(1);
 	ChangeLoadImage();
@@ -167,7 +146,7 @@ void Game::Init()
 		box->SetPosition(Vector3(0.0f, 0.0f, -54.0f));
 		box->SetScale(Vector3(50.0f, 5.0f, 5.0f));
 	}
-	
+
 	//チェック完了
 	{
 		Box* box = AddGameObject<Box>(1);
@@ -181,7 +160,7 @@ void Game::Init()
 		box->SetScale(Vector3(5.0f, 5.0f, 50.0f));
 	}
 	ChangeLoadImage();
-	
+
 	GameObject* audioobj = AddGameObject<GameObject>(0);
 	audioobj->AddComponent<Audio>()->InitMaster();
 	audioobj->GetComponent<Audio>()->Load("asset\\audio\\BGM\\Battle.wav");
@@ -197,37 +176,27 @@ void Game::Init()
 	m_Transition->FadeIn();
 }
 
-// ゲーム終了処理
-void Game::Uninit()
+void Endless::Uninit()
 {
 	AiSceneSmartPtr::UnInitAll();
 }
 
-// ゲーム更新処理
-void Game::Update()
+void Endless::Update()
 {
-	// フェードインが終了しているか？	
-//	if (m_Transition->GetState() == Transition::State::Stop) {
-//		if (Input::GetKeyTrigger(VK_RETURN))
-//		{
-//			m_Transition->FadeOut();
-//		}
-//	}
-
 	// ゴールしていないのであれば
-	if (m_Goal==false)
+	if (m_Goal == false)
 	{
 		Enemy* enemy = GetGameObject<Enemy>();
 		Player* player = GetGameObject<Player>();
 
-		if (enemy == nullptr&&m_BossApearance == false)///雑魚が全滅したらボス登場
+		if (enemy == nullptr && m_BossApearance == false)///雑魚が全滅したらボス登場
 		{
 			AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 			Score* score = GetGameObject<Score>();
 			GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
 			m_BossApearance = true;
 		}
-		
+
 		Boss* boss = GetGameObject<Boss>();
 		// ゴールした際にゴールオブジェクトは削除される
 		if (enemy == nullptr && boss == nullptr)
@@ -251,7 +220,7 @@ void Game::Update()
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}
-	
+
 	}
 	else if (m_Goal == true)
 	{
@@ -272,21 +241,6 @@ void Game::Update()
 	}
 }
 
-void Game::Draw()
+void Endless::Draw()
 {
-	ImGui::Begin("GameScene");
-	if (ImGui::Button("SpawnEnemy"))
-	{
-		Enemy* enemy=AddGameObject<Enemy>(1);
-		Score* score = AddGameObject<Score>(3);
-		enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
-	}
-	if (ImGui::Button("SpawnBoss"))
-	{
-		Boss* enemy=AddGameObject<Boss>(1);
-		enemy->SetPosition(Vector3{ 0.0f,0.0f,5.0f });
-		enemy->SetRotation(Vector3{ 0.0f,3.0f,0.0f });
-		enemy->SetAnimName2("BossAppearance");
-	}
-	ImGui::End();
 }

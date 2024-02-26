@@ -39,9 +39,6 @@
 		BOX,
 	};
 
-class Box;
-class ColiderLooker;
-
 class Colider : public Component
 {
 private:
@@ -54,7 +51,7 @@ private:
 	Tug tug;
 	Type type;
 	int a = 0;
-	ColiderLooker* box = nullptr;
+	class ColiderLooker* box = nullptr;
 public:
 	using Component::Component;
 	bool CollisionSphere(BoundingSphere p1, BoundingSphere p2);

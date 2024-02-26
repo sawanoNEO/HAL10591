@@ -119,8 +119,6 @@ void Boss::Init()
 	rb = AddComponent<Rigidbody>();
 	rb->Init(5.0f);
 
-	//m_HP = AddChild<EnemyHP>();
-
 	m_HP = AddChild<EnemyHP>();
 	m_HP->deliverMaxHP(MaxHP);
 }

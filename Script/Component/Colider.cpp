@@ -58,17 +58,16 @@ void Colider::Update()
 	    if (a == 0)//当たり判定可視化のためのオブジェクトを生成
 	    {
 	    	Scale = { fabs(aabb.max.x - aabb.min.x),fabs(aabb.max.y - aabb.min.y),fabs(aabb.max.z - aabb.min.z) };
-#if _DEBUG
 			box = scene->AddGameObject<ColiderLooker>(1);
 	        box->SetPosition(pos);
-	        box->SetScale(Scale/2);
-	    	a++;
-#endif
-	    }
+			box->SetScale(Vector3(0.01,0.01,0.01));
 #if _DEBUG
+	        box->SetScale(Scale/2);
+#endif
+	    	a++;
+	    }
 		box = m_GameObject->GetComponent<Colider>()->box;
 		box->SetPosition(pos);
-#endif
 	}
 }
 
