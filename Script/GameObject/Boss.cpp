@@ -77,9 +77,9 @@ void Boss::Init()
 	m_Model->LoadAnimation("asset\\model\\Boss\\Dying.fbx", "Impact");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossSwiping.fbx", "Attack");
 	m_Model->LoadAnimation("asset\\model\\Boss\\BossDying.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\Player\\Slash3.fbx", "Attack3");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyRightStrafe.fbx", "EnemyRightStrafe");
-	m_Model->LoadAnimation("asset\\model\\Player\\EnemyLeftStrafe.fbx", "EnemyLeftStrafe");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossAttack3.fbx", "Attack3");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossRStrafe.fbx", "EnemyRightStrafe");
+	m_Model->LoadAnimation("asset\\model\\Boss\\BossLStrafe.fbx", "EnemyLeftStrafe");
 	m_Model->LoadAnimation("asset\\model\\PowerUp.fbx", "BossAppearance");
 	SetAnimName2("BossAppearance");
 	SetAnimName2("BossAppearance");

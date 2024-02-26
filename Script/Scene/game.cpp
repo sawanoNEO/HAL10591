@@ -114,28 +114,28 @@ void Game::Init()
 	GameObject* boss = AddGameObject<Boss>(1);
 	boss->SetDestroy();
 	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
-		enemy->SetRotation({ 0.0f,3.0f,0.0f });
-	}
-	ChangeLoadImage();
-	{
-		GameObject* enemy = AddGameObject<Enemy>(1);
-		enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
-	}
-	ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
+	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(15.0f, 0.0f, -45.0f));
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(10.0f, 0.0f, 35.0f));
+	//	enemy->SetRotation({ 0.0f,3.0f,0.0f });
+	//}
+	//ChangeLoadImage();
+	//{
+	//	GameObject* enemy = AddGameObject<Enemy>(1);
+	//	enemy->SetPosition(Vector3(-15.0f, 0.0f, -45.0f));
+	//}
+	//ChangeLoadImage();
 	{
 		GameObject* enemy = AddGameObject<Enemy>(1);
 		enemy->SetPosition(Vector3(-10.0f, 0.0f, 35.0f));
@@ -250,6 +250,7 @@ void Game::Update()
 		if (enemy == nullptr&&m_BossApearance == false)///雑魚が全滅したらボス登場
 		{
 			AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			Score* score = GetGameObject<Score>();
 			GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
 			m_BossApearance = true;
 		}
@@ -291,20 +292,6 @@ void Game::Update()
 		}
 	}
 
-	if (Input::GetController(Input::b, Input::PRESSED))
-	{
-		HealEffect* slash = AddGameObject<HealEffect>(2);
-		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		//slash->SetColor(White);
-	}
-	
-	if (Input::GetController(Input::y, Input::PRESSED))
-	{
-		Slash* slash = AddGameObject<Slash>(2);
-		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		slash->SetColor(Red);
-	}
-
 	// フェードアウトが終了しているか？
 	if (m_Transition->GetState() == Transition::State::Finish)
 	{
@@ -314,11 +301,11 @@ void Game::Update()
 
 void Game::Draw()
 {
-#if _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::Button("SpawnEnemy"))
 	{
 		Enemy* enemy=AddGameObject<Enemy>(1);
+		Score* score = AddGameObject<Score>(3);
 		enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
 	}
 	if (ImGui::Button("SpawnBoss"))
@@ -329,5 +316,4 @@ void Game::Draw()
 		enemy->SetAnimName2("BossAppearance");
 	}
 	ImGui::End();
-#endif
 }
