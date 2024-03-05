@@ -183,56 +183,59 @@ void Endless::Uninit()
 
 void Endless::Update()
 {
-	// ゴールしていないのであれば
-	if (m_Goal == false)
-	{
-		Enemy* enemy = GetGameObject<Enemy>();
-		Player* player = GetGameObject<Player>();
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	if(player==nullptr)
+	//// ゴールしていないのであれば
+	//if (m_Goal == false)
+	//{
+	//	Enemy* enemy = GetGameObject<Enemy>();
+	//	Player* player = GetGameObject<Player>();
 
-		if (enemy == nullptr && m_BossApearance == false)///雑魚が全滅したらボス登場
-		{
-			AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-			Score* score = GetGameObject<Score>();
-			GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
-			m_BossApearance = true;
-		}
+	//	if (enemy == nullptr && m_BossApearance == false)///雑魚が全滅したらボス登場
+	//	{
+	//		AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	//		Score* score = GetGameObject<Score>();
+	//		GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
+	//		m_BossApearance = true;
+	//	}
 
-		Boss* boss = GetGameObject<Boss>();
-		// ゴールした際にゴールオブジェクトは削除される
-		if (enemy == nullptr && boss == nullptr)
-		{
-			m_Goal = true;
-			Camera* camera = GetGameObject<Camera>();
-			Player* player = GetGameObject<Player>();
-			Vector3 rot = player->GetRotation();
-			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
-			player->SetRotation(rot);
-			player->SetAnimName2("Dance");
-			player->SetAnimSpeed(2.0f);
-			Result::SetResult(true);
-			// ２秒後にスレッドを生成してフェードアウト開始
-			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
-		}
-		else if (player == nullptr)
-		{
-			Result::SetResult(false);
-			m_Goal = true;
-			// ２秒後にスレッドを生成してフェードアウト開始
-			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
-		}
+	//	Boss* boss = GetGameObject<Boss>();
+	//	// ゴールした際にゴールオブジェクトは削除される
+	//	if (enemy == nullptr && boss == nullptr)
+	//	{
+	//		m_Goal = true;
+	//		Camera* camera = GetGameObject<Camera>();
+	//		Player* player = GetGameObject<Player>();
+	//		Vector3 rot = player->GetRotation();
+	//		rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+	//		player->SetRotation(rot);
+	//		player->SetAnimName2("Dance");
+	//		player->SetAnimSpeed(2.0f);
+	//		Result::SetResult(true);
+	//		// ２秒後にスレッドを生成してフェードアウト開始
+	//		Invoke([=]() { m_Transition->FadeOut(); }, 2000);
+	//	}
+	//	else if (player == nullptr)
+	//	{
+	//		Result::SetResult(false);
+	//		m_Goal = true;
+	//		// ２秒後にスレッドを生成してフェードアウト開始
+	//		Invoke([=]() { m_Transition->FadeOut(); }, 2000);
+	//	}
 
-	}
-	else if (m_Goal == true)
-	{
-		Camera* camera = GetGameObject<Camera>();
-		Player* player = GetGameObject<Player>();
-		if (player != nullptr)
-		{
-			Vector3 rot = player->GetRotation();
-			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
-			player->SetRotation(rot);
-		}
-	}
+	//}
+	//else if (m_Goal == true)
+	//{
+	//	Camera* camera = GetGameObject<Camera>();
+	//	Player* player = GetGameObject<Player>();
+	//	if (player != nullptr)
+	//	{
+	//		Vector3 rot = player->GetRotation();
+	//		rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
+	//		player->SetRotation(rot);
+	//	}
+	//}
 
 	// フェードアウトが終了しているか？
 	if (m_Transition->GetState() == Transition::State::Finish)
