@@ -70,7 +70,6 @@ void Enemy::Init()
 	file.close();
 	m_Number = m_Enemyes.size();
 	m_Enemyes.push_back(this);
-	MaxHP = 240.0;
 	HP = MaxHP;
 	AddComponent<Shader>()->Load("shader\\vertexLightingOneSkinVS.cso", "shader\\vertexLightingPS.cso");
 	//AddComponent<ModelRenderer>()->Load("asset\\model\\enemy.obj");

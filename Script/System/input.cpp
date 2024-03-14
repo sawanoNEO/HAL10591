@@ -54,7 +54,7 @@ void Input::Update()
 
 void Input::Draw()
 {
-
+#if _DEBUG
 	ImGui::Begin("Input");
 	for (auto itr = m_stackButtons.begin(), _end = m_stackButtons.end(); itr != _end; itr++)
 	{
@@ -63,7 +63,7 @@ void Input::Draw()
 	}
 	ImGui::Text("GACHISTATE=%i", m_GamePadButtons.a);
 	ImGui::End();
-
+#endif
 }
 
 
