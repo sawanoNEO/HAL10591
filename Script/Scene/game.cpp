@@ -15,6 +15,7 @@
 #include "../Component/audio.h"
 #include "../Component/shader.h"
 #include "../Component/sprite.h"
+#include "../Component/StateMachine.h"
 #include "../System/AiSceneSmartPtr.h"
 
 #include "../System/manager.h"
@@ -206,14 +207,6 @@ void Game::Uninit()
 // ゲーム更新処理
 void Game::Update()
 {
-	// フェードインが終了しているか？	
-//	if (m_Transition->GetState() == Transition::State::Stop) {
-//		if (Input::GetKeyTrigger(VK_RETURN))
-//		{
-//			m_Transition->FadeOut();
-//		}
-//	}
-
 	// ゴールしていないのであれば
 	if (m_Goal==false)
 	{
@@ -229,7 +222,7 @@ void Game::Update()
 		}
 		
 		Boss* boss = GetGameObject<Boss>();
-		// ゴールした際にゴールオブジェクトは削除される
+		//最後に残ったのがプレイヤーか敵かでエンドを分岐
 		if (enemy == nullptr && boss == nullptr)
 		{
 			m_Goal = true;
@@ -241,6 +234,7 @@ void Game::Update()
 			player->SetAnimName2("Dance");
 			player->SetAnimSpeed(2.0f);
 			Result::SetResult(true);
+			player->GetComponent<StateMachine>()->SetEnable(false);
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}
@@ -262,6 +256,7 @@ void Game::Update()
 			Vector3 rot = player->GetRotation();
 			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
 			player->SetRotation(rot);
+
 		}
 	}
 
@@ -274,6 +269,7 @@ void Game::Update()
 
 void Game::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::Button("SpawnEnemy"))
 	{
@@ -289,4 +285,5 @@ void Game::Draw()
 		enemy->SetAnimName2("BossAppearance");
 	}
 	ImGui::End();
+#endif
 }

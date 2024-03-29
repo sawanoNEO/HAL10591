@@ -137,7 +137,7 @@ void Camera::Update()
 
 void Camera::Draw()
 {
-
+#if _DEBUG
 	ImGui::Begin("Camera");
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("Pos: x=%f,y=%f,z=%f", m_Scale.x, m_Scale.y, m_Scale.z);
@@ -145,6 +145,7 @@ void Camera::Draw()
 	ImGui::Text("Yangle=%f", Yangle);
 	ImGui::SliderFloat("TargetY", &Distance, 5.0, 15.0);
 	ImGui::End();
+#endif
 
 	// ÉrÉÖÅ[ïœä∑å„óÒçÏê¨
 	Vector3 up = Vector3(0.0f, 1.0f, 0.0f);

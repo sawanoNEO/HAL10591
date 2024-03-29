@@ -129,34 +129,6 @@ void Player::Update()
 	const char* Animname1 = m_Animname1.c_str();//アニメーションの名前1
 	const char* Animname2 = m_Animname2.c_str();//アニメーションの名前2
 
-	//if (Input::GetKeyTrigger('M'))
-	//{
-	//	SetAnimName2("Simau");
-	//}
-	if (Input::GetKeyTrigger('1'))
-	{
-		SetAnimName2("Attack2");
-	}
-	if (Input::GetKeyTrigger('2'))
-	{
-		SetAnimName2("Attack3");
-	}
-	if (Input::GetKeyTrigger('3'))
-	{
-		SetAnimName2("Attack4");
-	}
-	if (Input::GetKeyTrigger('4'))
-	{
-		SetAnimName2("Attack5");
-	}
-	if (Input::GetKeyTrigger('I'))
-	{
-		SetAnimName2("Walk");
-	}
-	if (Input::GetKeyTrigger('T'))
-	{
-		SetAnimName2("Idle");
-	}
 	//アニメーションの再生
 	m_Model->Update(Animname1, m_Frame1, Animname2, m_Frame2, m_BlendRate);
 

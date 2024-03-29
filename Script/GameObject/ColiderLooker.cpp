@@ -23,8 +23,10 @@ void ColiderLooker::Update()
 
 void ColiderLooker::Draw()
 {
+#if _DEBUG
 	ImGui::Begin("coliderlook");
 	ImGui::Text("%f,%f,%f", m_Position.x, m_Position.y, m_Position.z);
 	ImGui::Text("%f,%f,%f", m_Scale.x, m_Scale.y, m_Scale.z);
 	ImGui::End();
+#endif
 }
