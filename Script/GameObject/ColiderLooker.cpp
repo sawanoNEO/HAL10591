@@ -15,7 +15,6 @@ void ColiderLooker::Init()
 {
 	AddComponent<Shader>()->Load("shader\\vertexLightingVS.cso", "shader\\vertexLightingPS.cso");
 	AddComponent<ModelRenderer>()->Load("asset\\model\\Colider1.obj");
-
 }
 
 void ColiderLooker::Update()

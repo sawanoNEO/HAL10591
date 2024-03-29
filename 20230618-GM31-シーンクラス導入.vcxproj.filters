@@ -263,6 +263,9 @@
     <ClCompile Include="Script\GameObject\Effect\Slash.cpp">
       <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Script\Scene\endless.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Component\animationModel.h">
@@ -465,6 +468,9 @@
     </ClInclude>
     <ClInclude Include="Script\GameObject\Effect\Slash.h">
       <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Scene\endless.h">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -121,8 +121,9 @@ void Box::Update()
 
 void Box::Draw()
 {
-	AABB c=GetComponent<Colider>()->GetAABB();
 #if _DEBUG
+	AABB c=GetComponent<Colider>()->GetAABB();
+
 	ImGui::Begin("Box");
 	//ImGui::Text("%i", d);
 	ImGui::Text("%f", c.max.x);
@@ -131,4 +132,5 @@ void Box::Draw()
 	ImGui::Text("%f\n\n", c.min.z);
 	ImGui::End();
 #endif
+
 }

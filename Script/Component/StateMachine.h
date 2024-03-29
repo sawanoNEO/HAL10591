@@ -15,6 +15,7 @@ class StateMachine :public Component
 {
 private:
     State* m_CurrentState;//現在の状態
+    bool isEnable = true;//ステートマシンのアクティブ状況
 
 public:
     using Component::Component;
@@ -34,11 +35,16 @@ public:
 
     void Update() 
     {
-        m_CurrentState->StateUpdate();
-        m_CurrentState->StateChange();
+        if (isEnable)
+        {
+            m_CurrentState->StateUpdate();
+            m_CurrentState->StateChange();
+        }
     }
     void Draw()
     {
         m_CurrentState->Draw();
     }
+
+    void SetEnable(bool _enable) { isEnable = _enable; }
 };

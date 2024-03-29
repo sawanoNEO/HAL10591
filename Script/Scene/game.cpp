@@ -15,6 +15,7 @@
 #include "../Component/audio.h"
 #include "../Component/shader.h"
 #include "../Component/sprite.h"
+#include "../Component/StateMachine.h"
 #include "../System/AiSceneSmartPtr.h"
 
 #include "../System/manager.h"
@@ -181,47 +182,20 @@ void Game::Init()
 		box->SetScale(Vector3(5.0f, 5.0f, 50.0f));
 	}
 	ChangeLoadImage();
-	//// チェック完了
-	//{
-	//	Cylinder* cylinder = AddGameObject<Cylinder>(1);
-	//	cylinder->SetPosition(Vector3(-11.0f, 0.0f, 20.0f));
-	//	cylinder->SetScale(Vector3(3.0f, 6.0f, 3.0f));
-	//}
-
-	//// チェック完了
-	//{
-	//	Box* box = AddGameObject<Box>(1);
-	//	box->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	//	box->SetScale(Vector3(9.0f, 3.0f, 1.0f));
-	//}
-
-	//// チェック完了
-	//{
-	//	Cylinder* cylinder = AddGameObject<Cylinder>(1);
-	//	cylinder->SetPosition(Vector3(11.0f, 0.0f, 20.0f));
-	//	cylinder->SetScale(Vector3(3.0f, 6.0f, 3.0f));
-	//}
-
-
-
-
+	
 	GameObject* audioobj = AddGameObject<GameObject>(0);
 	audioobj->AddComponent<Audio>()->InitMaster();
 	audioobj->GetComponent<Audio>()->Load("asset\\audio\\BGM\\Battle.wav");
 	audioobj->GetComponent<Audio>()->FadeIn();
 	audioobj->GetComponent<Audio>()->SetVolume(0.0f);
 	audioobj->GetComponent<Audio>()->Play(true);
-	//AddGameObject<Battery>(1)->SetPosition(Vector3(20.0f, 0.0f, 5.0f));
 
 	// 画面遷移オブジェクトを登録
 
 	m_Transition = AddGameObject<Transition>(3);
 	m_LoadBackImage->SetDestroy();
 	m_LoadImage->SetDestroy();
-	//m_LoadImage->SetDestroy();
 	m_Transition->FadeIn();
-
-
 }
 
 // ゲーム終了処理
@@ -233,14 +207,6 @@ void Game::Uninit()
 // ゲーム更新処理
 void Game::Update()
 {
-	// フェードインが終了しているか？	
-//	if (m_Transition->GetState() == Transition::State::Stop) {
-//		if (Input::GetKeyTrigger(VK_RETURN))
-//		{
-//			m_Transition->FadeOut();
-//		}
-//	}
-
 	// ゴールしていないのであれば
 	if (m_Goal==false)
 	{
@@ -250,12 +216,13 @@ void Game::Update()
 		if (enemy == nullptr&&m_BossApearance == false)///雑魚が全滅したらボス登場
 		{
 			AddGameObject<Boss>(1)->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			Score* score = GetGameObject<Score>();
 			GetGameObject<Boss>()->SetRotation(Vector3(0.0f, 3.0f, 0.0f));
 			m_BossApearance = true;
 		}
 		
 		Boss* boss = GetGameObject<Boss>();
-		// ゴールした際にゴールオブジェクトは削除される
+		//最後に残ったのがプレイヤーか敵かでエンドを分岐
 		if (enemy == nullptr && boss == nullptr)
 		{
 			m_Goal = true;
@@ -267,6 +234,7 @@ void Game::Update()
 			player->SetAnimName2("Dance");
 			player->SetAnimSpeed(2.0f);
 			Result::SetResult(true);
+			player->GetComponent<StateMachine>()->SetEnable(false);
 			// ２秒後にスレッドを生成してフェードアウト開始
 			Invoke([=]() { m_Transition->FadeOut(); }, 2000);
 		}
@@ -288,21 +256,8 @@ void Game::Update()
 			Vector3 rot = player->GetRotation();
 			rot.y = atan2(camera->GetPosition().x - player->GetPosition().x, camera->GetPosition().z - player->GetPosition().z);
 			player->SetRotation(rot);
-		}
-	}
 
-	if (Input::GetController(Input::b, Input::PRESSED))
-	{
-		HealEffect* slash = AddGameObject<HealEffect>(2);
-		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		//slash->SetColor(White);
-	}
-	
-	if (Input::GetController(Input::y, Input::PRESSED))
-	{
-		Slash* slash = AddGameObject<Slash>(2);
-		slash ->SetPosition(Vector3(-4.0f, 3.0f, 0.0f));
-		slash->SetColor(Red);
+		}
 	}
 
 	// フェードアウトが終了しているか？
@@ -319,6 +274,7 @@ void Game::Draw()
 	if (ImGui::Button("SpawnEnemy"))
 	{
 		Enemy* enemy=AddGameObject<Enemy>(1);
+		Score* score = AddGameObject<Score>(3);
 		enemy->SetPosition(Vector3{ 0.0f,1.0f,5.0f });
 	}
 	if (ImGui::Button("SpawnBoss"))

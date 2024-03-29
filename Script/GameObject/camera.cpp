@@ -146,6 +146,7 @@ void Camera::Draw()
 	ImGui::SliderFloat("TargetY", &Distance, 5.0, 15.0);
 	ImGui::End();
 #endif
+
 	// ƒrƒ…[•ÏŠ·Œã—ñì¬
 	Vector3 up = Vector3(0.0f, 1.0f, 0.0f);
 	m_ViewMatrix = DirectX::XMMatrixLookAtLH(m_Position, m_Target, up);										// ¶èŒn‚É‚µ‚½@20230511 by suzuki.tomoki

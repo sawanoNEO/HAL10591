@@ -3,9 +3,9 @@
 
 #include "../System/input.h"
 
-#include "../Scene/title.h"
-
-#include "../Scene/game.h"
+#include "title.h"
+#include "game.h"
+#include "endless.h"
 
 #include "../Component/shader.h"
 #include "../Component/../Component/sprite.h"
@@ -115,6 +115,8 @@ void Title::Update()
 			Manager::SetScene<Game>();
 			break;
 		//case ENDLESS:
+		//	Manager::SetScene<Endless>();
+		//	break;
 		case EXIT:
 			Manager::GameExit();
 			break;
